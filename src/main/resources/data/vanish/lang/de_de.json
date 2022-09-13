@@ -1,0 +1,11 @@
+{
+  "text.vanish.command.vanish.enable.other": "%s ist jetzt unsichtbar",
+  "text.vanish.command.vanish.disable.other": "%s ist wieder sichtbar",
+  "text.vanish.command.vanish.enable": "Du bist jetzt unsichtbar",
+  "text.vanish.command.vanish.disable": "Du bist wieder sichtbar",
+  "text.vanish.command.vanish.reload": "Config wurde neu geladen!",
+  "text.vanish.command.vanish.reload.error": "Ein Fehler ist aufgetreten, bitte überprüfen Sie die Konsole!",
+  "text.vanish.general.vanished": "Du bist unsichtbar!",
+  "text.vanish.chat.hidden": " (versteckt)",
+  "text.vanish.chat.disabled": "Du kannst nicht chatten, während du unsichtbar bist."
+}

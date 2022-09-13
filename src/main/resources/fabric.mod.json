@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "melius-vanish",
+  "version": "${version}",
+  "name": "Vanish",
+  "description": "Completely hide from other players using /vanish",
+  "authors": [
+    "Drex"
+  ],
+  "license": "MIT",
+  "icon": "assets/vanish/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      "me.drex.vanish.VanishMod"
+    ],
+    "preLaunch": [
+      "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
+    ]
+  },
+  "mixins": [
+    "vanish.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "fabric-command-api-v2": "*",
+    "fabric-lifecycle-events-v1": "*",
+    "fabric-message-api-v1": "*",
+    "minecraft": ">=1.19",
+    "java": ">=17"
+  },
+  "breaks": {
+    "vanish": "*"
+  }
+}

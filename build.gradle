@@ -1,0 +1,104 @@
+plugins {
+    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url "https://maven.nucleoid.xyz/" }
+    maven { url "https://api.modrinth.com/maven" } // styled-chat
+    maven { url 'https://jitpack.io' } // MixinExtras
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Fabric API
+    Set<String> apiModules = [
+            "fabric-command-api-v2",
+            "fabric-lifecycle-events-v1",
+            "fabric-message-api-v1"
+    ]
+    apiModules.forEach {
+        include(modImplementation(fabricApi.module(it, project.fabric_version)))
+    }
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Mixin Extras
+    implementation include("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
+    annotationProcessor("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
+
+    // Styled Chat
+    modImplementation "maven.modrinth:styled-chat:${project.styled_chat_version}"
+
+    // Fabric permission api
+    modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
+
+    // Placeholder api
+    modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
+
+    // Player data api
+    modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
+
+    // Server Translations api
+    modImplementation include("fr.catcore:server-translations-api:${project.translations_version}")
+
+    // Hocon config
+    implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
+}
+
+shadowJar {
+    minimize()
+    classifier("shadow")
+    configurations = [project.configurations.shadow]
+    from sourceSets.main.output
+}
+
+remapJar {
+    from zipTree(shadowJar.archiveFile) dependsOn shadowJar
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release.set(17)
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+    }
+}

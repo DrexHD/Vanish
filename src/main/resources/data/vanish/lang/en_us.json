@@ -1,0 +1,12 @@
+{
+  "text.vanish.command.vanish.enable.other": "%s is now vanished",
+  "text.vanish.command.vanish.disable.other": "%s is no longer vanished",
+  "text.vanish.command.vanish.enable": "You are now vanished",
+  "text.vanish.command.vanish.disable": "You are no longer vanished",
+  "text.vanish.command.vanish.reload": "Config has been reloaded!",
+  "text.vanish.command.vanish.reload.error": "An error occurred, please check the console!",
+  "text.vanish.general.vanished": "You are vanished!",
+  "text.vanish.chat.hidden": " (hidden)",
+  "text.vanish.chat.disabled": "You cannot chat while vanished."
+
+}
