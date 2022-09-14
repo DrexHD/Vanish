@@ -10,6 +10,8 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.UUID;
 
@@ -58,6 +60,13 @@ public abstract class ServerPlayerMixin {
             VanishAPI.broadcastHiddenMessage((ServerPlayer) (Object) this, component);
         } else {
             original.call(playerList, component, chatType, uuid);
+        }
+    }
+
+    @Inject(method = "broadcastToPlayer", at = @At("HEAD"), cancellable = true)
+    public void vanish_shouldBroadcast(ServerPlayer other, CallbackInfoReturnable<Boolean> cir) {
+        if (!VanishAPI.canSeePlayer((ServerPlayer) (Object)this, other)) {
+            cir.setReturnValue(false);
         }
     }
 

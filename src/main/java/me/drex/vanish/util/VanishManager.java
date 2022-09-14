@@ -77,14 +77,12 @@ public class VanishManager {
     private static void unVanish(ServerPlayer vanisher) {
         PlayerList list = vanisher.server.getPlayerList();
         broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, vanisher));
-        broadcastToOthers(vanisher, new ClientboundAddPlayerPacket(vanisher));
         list.broadcastMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(vanisher), ChatType.SYSTEM, Util.NIL_UUID);
     }
 
     private static void vanish(ServerPlayer vanisher) {
         PlayerList list = vanisher.server.getPlayerList();
         broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, vanisher));
-        broadcastToOthers(vanisher, new ClientboundRemoveEntitiesPacket(vanisher.getId()));
         list.broadcastMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(vanisher), ChatType.SYSTEM, Util.NIL_UUID);
     }
 
