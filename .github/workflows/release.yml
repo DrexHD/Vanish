@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*.*.*-1.*'
+      - 'v*.*.*-1.**'
 
 jobs:
   upload:
