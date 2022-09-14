@@ -2,16 +2,10 @@ package me.drex.vanish.api;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 public class VanishEvents {
-
-    static {
-        VanishEvents.VANISH_MESSAGE_EVENT.register(serverPlayer -> Component.translatable("multiplayer.player.left", serverPlayer.getDisplayName()).withStyle(ChatFormatting.YELLOW));
-        VanishEvents.UN_VANISH_MESSAGE_EVENT.register(serverPlayer -> Component.translatable("multiplayer.player.joined", serverPlayer.getDisplayName()).withStyle(ChatFormatting.YELLOW));
-    }
 
     /**
      * This event is invoked everytime a players vanish status changes
