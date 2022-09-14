@@ -15,17 +15,6 @@
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin",
-    "ServerPlayerMixin",
-    "packets.ClientboundAnimatePacketMixin",
-    "packets.ClientboundBlockDestructionPacketMixin",
-    "packets.ClientboundEntityEventPacketMixin",
-    "packets.ClientboundMoveEntityPacketMixin",
-    "packets.ClientboundRotateHeadPacketMixin",
-    "packets.ClientboundSetEntityDataPacketMixin",
-    "packets.ClientboundSetEntityMotionPacketMixin",
-    "packets.ClientboundSetEquipmentPacketMixin",
-    "packets.ClientboundTeleportEntityPacketMixin",
-    "packets.ClientboundUpdateAttributesPacketMixin",
-    "packets.ClientboundUpdateMobEffectPacketMixin"
+    "ServerPlayerMixin"
   ]
 }

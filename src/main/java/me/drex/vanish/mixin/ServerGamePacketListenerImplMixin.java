@@ -3,7 +3,6 @@ package me.drex.vanish.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.drex.vanish.api.VanishAPI;
-import me.drex.vanish.util.VanishedEntityPackets;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -45,12 +44,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             cancellable = true
     )
     public void vanish_modifyPackets(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo ci) {
-        if (packet instanceof VanishedEntityPackets vanishedEntityPackets) {
-            Entity entity = this.player.getLevel().getEntity(vanishedEntityPackets.getEntityId());
-            if (entity instanceof ServerPlayer executive && !VanishAPI.canSeePlayer(executive, this.player)) {
-                ci.cancel();
-            }
-        } else if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
+        if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
             Entity entity = this.player.getLevel().getEntity(takeItemEntityPacket.getPlayerId());
             if (entity instanceof ServerPlayer executive && !VanishAPI.canSeePlayer(executive, this.player)) {
                 this.send(new ClientboundRemoveEntitiesPacket(takeItemEntityPacket.getItemId()));
