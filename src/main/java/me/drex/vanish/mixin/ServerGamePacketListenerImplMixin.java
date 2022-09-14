@@ -2,9 +2,11 @@ package me.drex.vanish.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.util.VanishedEntityPackets;
-import net.minecraft.network.PacketSendListener;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
@@ -25,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerGamePacketListenerImplMixin {
@@ -40,11 +43,11 @@ public abstract class ServerGamePacketListenerImplMixin {
     private MinecraftServer server;
 
     @Inject(
-            method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
+            method = "send(Lnet/minecraft/network/protocol/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V",
             at = @At("HEAD"),
             cancellable = true
     )
-    public void vanish_modifyPackets(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo ci) {
+    public void vanish_modifyPackets(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> listener, CallbackInfo ci) {
         if (packet instanceof VanishedEntityPackets vanishedEntityPackets) {
             Entity entity = this.player.getLevel().getEntity(vanishedEntityPackets.getEntityId());
             if (entity instanceof ServerPlayer executive && !VanishAPI.canSeePlayer(executive, this.player)) {
@@ -71,14 +74,14 @@ public abstract class ServerGamePacketListenerImplMixin {
             method = "onDisconnect",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+                    target = "Lnet/minecraft/server/players/PlayerList;broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V"
             )
     )
-    public void vanish_hideLeaveMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
+    public void vanish_hideLeaveMessage(PlayerList playerList, Component component, ChatType chatType, UUID uuid, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {
             VanishAPI.broadcastHiddenMessage(this.player, component);
         } else {
-            original.call(playerList, component, bl);
+            original.call(playerList, component, chatType, uuid);
         }
     }
 

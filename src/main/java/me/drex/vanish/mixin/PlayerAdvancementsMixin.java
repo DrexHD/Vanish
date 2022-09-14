@@ -3,6 +3,7 @@ package me.drex.vanish.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.drex.vanish.api.VanishAPI;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,6 +11,8 @@ import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+
+import java.util.UUID;
 
 @Mixin(PlayerAdvancements.class)
 public abstract class PlayerAdvancementsMixin {
@@ -21,14 +24,14 @@ public abstract class PlayerAdvancementsMixin {
             method = "award",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+                    target = "Lnet/minecraft/server/players/PlayerList;broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V"
             )
     )
-    public void vanish_hideAdvancementMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
+    public void vanish_hideAdvancementMessage(PlayerList playerList, Component component, ChatType chatType, UUID uuid, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {
             VanishAPI.broadcastHiddenMessage(this.player, component);
         } else {
-            original.call(playerList, component, bl);
+            original.call(playerList, component, chatType, uuid);
         }
     }
 

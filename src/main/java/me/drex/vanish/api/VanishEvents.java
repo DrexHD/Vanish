@@ -3,6 +3,7 @@ package me.drex.vanish.api;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 
 public class VanishEvents {
@@ -21,7 +22,7 @@ public class VanishEvents {
      * You may return a custom component to adjust the sent message
      */
     public static final Event<VanishMessageEvent> VANISH_MESSAGE_EVENT = EventFactory.createArrayBacked(VanishMessageEvent.class, callbacks -> (player) -> {
-        Component result = Component.empty();
+        Component result = TextComponent.EMPTY;
         for (var callback : callbacks) {
             result = callback.getVanishMessage(player);
         }
@@ -33,7 +34,7 @@ public class VanishEvents {
      * You may return a custom component to adjust the sent message
      */
     public static final Event<UnVanishMessageEvent> UN_VANISH_MESSAGE_EVENT = EventFactory.createArrayBacked(UnVanishMessageEvent.class, callbacks -> (player) -> {
-        Component result = Component.empty();
+        Component result = TextComponent.EMPTY;
         for (var callback : callbacks) {
             result = callback.getUnVanishMessage(player);
         }

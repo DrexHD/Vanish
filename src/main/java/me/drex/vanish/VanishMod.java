@@ -6,7 +6,7 @@ import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.VanishManager;
 import me.drex.vanish.util.VanishPlaceHolders;
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

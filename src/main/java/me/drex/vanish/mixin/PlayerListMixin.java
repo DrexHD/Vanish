@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.UUID;
+
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
 
@@ -21,14 +24,14 @@ public abstract class PlayerListMixin {
             method = "placeNewPlayer",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+                    target = "Lnet/minecraft/server/players/PlayerList;broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V"
             )
     )
-    public void vanish_hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer player) {
+    public void vanish_hideJoinMessage(PlayerList playerList, Component component, ChatType chatType, UUID uuid, Operation<Void> original, Connection connection, ServerPlayer player) {
         if (VanishAPI.isVanished(player)) {
             VanishAPI.broadcastHiddenMessage(player, component);
         } else {
-            original.call(playerList, component, bl);
+            original.call(playerList, component, chatType, uuid);
         }
     }
 

@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +15,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+
+import java.util.UUID;
 
 @Mixin(CommandSourceStack.class)
 public abstract class CommandSourceStackMixin {
@@ -26,18 +29,18 @@ public abstract class CommandSourceStackMixin {
             method = "broadcastToAdmins",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/level/ServerPlayer;sendSystemMessage(Lnet/minecraft/network/chat/Component;)V"
+                    target = "Lnet/minecraft/server/level/ServerPlayer;sendMessage(Lnet/minecraft/network/chat/Component;Ljava/util/UUID;)V"
             )
     )
-    public void vanish_hideCommandFeedback(ServerPlayer receiver, Component component, Operation<Void> original) {
+    public void vanish_hideCommandFeedback(ServerPlayer receiver, Component component, UUID uuid, Operation<Void> original) {
         if (this.entity instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
             if (VanishAPI.canSeePlayer(serverPlayer, receiver)) {
-                MutableComponent note = Component.translatable("text.vanish.chat.hidden").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
+                MutableComponent note = new TranslatableComponent("text.vanish.chat.hidden").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
                 component.getSiblings().add(note);
                 original.call(receiver, component);
             }
         } else {
-            original.call(receiver, component);
+            original.call(receiver, component, uuid);
         }
     }
 

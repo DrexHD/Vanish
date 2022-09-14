@@ -8,11 +8,11 @@ import me.drex.vanish.api.VanishEvents;
 import me.drex.vanish.config.ConfigManager;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
-import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
@@ -31,26 +31,7 @@ public class VanishManager {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             if (ConfigManager.INSTANCE.vanish().actionBar)
                 server.getPlayerList().getPlayers().stream().filter(VanishAPI::isVanished)
-                        .forEach(serverPlayer -> serverPlayer.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true));
-        });
-        ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
-            if (VanishAPI.isVanished(sender)) {
-                sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
-                return false;
-            } else {
-                return true;
-            }
-        });
-        ServerMessageEvents.ALLOW_COMMAND_MESSAGE.register((message, source, params) -> {
-            ServerPlayer sender = source.getPlayer();
-            if (sender != null) {
-                if (VanishAPI.isVanished(sender)) {
-                    sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
-                    return false;
-                }
-                return true;
-            }
-            return true;
+                        .forEach(serverPlayer -> serverPlayer.sendMessage(new TranslatableComponent("text.vanish.general.vanished"), ChatType.GAME_INFO, Util.NIL_UUID));
         });
         PlayerDataApi.register(VANISH_DATA_STORAGE);
     }
@@ -97,14 +78,14 @@ public class VanishManager {
         PlayerList list = vanisher.server.getPlayerList();
         broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, vanisher));
         broadcastToOthers(vanisher, new ClientboundAddPlayerPacket(vanisher));
-        list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(vanisher), false);
+        list.broadcastMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(vanisher), ChatType.SYSTEM, Util.NIL_UUID);
     }
 
     private static void vanish(ServerPlayer vanisher) {
         PlayerList list = vanisher.server.getPlayerList();
         broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, vanisher));
         broadcastToOthers(vanisher, new ClientboundRemoveEntitiesPacket(vanisher.getId()));
-        list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(vanisher), false);
+        list.broadcastMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(vanisher), ChatType.SYSTEM, Util.NIL_UUID);
     }
 
     private static void broadcastToOthers(ServerPlayer vanisher, Packet<?> packet) {

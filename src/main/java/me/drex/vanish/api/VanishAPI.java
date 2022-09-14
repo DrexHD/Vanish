@@ -2,8 +2,10 @@ package me.drex.vanish.api;
 
 import me.drex.vanish.util.VanishManager;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -99,11 +101,11 @@ public interface VanishAPI {
      */
     static void broadcastHiddenMessage(@NotNull ServerPlayer player, @NotNull Component component) {
         component.getSiblings().add(
-                Component.translatable("text.vanish.chat.hidden")
+                new TranslatableComponent("text.vanish.chat.hidden")
                         .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
         );
         getViewingPlayers(player).forEach(
-                viewing -> viewing.sendSystemMessage(component)
+                viewing -> viewing.sendMessage(component, Util.NIL_UUID)
         );
     }
 

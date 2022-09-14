@@ -7,11 +7,11 @@ import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import me.lucko.fabric.api.permissions.v0.Permissions;
-import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Collection;
@@ -19,7 +19,7 @@ import java.util.Collections;
 
 public class VanishCommand {
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext, Commands.CommandSelection selection) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) {
         dispatcher.register(
                 Commands.literal("vanish")
                         .requires(src -> Permissions.check(src, "vanish.command.vanish", 2))
@@ -57,10 +57,10 @@ public class VanishCommand {
     public static int reload(CommandContext<CommandSourceStack> ctx) {
         try {
             ConfigManager.INSTANCE.load();
-            ctx.getSource().sendSuccess(Component.translatable("text.vanish.command.vanish.reload"), false);
+            ctx.getSource().sendSuccess(new TranslatableComponent("text.vanish.command.vanish.reload"), false);
             return 1;
         } catch (Exception e) {
-            ctx.getSource().sendFailure(Component.translatable("text.vanish.command.vanish.reload.error"));
+            ctx.getSource().sendFailure(new TranslatableComponent("text.vanish.command.vanish.reload.error"));
             VanishMod.LOGGER.error("An error occurred while loading the config, keeping old values", e);
             return 0;
         }
@@ -71,10 +71,10 @@ public class VanishCommand {
         for (ServerPlayer target : targets) {
             if (!VanishAPI.setVanish(target, vanish)) continue;
             if (src.getPlayerOrException() == target) {
-                src.sendSuccess(Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
+                src.sendSuccess(new TranslatableComponent(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
             } else {
-                src.sendSuccess(Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target.getDisplayName()), false);
-                target.sendSystemMessage(Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"));
+                src.sendSuccess(new TranslatableComponent(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target.getDisplayName()), false);
+                target.sendMessage(new TranslatableComponent(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), Util.NIL_UUID);
             }
             result++;
         }
