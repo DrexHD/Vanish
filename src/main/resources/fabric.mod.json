@@ -18,6 +18,15 @@
       "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
     ]
   },
+  "custom": {
+    "modmanager": {
+      "curseforge": 676275,
+      "modrinth": "UL4bJFDY"
+    },
+    "mc-publish": {
+      "quilt": true
+    }
+  },
   "mixins": [
     "vanish.mixins.json"
   ],
@@ -26,7 +35,7 @@
     "fabric-command-api-v2": "*",
     "fabric-lifecycle-events-v1": "*",
     "fabric-message-api-v1": "*",
-    "minecraft": ">=1.19",
+    "minecraft": ">=1.19.1<=1.19.2",
     "java": ">=17"
   },
   "breaks": {
