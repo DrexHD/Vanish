@@ -36,4 +36,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           changelog-file: changes.md
           name: Vanish ${{ env.MOD_VERSION }} for ${{ env.MINECRAFT_VERSION }}
-          files: build/libs/!(*-@(dev|sources)).jar
+          files: build/libs/!(*-@(dev|sources|shadow)).jar
