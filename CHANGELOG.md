@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hide falling particles
 - Hide block destroy progress
 - Developer API notes to the Readme
+- Config option for chat disabling
 
 ### Changed
 - Improve packet filtering
