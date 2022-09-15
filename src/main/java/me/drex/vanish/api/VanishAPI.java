@@ -1,5 +1,6 @@
 package me.drex.vanish.api;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.util.VanishManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -74,10 +75,13 @@ public interface VanishAPI {
     @NotNull
     static List<ServerPlayer> getVisiblePlayers(@NotNull CommandSourceStack source) {
         MinecraftServer server = source.getServer();
-        return server.getPlayerList().getPlayers()
-                .stream()
-                .filter(serverPlayer -> canSeePlayer(server, serverPlayer.getUUID(), source))
-                .toList();
+        ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (canSeePlayer(server, player.getUUID(), source)) {
+                list.add(player);
+            }
+        }
+        return list;
     }
 
     /**
@@ -88,8 +92,13 @@ public interface VanishAPI {
      */
     @NotNull
     static List<ServerPlayer> getViewingPlayers(@NotNull ServerPlayer player) {
-        return player.server.getPlayerList().getPlayers().stream()
-                .filter(viewer -> canSeePlayer(player, viewer)).toList();
+        ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
+        for (ServerPlayer viewer : player.server.getPlayerList().getPlayers()) {
+            if (canSeePlayer(player, viewer)) {
+                list.add(viewer);
+            }
+        }
+        return list;
     }
 
     /**

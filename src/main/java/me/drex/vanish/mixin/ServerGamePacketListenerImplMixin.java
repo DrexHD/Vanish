@@ -2,8 +2,7 @@ package me.drex.vanish.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -22,10 +21,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerGamePacketListenerImplMixin {
@@ -53,10 +48,16 @@ public abstract class ServerGamePacketListenerImplMixin {
                 ci.cancel();
             }
         } else if (packet instanceof ClientboundPlayerInfoPacket playerInfoPacket) {
-            List<ClientboundPlayerInfoPacket.PlayerUpdate> modified = playerInfoPacket.getEntries().stream().filter(playerUpdate -> VanishAPI.canSeePlayer(server, playerUpdate.getProfile().getId(), this.player)).toList();
-            if (modified.size() != playerInfoPacket.getEntries().size()) {
-                if (!modified.isEmpty()) {
-                    this.send(new ClientboundPlayerInfoPacket(playerInfoPacket.getAction(), modified.stream().map(playerUpdate -> this.server.getPlayerList().getPlayer(playerUpdate.getProfile().getId())).filter(Objects::nonNull).toList()));
+            ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
+            for (ClientboundPlayerInfoPacket.PlayerUpdate playerUpdate : playerInfoPacket.getEntries()) {
+                if (VanishAPI.canSeePlayer(server, playerUpdate.getProfile().getId(), this.player)) {
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.getProfile().getId());
+                    if (player != null) modifiedEntries.add(player);
+                }
+            }
+            if (modifiedEntries.size() != playerInfoPacket.getEntries().size()) {
+                if (!modifiedEntries.isEmpty()) {
+                    this.send(new ClientboundPlayerInfoPacket(playerInfoPacket.getAction(), modifiedEntries));
                 }
                 ci.cancel();
             }
