@@ -12,4 +12,7 @@ public class VanishConfig {
     @Comment("Text to be displayed when placeholder vanish:vanished is used for a vanished player")
     public String placeHolderDisplay = " <gray>☠";
 
+    @Comment("Prevents vanished players from using chat")
+    public boolean disableChat = true;
+
 }

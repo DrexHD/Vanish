@@ -14,9 +14,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
-import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -34,7 +32,7 @@ public class VanishManager {
                         .forEach(serverPlayer -> serverPlayer.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true));
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
-            if (VanishAPI.isVanished(sender)) {
+            if (VanishAPI.isVanished(sender) && ConfigManager.INSTANCE.vanish().disableChat) {
                 sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                 return false;
             } else {
@@ -44,7 +42,7 @@ public class VanishManager {
         ServerMessageEvents.ALLOW_COMMAND_MESSAGE.register((message, source, params) -> {
             ServerPlayer sender = source.getPlayer();
             if (sender != null) {
-                if (VanishAPI.isVanished(sender)) {
+                if (VanishAPI.isVanished(sender) && ConfigManager.INSTANCE.vanish().disableChat) {
                     sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                     return false;
                 }
