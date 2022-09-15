@@ -27,9 +27,13 @@ public class VanishManager {
 
     public static void init() {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
-            if (ConfigManager.INSTANCE.vanish().actionBar)
-                server.getPlayerList().getPlayers().stream().filter(VanishAPI::isVanished)
-                        .forEach(serverPlayer -> serverPlayer.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true));
+            if (ConfigManager.INSTANCE.vanish().actionBar) {
+                for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                    if (VanishAPI.isVanished(player)) {
+                        player.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true);
+                    }
+                }
+            }
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
             if (VanishAPI.isVanished(sender) && ConfigManager.INSTANCE.vanish().disableChat) {
@@ -104,11 +108,11 @@ public class VanishManager {
     }
 
     private static void broadcastToOthers(ServerPlayer vanisher, Packet<?> packet) {
-        vanisher.server.getPlayerList().getPlayers().stream()
-                .filter(viewer -> !canViewVanished(viewer) && !viewer.equals(vanisher))
-                .forEach(viewer -> {
-                    viewer.connection.send(packet);
-                });
+        for (ServerPlayer viewer : vanisher.server.getPlayerList().getPlayers()) {
+            if (!canViewVanished(viewer) && !viewer.equals(vanisher)) {
+                viewer.connection.send(packet);
+            }
+        }
     }
 
 }
