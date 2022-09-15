@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve packet filtering
 - Improve API performance
 
+### Fixed
+- Environment sound are no longer removed
+
 ## [1.0.2] - 2022-09-14
 ### Changed
 - Improve workflows

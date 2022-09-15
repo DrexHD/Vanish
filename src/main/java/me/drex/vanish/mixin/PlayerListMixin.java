@@ -40,7 +40,11 @@ public abstract class PlayerListMixin {
             )
     )
     public boolean vanish_hideGameEvents(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Player player) {
-        return player instanceof ServerPlayer executor && VanishAPI.canSeePlayer(executor, packetListener.player);
+        if (player instanceof ServerPlayer executor) {
+            return VanishAPI.canSeePlayer(executor, packetListener.player);
+        } else {
+            return true;
+        }
     }
 
 }
