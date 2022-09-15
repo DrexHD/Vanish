@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Hide falling particles
+- Hide block destroy progress
 
 ### Changed
 - Improve packet filtering
