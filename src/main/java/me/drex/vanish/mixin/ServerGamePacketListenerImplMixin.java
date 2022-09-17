@@ -50,13 +50,15 @@ public abstract class ServerGamePacketListenerImplMixin {
             }
         } else if (packet instanceof ClientboundPlayerInfoPacket playerInfoPacket) {
             ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
+            int visible = 0;
             for (ClientboundPlayerInfoPacket.PlayerUpdate playerUpdate : playerInfoPacket.getEntries()) {
                 if (VanishAPI.canSeePlayer(server, playerUpdate.getProfile().getId(), this.player)) {
+                    visible++;
                     ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.getProfile().getId());
                     if (player != null) modifiedEntries.add(player);
                 }
             }
-            if (modifiedEntries.size() != playerInfoPacket.getEntries().size()) {
+            if (visible != playerInfoPacket.getEntries().size()) {
                 if (!modifiedEntries.isEmpty()) {
                     this.send(new ClientboundPlayerInfoPacket(playerInfoPacket.getAction(), modifiedEntries));
                 }
