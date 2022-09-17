@@ -22,6 +22,8 @@ The config file is located at `./config/vanish.hocon`. Use `/vanish reload` to r
 action-bar=true
 # Text to be displayed when placeholder vanish:vanished is used for a vanished player
 place-holder-display=" <gray>☠"
+#Prevents vanished players from using chat
+disable-chat=true
 ```
 
 ## [Permissions](https://github.com/lucko/fabric-permissions-api)
