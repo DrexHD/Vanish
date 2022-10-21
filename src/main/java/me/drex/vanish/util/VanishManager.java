@@ -14,11 +14,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 
+import java.util.Collections;
 import java.util.UUID;
 
 public class VanishManager {
@@ -93,13 +95,13 @@ public class VanishManager {
 
     private static void unVanish(ServerPlayer vanisher) {
         PlayerList list = vanisher.server.getPlayerList();
-        broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, vanisher));
+        broadcastToOthers(vanisher, ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(Collections.singletonList(vanisher)));
         list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(vanisher), false);
     }
 
     private static void vanish(ServerPlayer vanisher) {
         PlayerList list = vanisher.server.getPlayerList();
-        broadcastToOthers(vanisher, new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, vanisher));
+        broadcastToOthers(vanisher, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(vanisher.getUUID())));
         list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(vanisher), false);
     }
 

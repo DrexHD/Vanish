@@ -7,7 +7,7 @@ import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundTakeItemEntityPacket;
 import net.minecraft.server.MinecraftServer;
@@ -48,19 +48,19 @@ public abstract class ServerGamePacketListenerImplMixin {
                 this.send(new ClientboundRemoveEntitiesPacket(takeItemEntityPacket.getItemId()));
                 ci.cancel();
             }
-        } else if (packet instanceof ClientboundPlayerInfoPacket playerInfoPacket) {
+        } else if (packet instanceof ClientboundPlayerInfoUpdatePacket playerInfoPacket) {
             ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
             int visible = 0;
-            for (ClientboundPlayerInfoPacket.PlayerUpdate playerUpdate : playerInfoPacket.getEntries()) {
-                if (VanishAPI.canSeePlayer(server, playerUpdate.getProfile().getId(), this.player)) {
+            for (ClientboundPlayerInfoUpdatePacket.Entry playerUpdate : playerInfoPacket.entries()) {
+                if (VanishAPI.canSeePlayer(server, playerUpdate.profileId(), this.player)) {
                     visible++;
-                    ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.getProfile().getId());
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.profileId());
                     if (player != null) modifiedEntries.add(player);
                 }
             }
-            if (visible != playerInfoPacket.getEntries().size()) {
+            if (visible != playerInfoPacket.entries().size()) {
                 if (!modifiedEntries.isEmpty()) {
-                    this.send(new ClientboundPlayerInfoPacket(playerInfoPacket.getAction(), modifiedEntries));
+                    this.send(new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), modifiedEntries));
                 }
                 ci.cancel();
             }
