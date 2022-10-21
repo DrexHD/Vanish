@@ -39,6 +39,7 @@
     "java": ">=17"
   },
   "breaks": {
-    "vanish": "*"
+    "vanish": "*",
+    "styledchat": "<2.0.0"
   }
 }
