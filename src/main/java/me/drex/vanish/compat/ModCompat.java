@@ -1,5 +1,6 @@
 package me.drex.vanish.compat;
 
+import eu.pb4.styledchat.StyledChatStyles;
 import eu.pb4.styledchat.config.ConfigManager;
 import me.drex.vanish.api.VanishEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -16,8 +17,8 @@ public class ModCompat {
         VanishEvents.UN_VANISH_MESSAGE_EVENT.register(serverPlayer -> Component.translatable("multiplayer.player.joined", serverPlayer.getDisplayName()).withStyle(ChatFormatting.YELLOW));
         // Styled Chat
         if (STYLED_CHAT) {
-            VanishEvents.UN_VANISH_MESSAGE_EVENT.register(serverPlayer -> ConfigManager.getConfig().getJoin(serverPlayer));
-            VanishEvents.VANISH_MESSAGE_EVENT.register(serverPlayer -> ConfigManager.getConfig().getLeft(serverPlayer));
+            VanishEvents.UN_VANISH_MESSAGE_EVENT.register(StyledChatStyles::getJoin);
+            VanishEvents.VANISH_MESSAGE_EVENT.register(StyledChatStyles::getLeft);
         }
     }
 
