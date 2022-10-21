@@ -2,8 +2,10 @@ package me.drex.vanish.api;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.util.VanishManager;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,6 +64,10 @@ public interface VanishAPI {
 
     static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull CommandSourceStack viewer) {
         return VanishManager.canSeePlayer(server, uuid, viewer);
+    }
+
+    static boolean canViewVanished(SharedSuggestionProvider src) {
+        return VanishManager.canViewVanished(src);
     }
 
     /**

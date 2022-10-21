@@ -62,10 +62,6 @@ public class VanishManager {
         return data != null && data.vanished;
     }
 
-    public static boolean canViewVanished(ServerPlayer player) {
-        return canViewVanished(player.createCommandSourceStack());
-    }
-
     public static boolean canViewVanished(SharedSuggestionProvider src) {
         return Permissions.check(src, "vanish.feature.view", 2);
     }
@@ -109,7 +105,7 @@ public class VanishManager {
 
     private static void broadcastToOthers(ServerPlayer vanisher, Packet<?> packet) {
         for (ServerPlayer viewer : vanisher.server.getPlayerList().getPlayers()) {
-            if (!canViewVanished(viewer) && !viewer.equals(vanisher)) {
+            if (!VanishAPI.canViewVanished(viewer.createCommandSourceStack()) && !viewer.equals(vanisher)) {
                 viewer.connection.send(packet);
             }
         }
