@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - `boolean canViewVanished(SharedSuggestionProvider src)` to VanishAPI 
+- hideFromEntities Config option
 
 ### Fixed
 - Modrinth dependency resolution
