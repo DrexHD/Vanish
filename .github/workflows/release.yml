@@ -32,6 +32,7 @@ jobs:
       - uses: Kir-Antipov/mc-publish@v3.2
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-dependencies: |
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           changelog-file: changes.md
