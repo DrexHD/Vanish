@@ -15,7 +15,7 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url "https://maven.nucleoid.xyz/" }
     maven { url "https://api.modrinth.com/maven" } // styled-chat
-    maven { url 'https://jitpack.io' } // MixinExtras
+    maven { url 'https://jitpack.io' } // MixinExtras, BlueMapAPI
 }
 
 dependencies {
@@ -42,6 +42,9 @@ dependencies {
 
     // Styled Chat
     modImplementation "maven.modrinth:styled-chat:${project.styled_chat_version}"
+
+    // BlueMap API
+    modImplementation "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
 
     // Fabric permission api
     modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")

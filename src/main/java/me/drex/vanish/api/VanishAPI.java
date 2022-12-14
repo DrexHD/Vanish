@@ -2,7 +2,6 @@ package me.drex.vanish.api;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.util.VanishManager;
-import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
