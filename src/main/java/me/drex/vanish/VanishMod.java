@@ -25,6 +25,6 @@ public class VanishMod implements DedicatedServerModInitializer {
         CommandRegistrationCallback.EVENT.register(VanishCommand::register);
         VanishManager.init();
         VanishPlaceHolders.register();
-        ModCompat.register();
+        ModCompat.init();
     }
 }
