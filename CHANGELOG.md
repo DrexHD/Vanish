@@ -5,10 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.2.0] - 2022-12-14
 ### Added
 - `boolean canViewVanished(SharedSuggestionProvider src)` to VanishAPI 
 - hideFromEntities Config option
 - StyledChat v2 compatibility
+
+### Changed
+- Updated to 1.19.3
 
 ### Fixed
 - Modrinth dependency resolution
