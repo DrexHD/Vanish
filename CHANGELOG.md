@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2022-12-24
+### Added
+- Hide vanished player sleeping status 
+
 ## [1.3.0] - 2022-12-14
 ### Added
 - BlueMap support
