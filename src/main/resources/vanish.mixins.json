@@ -17,6 +17,7 @@
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
+    "SleepStatusMixin",
     "ServerPlayerMixin"
   ]
 }
