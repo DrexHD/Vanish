@@ -27,7 +27,7 @@ public class VanishManager {
 
     public static void init() {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
-            if (ConfigManager.INSTANCE.vanish().actionBar) {
+            if (ConfigManager.vanish().actionBar) {
                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                     if (VanishAPI.isVanished(player)) {
                         player.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true);
@@ -36,7 +36,7 @@ public class VanishManager {
             }
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
-            if (VanishAPI.isVanished(sender) && ConfigManager.INSTANCE.vanish().disableChat) {
+            if (VanishAPI.isVanished(sender) && ConfigManager.vanish().disableChat) {
                 sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                 return false;
             } else {
@@ -46,7 +46,7 @@ public class VanishManager {
         ServerMessageEvents.ALLOW_COMMAND_MESSAGE.register((message, source, params) -> {
             ServerPlayer sender = source.getPlayer();
             if (sender != null) {
-                if (VanishAPI.isVanished(sender) && ConfigManager.INSTANCE.vanish().disableChat) {
+                if (VanishAPI.isVanished(sender) && ConfigManager.vanish().disableChat) {
                     sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                     return false;
                 }

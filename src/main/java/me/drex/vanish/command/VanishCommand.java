@@ -56,7 +56,7 @@ public class VanishCommand {
 
     public static int reload(CommandContext<CommandSourceStack> ctx) {
         try {
-            ConfigManager.INSTANCE.load();
+            ConfigManager.load();
             ctx.getSource().sendSuccess(Component.translatable("text.vanish.command.vanish.reload"), false);
             return 1;
         } catch (Exception e) {
