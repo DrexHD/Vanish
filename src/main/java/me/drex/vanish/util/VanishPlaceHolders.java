@@ -18,7 +18,7 @@ public class VanishPlaceHolders {
     public static void register() {
         Placeholders.register(VANISHED, (context, argument) -> {
             if (context.player() != null) {
-                return VanishAPI.isVanished(context.player()) ? PlaceholderResult.value(TextParserUtils.formatText(ConfigManager.INSTANCE.vanish().placeHolderDisplay)) : PlaceholderResult.value(Component.empty());
+                return VanishAPI.isVanished(context.player()) ? PlaceholderResult.value(TextParserUtils.formatText(ConfigManager.vanish().placeHolderDisplay)) : PlaceholderResult.value(Component.empty());
             }
             return PlaceholderResult.invalid("No player!");
         });

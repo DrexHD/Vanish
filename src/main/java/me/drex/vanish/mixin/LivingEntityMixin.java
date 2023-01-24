@@ -31,7 +31,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "canBeSeenByAnyone", at = @At("HEAD"), cancellable = true)
     public void vanish_hideFromEntities(CallbackInfoReturnable<Boolean> cir) {
-        if (ConfigManager.INSTANCE.vanish().hideFromEntities && VanishAPI.isVanished((LivingEntity) (Object) this)) {
+        if (ConfigManager.vanish().hideFromEntities && VanishAPI.isVanished((LivingEntity) (Object) this)) {
             cir.setReturnValue(false);
         }
     }

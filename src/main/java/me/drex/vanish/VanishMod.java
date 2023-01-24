@@ -18,7 +18,7 @@ public class VanishMod implements DedicatedServerModInitializer {
     @Override
     public void onInitializeServer() {
         try {
-            ConfigManager.INSTANCE.load();
+            ConfigManager.load();
         } catch (Exception e) {
             LOGGER.error("An error occurred while loading the config, keeping default values", e);
         }

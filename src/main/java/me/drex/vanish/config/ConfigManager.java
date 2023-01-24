@@ -12,13 +12,12 @@ public class ConfigManager {
 
     private static final Logger LOGGER = VanishMod.LOGGER;
     private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("vanish.hocon");
-    public static final ConfigManager INSTANCE = new ConfigManager();
-    private VanishConfig vanishConfig = new VanishConfig();
+    private static VanishConfig vanishConfig = new VanishConfig();
 
     private ConfigManager() {
     }
 
-    public void load() throws Exception {
+    public static void load() throws Exception {
         LOGGER.info("Loading configuration...");
         HoconConfigurationLoader loader = HoconConfigurationLoader.builder().path(CONFIG_FILE).build();
         CommentedConfigurationNode rootNode = loader.load();
@@ -30,7 +29,7 @@ public class ConfigManager {
         vanishConfig = rootNode.get(VanishConfig.class, new VanishConfig());
     }
 
-    public VanishConfig vanish() {
+    public static VanishConfig vanish() {
         return vanishConfig;
     }
 
