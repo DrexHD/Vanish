@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
@@ -18,19 +17,19 @@ public abstract class MinecraftServerMixin {
     @Shadow
     public abstract CommandSourceStack createCommandSourceStack();
 
-    @Redirect(
-            method = "tickServer",
+    @ModifyReceiver(
+            method = "buildPlayerStatus",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/MinecraftServer;getPlayerCount()I"
+                    target = "Ljava/util/List;size()I"
             )
     )
-    public int vanish_getNonVanishedPlayerCount(MinecraftServer server) {
-        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0)).size();
+    public List<ServerPlayer> vanish_getNonVanishedPlayerCount(List<ServerPlayer> original) {
+        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
     }
 
     @ModifyReceiver(
-            method = "tickServer",
+            method = "buildPlayerStatus",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/List;get(I)Ljava/lang/Object;"
