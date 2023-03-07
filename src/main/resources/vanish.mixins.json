@@ -11,7 +11,6 @@
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntitySelectorMixin",
-    "interaction.InsideBlockMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
@@ -21,6 +20,9 @@
     "ServerLevelMixin",
     "ServerPlayerMixin",
     "SleepStatusMixin",
-    "compat.expandedstorage.ContainerMixin"
+    "compat.expandedstorage.ContainerMixin",
+    "interaction.FallOnBlockMixin",
+    "interaction.InsideBlockMixin",
+    "interaction.StepOnBlockMixin"
   ]
 }
