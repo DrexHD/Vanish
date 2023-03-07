@@ -11,6 +11,7 @@
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntitySelectorMixin",
+    "interaction.InsideBlockMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
