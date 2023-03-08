@@ -12,10 +12,10 @@
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntitySelectorMixin",
+    "ExperienceOrbMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
-    "interaction.PlayerMixin",
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin",
@@ -26,6 +26,7 @@
     "interaction.EntitySelectorMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
+    "interaction.PlayerMixin",
     "interaction.StepOnBlockMixin",
     "interaction.VibrationListenerMixin"
   ]
