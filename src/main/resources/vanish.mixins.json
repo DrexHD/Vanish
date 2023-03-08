@@ -15,6 +15,7 @@
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
+    "interaction.PlayerMixin",
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin",
