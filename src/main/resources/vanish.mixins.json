@@ -23,6 +23,7 @@
     "compat.expandedstorage.ContainerMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
-    "interaction.StepOnBlockMixin"
+    "interaction.StepOnBlockMixin",
+    "interaction.VibrationListenerMixin"
   ]
 }
