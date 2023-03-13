@@ -8,9 +8,11 @@
     "defaultRequire": 1
   },
   "server": [
+    "ChunkMapMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntitySelectorMixin",
+    "ExperienceOrbMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
@@ -20,6 +22,12 @@
     "ServerLevelMixin",
     "ServerPlayerMixin",
     "SleepStatusMixin",
-    "compat.expandedstorage.ContainerMixin"
+    "compat.expandedstorage.ContainerMixin",
+    "interaction.EntitySelectorMixin",
+    "interaction.FallOnBlockMixin",
+    "interaction.InsideBlockMixin",
+    "interaction.PlayerMixin",
+    "interaction.StepOnBlockMixin",
+    "interaction.VibrationListenerMixin"
   ]
 }

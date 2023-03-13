@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2023-03-13
+### Added
+- Prevent player inside block interactions
+- Prevent player step on block interactions
+- Prevent player vibrations
+- Prevent chunk generation and mob spawning
+- Prevent entity collisions
+- Prevent entity pickup
+- Experience orbs don't follow vanished
+- Config options for world interactions
+
 ## [1.3.2] - 2023-01-25
 ### Added
 - Expanded Storage compatibility
