@@ -1,6 +1,7 @@
 package me.drex.vanish.mixin.interaction;
 
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.config.ConfigManager;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -17,7 +18,7 @@ public class VibrationListenerMixin {
     @Inject(method = "scheduleVibration", at = @At("HEAD"), cancellable = true)
     private void vanish_preventEntityVibrations(ServerLevel serverLevel, GameEvent gameEvent, GameEvent.Context context, Vec3 vec3, Vec3 vec32, CallbackInfo ci) {
         Entity sourceEntity = context.sourceEntity();
-        if (sourceEntity != null && VanishAPI.isVanished(sourceEntity)) ci.cancel();
+        if (sourceEntity != null && VanishAPI.isVanished(sourceEntity) && ConfigManager.vanish().interaction.vibrations) ci.cancel();
     }
 
 }

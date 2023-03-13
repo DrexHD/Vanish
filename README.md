@@ -1,3 +1,6 @@
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/UL4bJFDY?label=Modrinth&logo=Modrinth)](https://modrinth.com/mod/villagerconfig)
+[![Downloads](https://cf.way2muchnoise.eu/676275.svg)](https://www.curseforge.com/minecraft/mc-mods/meliusvanish)
+[![Discord](https://img.shields.io/discord/904419828192927885.svg?logo=discord)](https://discord.gg/HeZayd6SxF)
 # Vanish
 
 ## How to Install
@@ -14,16 +17,45 @@
 - You don't appear in the server list player sample and player count
 - Your advancement, death, join/leave messages, and others are hidden
 - Fake join/leave messages are sent on vanish/un-vanish
+- Hide from entities
+- Bluemap support
+- Hide sleep status
+- Expanded Storage compatibility
+- Exclude vanished players from player count
+- Prevents block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg)
+- Prevents player vibrations (sculk sensor/shrieker and warden)
+- Prevents mob spawning
+- Prevents chunk loading / generation
+- Prevents entity collisions
+- Prevents entity pickups (arrows, experience orbs, items and tridents)
 
 ## Config
 The config file is located at `./config/vanish.hocon`. Use `/vanish reload` to reload it.
 ```hocon
 # Show vanish status in the action bar
 action-bar=true
+# Prevents vanished players from using chat
+disable-chat=true
+# Hide vanished players from entities, prevents hostile entities from targeting players, and more
+hide-from-entities=true
+# Prevent vanished player world interactions
+interaction {
+    # Prevent block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg
+    blocks=true
+    # Prevent chunk loading / generation
+    chunk-loading=false
+    # Prevent entity collisions
+    entity-collisions=true
+    # Prevent entity pickups (arrows, experience orbs, items and tridents)
+    entity-pickup=true
+    # Prevent mob spawning
+    mob-spawning=true
+    # Prevent player vibrations
+    vibrations=true
+}
 # Text to be displayed when placeholder vanish:vanished is used for a vanished player
 place-holder-display=" <gray>☠"
-#Prevents vanished players from using chat
-disable-chat=true
+
 ```
 
 ## [Permissions](https://github.com/lucko/fabric-permissions-api)

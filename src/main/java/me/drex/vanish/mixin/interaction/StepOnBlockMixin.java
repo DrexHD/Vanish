@@ -1,6 +1,7 @@
 package me.drex.vanish.mixin.interaction;
 
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.config.ConfigManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -19,7 +20,7 @@ public abstract class StepOnBlockMixin {
 
     @Inject(method = "stepOn", at = @At("HEAD"), cancellable = true)
     private void vanish_cancelEntityStepOnBlock(Level level, BlockPos blockPos, BlockState blockState, Entity entity, CallbackInfo ci) {
-        if (VanishAPI.isVanished(entity)) ci.cancel();
+        if (VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.blocks) ci.cancel();
     }
 
 }

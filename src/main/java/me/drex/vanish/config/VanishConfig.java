@@ -18,4 +18,30 @@ public class VanishConfig {
     @Comment("Hide vanished players from entities, prevents hostile entities from targeting players, and more")
     public boolean hideFromEntities = true;
 
+    @Comment("Prevent vanished player world interactions")
+    public Interaction interaction = new Interaction();
+
+    @ConfigSerializable
+    public static class Interaction {
+
+        @Comment("Prevent block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg)")
+        public boolean blocks = true;
+
+        @Comment("Prevent player vibrations (sculk sensor/shrieker and warden)")
+        public boolean vibrations = true;
+
+        @Comment("Prevent mob spawning")
+        public boolean mobSpawning = true;
+
+        @Comment("Prevent chunk loading / generation")
+        public boolean chunkLoading = false;
+
+        @Comment("Prevent entity collisions")
+        public boolean entityCollisions = true;
+
+        @Comment("Prevent entity pickups (arrows, experience orbs, items and tridents)")
+        public boolean entityPickup = true;
+
+    }
+
 }

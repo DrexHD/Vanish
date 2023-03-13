@@ -1,6 +1,7 @@
 package me.drex.vanish.mixin.interaction;
 
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.config.ConfigManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -16,7 +17,7 @@ public abstract class FallOnBlockMixin {
 
     @Inject(method = "fallOn", at = @At("HEAD"), cancellable = true)
     private void vanish_cancelEntityFallOnBlock(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float f, CallbackInfo ci) {
-        if (VanishAPI.isVanished(entity)) ci.cancel();
+        if (VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.blocks) ci.cancel();
     }
 
 }
