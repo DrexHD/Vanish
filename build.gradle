@@ -44,7 +44,7 @@ dependencies {
     modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
     modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
-    modImplementation include("fr.catcore:server-translations-api:${project.translations_version}")
+    modImplementation include("xyz.nucleoid:server-translations-api:${project.translations_version}")
     implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
