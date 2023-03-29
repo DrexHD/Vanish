@@ -6,15 +6,15 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.BundlePacket;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
-import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
-import net.minecraft.network.protocol.game.ClientboundTakeItemEntityPacket;
+import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TraceableEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -63,6 +63,18 @@ public abstract class ServerGamePacketListenerImplMixin {
                     this.send(new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), modifiedEntries));
                 }
                 ci.cancel();
+            }
+        } else if (packet instanceof BundlePacket<?> bundlePacket) {
+            for (Packet<?> subPacket : bundlePacket.subPackets()) {
+                if (subPacket instanceof ClientboundAddEntityPacket addEntityPacket) {
+                    Entity entity = this.player.getLevel().getEntity(addEntityPacket.getId());
+                    if (entity instanceof TraceableEntity traceableEntity && traceableEntity.getOwner() instanceof ServerPlayer owner) {
+                        if (!VanishAPI.canSeePlayer(owner, this.player)) {
+                            ci.cancel();
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

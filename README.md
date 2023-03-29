@@ -28,6 +28,7 @@
 - Prevents chunk loading / generation
 - Prevents entity collisions
 - Prevents entity pickups (arrows, experience orbs, items and tridents)
+- Hide traceable entities (arrows, firework rockets, fishing rod...)
 
 ## Config
 The config file is located at `./config/vanish.hocon`. Use `/vanish reload` to reload it.

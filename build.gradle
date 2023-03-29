@@ -48,9 +48,9 @@ dependencies {
     implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
-    modImplementation "maven.modrinth:styled-chat:${project.styled_chat_version}"
-    modImplementation "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
-    modImplementation "maven.modrinth:expanded-storage:${project.expanded_storage_version}"
+    modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
+    modCompileOnly "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
+    modCompileOnly "maven.modrinth:expanded-storage:${project.expanded_storage_version}"
 }
 
 shadowJar {
