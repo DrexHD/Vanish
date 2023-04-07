@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -108,17 +109,16 @@ public interface VanishAPI {
      * Broadcasts a message that would reveal players vanish status
      * only to players who can see other vanished players
      *
-     * @param player    the player who caused the message
-     * @param component the component that should be shown
+     * @param player   the player who caused the message
+     * @param message the message that should be shown
      */
-    static void broadcastHiddenMessage(@NotNull ServerPlayer player, @NotNull Component component) {
-        component.getSiblings().add(
-                Component.translatable("text.vanish.chat.hidden")
-                        .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
-        );
-        getViewingPlayers(player).forEach(
-                viewing -> viewing.sendSystemMessage(component)
-        );
+    static void broadcastHiddenMessage(@NotNull ServerPlayer player, @NotNull Component message) {
+        MutableComponent component = message.copy();
+        component.append(Component.translatable("text.vanish.chat.hidden")
+                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        for (ServerPlayer viewingPlayer : getViewingPlayers(player)) {
+            viewingPlayer.sendSystemMessage(component);
+        }
     }
 
 }

@@ -31,11 +31,7 @@ public abstract class CommandSourceStackMixin {
     )
     public void vanish_hideCommandFeedback(ServerPlayer receiver, Component component, Operation<Void> original) {
         if (this.entity instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
-            if (VanishAPI.canSeePlayer(serverPlayer, receiver)) {
-                MutableComponent note = Component.translatable("text.vanish.chat.hidden").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
-                component.getSiblings().add(note);
-                original.call(receiver, component);
-            }
+            VanishAPI.broadcastHiddenMessage(serverPlayer, component);
         } else {
             original.call(receiver, component);
         }
