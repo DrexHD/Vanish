@@ -12,6 +12,7 @@
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntitySelectorMixin",
+    "EntityMixin",
     "ExperienceOrbMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",

@@ -60,11 +60,4 @@ public abstract class ServerPlayerMixin {
         }
     }
 
-    @Inject(method = "broadcastToPlayer", at = @At("HEAD"), cancellable = true)
-    public void vanish_shouldBroadcast(ServerPlayer other, CallbackInfoReturnable<Boolean> cir) {
-        if (!VanishAPI.canSeePlayer((ServerPlayer) (Object)this, other)) {
-            cir.setReturnValue(false);
-        }
-    }
-
 }
