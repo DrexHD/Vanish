@@ -43,7 +43,7 @@ public abstract class ServerGamePacketListenerImplMixin {
     )
     public void vanish_modifyPackets(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo ci) {
         if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
-            Entity entity = this.player.getLevel().getEntity(takeItemEntityPacket.getPlayerId());
+            Entity entity = this.player.level().getEntity(takeItemEntityPacket.getPlayerId());
             if (entity instanceof ServerPlayer executive && !VanishAPI.canSeePlayer(executive, this.player)) {
                 this.send(new ClientboundRemoveEntitiesPacket(takeItemEntityPacket.getItemId()));
                 ci.cancel();

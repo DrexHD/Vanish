@@ -11,8 +11,8 @@
     "ChunkMapMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
-    "EntitySelectorMixin",
     "EntityMixin",
+    "EntitySelectorMixin",
     "ExperienceOrbMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
@@ -28,7 +28,9 @@
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.PlayerMixin",
-    "interaction.StepOnBlockMixin",
-    "interaction.VibrationListenerMixin"
+    "interaction.StepOnBlockMixin"
+  ],
+  "mixins": [
+    "interaction.VibrationSystemMixin"
   ]
 }
