@@ -28,9 +28,7 @@
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.PlayerMixin",
-    "interaction.StepOnBlockMixin"
-  ],
-  "mixins": [
+    "interaction.StepOnBlockMixin",
     "interaction.VibrationSystemMixin"
   ]
 }

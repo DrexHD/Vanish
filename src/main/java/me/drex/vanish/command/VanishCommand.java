@@ -57,7 +57,7 @@ public class VanishCommand {
     public static int reload(CommandContext<CommandSourceStack> ctx) {
         try {
             ConfigManager.load();
-            ctx.getSource().sendSuccess(Component.translatable("text.vanish.command.vanish.reload"), false);
+            ctx.getSource().sendSuccess(() -> Component.translatable("text.vanish.command.vanish.reload"), false);
             return 1;
         } catch (Exception e) {
             ctx.getSource().sendFailure(Component.translatable("text.vanish.command.vanish.reload.error"));
@@ -71,9 +71,9 @@ public class VanishCommand {
         for (ServerPlayer target : targets) {
             if (!VanishAPI.setVanish(target, vanish)) continue;
             if (src.getPlayerOrException() == target) {
-                src.sendSuccess(Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
+                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
             } else {
-                src.sendSuccess(Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target.getDisplayName()), false);
+                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target.getDisplayName()), false);
                 target.sendSystemMessage(Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"));
             }
             result++;
