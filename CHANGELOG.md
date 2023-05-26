@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hide traceable entities
 - Dynmap support
 
+### Fixed
+- Immersive Portals incompatibility
+
 ## [1.4.0] - 2023-03-13
 ### Added
 - Prevent player inside block interactions

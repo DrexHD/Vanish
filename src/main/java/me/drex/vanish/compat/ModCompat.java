@@ -6,7 +6,6 @@ import me.drex.vanish.api.VanishEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import org.dynmap.DynmapCommonAPI;
 
 public class ModCompat {
 

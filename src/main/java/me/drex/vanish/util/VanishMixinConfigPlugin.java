@@ -11,6 +11,7 @@ import java.util.Set;
 public class VanishMixinConfigPlugin implements IMixinConfigPlugin {
 
     public static final boolean EXPANDED_STORAGE = FabricLoader.getInstance().isModLoaded("expandedstorage");
+    public static final boolean IMMERSIVE_PORTAL_CORE = FabricLoader.getInstance().isModLoaded("imm_ptl_core");
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -25,6 +26,9 @@ public class VanishMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (!EXPANDED_STORAGE && mixinClassName.startsWith("me.drex.vanish.mixin.compat.expandedstorage")) {
+            return false;
+        }
+        if (IMMERSIVE_PORTAL_CORE && mixinClassName.startsWith("me.drex.vanish.mixin.compat.not_imm_ptl_core")) {
             return false;
         }
         return true;
