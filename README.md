@@ -19,6 +19,7 @@
 - Fake join/leave messages are sent on vanish/un-vanish
 - Hide from entities
 - Bluemap support
+- Dynmap support
 - Hide sleep status
 - Expanded Storage compatibility
 - Exclude vanished players from player count
