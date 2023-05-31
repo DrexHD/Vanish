@@ -1,6 +1,6 @@
 package me.drex.vanish.mixin.compat.expandedstorage;
 
-import ellemes.expandedstorage.common.block.entity.BarrelBlockEntity;
+import compasses.expandedstorage.common.block.entity.BarrelBlockEntity;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = {BarrelBlockEntity.class}, targets = "ellemes/expandedstorage/common/block/entity/extendable/InventoryBlockEntity$1")
+@Mixin(value = {BarrelBlockEntity.class}, targets = "compasses/expandedstorage/common/block/entity/extendable/InventoryBlockEntity$1")
 public abstract class ContainerMixin {
 
     @Inject(method = "startOpen", at = @At("HEAD"), cancellable = true)
