@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
 }
@@ -16,6 +16,7 @@ repositories {
     maven { url "https://maven.nucleoid.xyz/" }
     maven { url "https://api.modrinth.com/maven" }
     maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.mikeprimm.com' }
 }
 
 dependencies {
@@ -37,9 +38,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Mixin Extras
-    implementation include("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
-    annotationProcessor("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
-
+    include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")))
 
     modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
@@ -51,11 +50,12 @@ dependencies {
     modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
     modCompileOnly "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
     modCompileOnly "maven.modrinth:expanded-storage:${project.expanded_storage_version}"
+    modCompileOnly "us.dynmap:DynmapCoreAPI:${project.dynmap_api_version}"
 }
 
 shadowJar {
     minimize()
-    classifier("shadow")
+    archiveClassifier.set("shadow")
     configurations = [project.configurations.shadow]
     from sourceSets.main.output
 }

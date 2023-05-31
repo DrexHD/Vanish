@@ -11,6 +11,7 @@ public class ModCompat {
 
     public static final boolean STYLED_CHAT = FabricLoader.getInstance().isModLoaded("styledchat");
     public static final boolean BLUEMAP = FabricLoader.getInstance().isModLoaded("bluemap");
+    public static final boolean DYNMAP = FabricLoader.getInstance().isModLoaded("dynmap");
     public static boolean blueMapEventsRegistered = false;
 
     public static void init() {
@@ -33,6 +34,9 @@ public class ModCompat {
                     blueMapEventsRegistered = true;
                 }
             });
+        }
+        if (DYNMAP) {
+            DynmapCompat.init();
         }
     }
 

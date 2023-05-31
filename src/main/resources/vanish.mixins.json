@@ -7,7 +7,7 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "server": [
+  "mixins": [
     "ChunkMapMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
