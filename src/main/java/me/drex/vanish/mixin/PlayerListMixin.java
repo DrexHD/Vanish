@@ -28,9 +28,9 @@ public abstract class PlayerListMixin {
                     target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
             )
     )
-    public void vanish_hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer player) {
-        if (VanishAPI.isVanished(player)) {
-            VanishAPI.broadcastHiddenMessage(player, component);
+    public void vanish_hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer actor) {
+        if (VanishAPI.isVanished(actor)) {
+            VanishAPI.broadcastHiddenMessage(actor, component);
         } else {
             original.call(playerList, component, bl);
         }
@@ -44,8 +44,8 @@ public abstract class PlayerListMixin {
             )
     )
     public boolean vanish_hideGameEvents(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Player player) {
-        if (player instanceof ServerPlayer executor) {
-            return VanishAPI.canSeePlayer(executor, packetListener.player);
+        if (player instanceof ServerPlayer actor) {
+            return VanishAPI.canSeePlayer(actor, packetListener.player);
         } else {
             return true;
         }

@@ -13,17 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin {
 
     @Inject(method = "broadcastToPlayer", at = @At("HEAD"), cancellable = true)
-    public void vanish_shouldBroadcast(ServerPlayer other, CallbackInfoReturnable<Boolean> cir) {
+    public void vanish_shouldBroadcast(ServerPlayer observer, CallbackInfoReturnable<Boolean> cir) {
         Entity self = (Entity) (Object) this;
-        ServerPlayer executive;
+        ServerPlayer actor;
         if (self instanceof ServerPlayer player) {
-            executive = player;
+            actor = player;
         } else if (self instanceof TraceableEntity traceableEntity && traceableEntity.getOwner() instanceof ServerPlayer owner) {
-            executive = owner;
+            actor = owner;
         } else {
             return;
         }
-        if (!VanishAPI.canSeePlayer(executive, other)) {
+        if (!VanishAPI.canSeePlayer(actor, observer)) {
             cir.setReturnValue(false);
         }
     }

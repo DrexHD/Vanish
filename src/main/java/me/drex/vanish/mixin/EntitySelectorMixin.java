@@ -17,9 +17,9 @@ public abstract class EntitySelectorMixin {
     @Inject(method = "findPlayers", at = @At("RETURN"))
     public void vanish_removeVanishedPlayers(CommandSourceStack src, CallbackInfoReturnable<List<ServerPlayer>> cir) {
         List<ServerPlayer> players = cir.getReturnValue();
-        ServerPlayer viewer = src.getPlayer();
-        if (viewer != null) {
-            players.removeIf((executor) -> !VanishAPI.canSeePlayer(executor, viewer));
+        ServerPlayer observer = src.getPlayer();
+        if (observer != null) {
+            players.removeIf((actor) -> !VanishAPI.canSeePlayer(actor, observer));
         }
     }
 

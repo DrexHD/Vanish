@@ -50,38 +50,38 @@ public interface VanishAPI {
     /**
      * Check whether a player can see the action from another player.
      *
-     * @param executive The player who executed the action
-     * @param viewer    Is the player that is viewing the action
+     * @param actor    The player who executed the action
+     * @param observer Is the player that is viewing the action
      * @return the result of the check
      */
-    static boolean canSeePlayer(@NotNull ServerPlayer executive, @NotNull ServerPlayer viewer) {
-        return canSeePlayer(executive.server, executive.getUUID(), viewer);
+    static boolean canSeePlayer(@NotNull ServerPlayer actor, @NotNull ServerPlayer observer) {
+        return canSeePlayer(actor.server, actor.getUUID(), observer);
     }
 
-    static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull ServerPlayer viewer) {
-        return canSeePlayer(server, uuid, viewer.createCommandSourceStack());
+    static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull ServerPlayer observer) {
+        return canSeePlayer(server, uuid, observer.createCommandSourceStack());
     }
 
-    static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull CommandSourceStack viewer) {
-        return VanishManager.canSeePlayer(server, uuid, viewer);
+    static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull CommandSourceStack observer) {
+        return VanishManager.canSeePlayer(server, uuid, observer);
     }
 
-    static boolean canViewVanished(SharedSuggestionProvider src) {
-        return VanishManager.canViewVanished(src);
+    static boolean canViewVanished(SharedSuggestionProvider observer) {
+        return VanishManager.canViewVanished(observer);
     }
 
     /**
      * Returns a list of players that the given {@link CommandSourceStack source} can see
      *
-     * @param source the viewing source context
+     * @param observer the viewing source context
      * @return an immutable list of players that are visible to the source.
      */
     @NotNull
-    static List<ServerPlayer> getVisiblePlayers(@NotNull CommandSourceStack source) {
-        MinecraftServer server = source.getServer();
+    static List<ServerPlayer> getVisiblePlayers(@NotNull CommandSourceStack observer) {
+        MinecraftServer server = observer.getServer();
         ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            if (canSeePlayer(server, player.getUUID(), source)) {
+            if (canSeePlayer(server, player.getUUID(), observer)) {
                 list.add(player);
             }
         }
@@ -89,17 +89,18 @@ public interface VanishAPI {
     }
 
     /**
-     * Returns a list of players that can view the actions of the given {@link ServerPlayer player}
+     * Returns a list of players that can view the actions of the given {@link ServerPlayer}
      *
-     * @param player the player who is observed
+     * @param actor the player who is observed
      * @return an immutable list of players that can view the player
      */
     @NotNull
-    static List<ServerPlayer> getViewingPlayers(@NotNull ServerPlayer player) {
+    @Deprecated(forRemoval = true)
+    static List<ServerPlayer> getViewingPlayers(@NotNull ServerPlayer actor) {
         ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
-        for (ServerPlayer viewer : player.server.getPlayerList().getPlayers()) {
-            if (canSeePlayer(player, viewer)) {
-                list.add(viewer);
+        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+            if (canSeePlayer(actor, observer)) {
+                list.add(observer);
             }
         }
         return list;
@@ -109,15 +110,34 @@ public interface VanishAPI {
      * Broadcasts a message that would reveal players vanish status
      * only to players who can see other vanished players
      *
-     * @param player   the player who caused the message
+     * @param actor   the player who caused the message
      * @param message the message that should be shown
      */
-    static void broadcastHiddenMessage(@NotNull ServerPlayer player, @NotNull Component message) {
+    static void broadcastHiddenMessage(@NotNull ServerPlayer actor, @NotNull Component message) {
         MutableComponent component = message.copy();
         component.append(Component.translatable("text.vanish.chat.hidden")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        for (ServerPlayer viewingPlayer : getViewingPlayers(player)) {
-            viewingPlayer.sendSystemMessage(component);
+            .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+            if (canSeePlayer(actor, observer)) {
+                observer.sendSystemMessage(component);
+            }
+        }
+    }
+
+    /**
+     * Conditionally send a message that would reveal players vanish status
+     * only if the observer can see other vanished players
+     *
+     * @param actor    the player who caused the message
+     * @param observer the player who could receive the message
+     * @param message  the message that should be shown
+     */
+    static void sendHiddenMessage(@NotNull ServerPlayer actor, @NotNull ServerPlayer observer, @NotNull Component message) {
+        MutableComponent component = message.copy();
+        component.append(Component.translatable("text.vanish.chat.hidden")
+            .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        if (canSeePlayer(actor, observer)) {
+            observer.sendSystemMessage(component);
         }
     }
 

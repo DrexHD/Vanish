@@ -64,51 +64,51 @@ public class VanishManager {
         return data != null && data.vanished;
     }
 
-    public static boolean canViewVanished(SharedSuggestionProvider src) {
-        return Permissions.check(src, "vanish.feature.view", 2);
+    public static boolean canViewVanished(SharedSuggestionProvider observer) {
+        return Permissions.check(observer, "vanish.feature.view", 2);
     }
 
-    public static boolean canSeePlayer(MinecraftServer server, UUID executive, CommandSourceStack viewer) {
-        if (isVanished(server, executive)) {
-            if (viewer.getEntity() != null && executive.equals(viewer.getEntity().getUUID())) {
+    public static boolean canSeePlayer(MinecraftServer server, UUID actor, CommandSourceStack observer) {
+        if (isVanished(server, actor)) {
+            if (observer.getEntity() != null && actor.equals(observer.getEntity().getUUID())) {
                 return true;
             } else {
-                return canViewVanished(viewer);
+                return canViewVanished(observer);
             }
         } else {
             return true;
         }
     }
 
-    public static boolean setVanished(ServerPlayer vanisher, boolean vanish) {
-        if (isVanished(vanisher.server, vanisher.getUUID()) == vanish) return false;
-        if (vanish) vanish(vanisher);
-        VanishData data = PlayerDataApi.getCustomDataFor(vanisher, VANISH_DATA_STORAGE);
+    public static boolean setVanished(ServerPlayer actor, boolean vanish) {
+        if (isVanished(actor.server, actor.getUUID()) == vanish) return false;
+        if (vanish) vanish(actor);
+        VanishData data = PlayerDataApi.getCustomDataFor(actor, VANISH_DATA_STORAGE);
         if (data == null) data = new VanishData();
         data.vanished = vanish;
-        PlayerDataApi.setCustomDataFor(vanisher, VANISH_DATA_STORAGE, data);
-        if (!vanish) unVanish(vanisher);
-        vanisher.server.invalidateStatus();
-        VanishEvents.VANISH_EVENT.invoker().onVanish(vanisher, vanish);
+        PlayerDataApi.setCustomDataFor(actor, VANISH_DATA_STORAGE, data);
+        if (!vanish) unVanish(actor);
+        actor.server.invalidateStatus();
+        VanishEvents.VANISH_EVENT.invoker().onVanish(actor, vanish);
         return true;
     }
 
-    private static void unVanish(ServerPlayer vanisher) {
-        PlayerList list = vanisher.server.getPlayerList();
-        broadcastToOthers(vanisher, ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(Collections.singletonList(vanisher)));
-        list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(vanisher), false);
+    private static void unVanish(ServerPlayer actor) {
+        PlayerList list = actor.server.getPlayerList();
+        broadcastToOthers(actor, ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(Collections.singletonList(actor)));
+        list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(actor), false);
     }
 
-    private static void vanish(ServerPlayer vanisher) {
-        PlayerList list = vanisher.server.getPlayerList();
-        broadcastToOthers(vanisher, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(vanisher.getUUID())));
-        list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(vanisher), false);
+    private static void vanish(ServerPlayer actor) {
+        PlayerList list = actor.server.getPlayerList();
+        broadcastToOthers(actor, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(actor.getUUID())));
+        list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(actor), false);
     }
 
-    private static void broadcastToOthers(ServerPlayer vanisher, Packet<?> packet) {
-        for (ServerPlayer viewer : vanisher.server.getPlayerList().getPlayers()) {
-            if (!VanishAPI.canViewVanished(viewer.createCommandSourceStack()) && !viewer.equals(vanisher)) {
-                viewer.connection.send(packet);
+    private static void broadcastToOthers(ServerPlayer actor, Packet<?> packet) {
+        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+            if (!VanishAPI.canViewVanished(observer.createCommandSourceStack()) && !observer.equals(actor)) {
+                observer.connection.send(packet);
             }
         }
     }

@@ -29,11 +29,11 @@ public abstract class CommandSourceStackMixin {
                     target = "Lnet/minecraft/server/level/ServerPlayer;sendSystemMessage(Lnet/minecraft/network/chat/Component;)V"
             )
     )
-    public void vanish_hideCommandFeedback(ServerPlayer receiver, Component component, Operation<Void> original) {
-        if (this.entity instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
-            VanishAPI.broadcastHiddenMessage(serverPlayer, component);
+    public void vanish_hideCommandFeedback(ServerPlayer observer, Component component, Operation<Void> original) {
+        if (this.entity instanceof ServerPlayer actor && VanishAPI.isVanished(actor)) {
+            VanishAPI.sendHiddenMessage(actor, observer, component);
         } else {
-            original.call(receiver, component);
+            original.call(observer, component);
         }
     }
 
