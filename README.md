@@ -1,4 +1,4 @@
-[![Modrinth Downloads](https://img.shields.io/modrinth/dt/UL4bJFDY?label=Modrinth&logo=Modrinth)](https://modrinth.com/mod/villagerconfig)
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/UL4bJFDY?label=Modrinth&logo=Modrinth)](https://modrinth.com/mod/vanish)
 [![Downloads](https://cf.way2muchnoise.eu/676275.svg)](https://www.curseforge.com/minecraft/mc-mods/meliusvanish)
 [![Discord](https://img.shields.io/discord/904419828192927885.svg?logo=discord)](https://discord.gg/HeZayd6SxF)
 # Vanish
