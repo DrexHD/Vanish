@@ -32,10 +32,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.14.8",
-    "fabric-command-api-v2": "*",
-    "fabric-lifecycle-events-v1": "*",
-    "fabric-message-api-v1": "*",
-    "minecraft": ">=1.20",
+    "fabric-api": "*",
     "java": ">=17"
   },
   "breaks": {
