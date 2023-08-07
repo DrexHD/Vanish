@@ -19,6 +19,7 @@
     "MinecraftServerMixin",
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
+    "ServerCommonPacketListenerImplMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
     "ServerPlayerMixin",
