@@ -28,11 +28,11 @@ public abstract class ServerCommonPacketListenerImplMixin {
     @Shadow public abstract void send(Packet<?> packet);
 
     @Inject(
-        method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;Z)V",
+        method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
         at = @At("HEAD"),
         cancellable = true
     )
-    public void vanish_modifyPackets(Packet<?> packet, @Nullable PacketSendListener packetSendListener, boolean flush, CallbackInfo ci) {
+    public void vanish_modifyPackets(Packet<?> packet, PacketSendListener packetSendListener, CallbackInfo ci) {
         if ((Object) this instanceof ServerGamePacketListenerImpl listener) {
             if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
                 Entity entity = listener.player.level().getEntity(takeItemEntityPacket.getPlayerId());
