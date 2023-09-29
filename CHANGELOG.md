@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - Hidden message command feedback
+- Wardens can smell vanished players
 
 ## [1.4.2] - 2023-06-09
 ### Fixed

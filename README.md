@@ -83,7 +83,7 @@ Declare vanish as an optional dependency!
 ```gradle
 dependencies {
     // You will have other dependencies here too
-    modImplementation "maven.modrinth:vanish:[VERSION]"
+    modCompileOnly "maven.modrinth:vanish:[VERSION]"
 }
 ```
 Before using the API you need to make sure the mod is actually loaded, by checking `FabricLoader.getInstance().isModLoaded("melius-vanish");`. 

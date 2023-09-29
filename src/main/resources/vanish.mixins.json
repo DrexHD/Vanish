@@ -24,6 +24,7 @@
     "ServerLevelMixin",
     "ServerPlayerMixin",
     "SleepStatusMixin",
+    "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
     "interaction.EntitySelectorMixin",
     "interaction.FallOnBlockMixin",
