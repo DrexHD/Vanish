@@ -15,6 +15,9 @@ public class VanishConfig {
     @Comment("Prevents vanished players from using chat")
     public boolean disableChat = true;
 
+    @Comment("Prevents vanished players from using /msg")
+    public boolean disableMsg = true;
+
     @Comment("Hide vanished players from entities, prevents hostile entities from targeting players, and more")
     public boolean hideFromEntities = true;
 

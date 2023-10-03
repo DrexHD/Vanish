@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Config option to make vanished players invulnerable
+- Config option for disabling private messages
 
 ### Fixed
 - Hidden message command feedback

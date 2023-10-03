@@ -17,6 +17,7 @@
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
+    "MsgCommandMixin",
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
     "PlayerMixin",
