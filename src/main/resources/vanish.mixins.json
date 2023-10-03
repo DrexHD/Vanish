@@ -33,7 +33,6 @@
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.PlayerMixin",
-    "interaction.ServerLevelMixin",
     "interaction.StepOnBlockMixin",
     "interaction.VibrationSystemMixin"
   ]
