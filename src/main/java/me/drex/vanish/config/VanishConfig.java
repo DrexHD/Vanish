@@ -42,6 +42,8 @@ public class VanishConfig {
         @Comment("Prevent entity pickups (arrows, experience orbs, items and tridents)")
         public boolean entityPickup = true;
 
+        @Comment("Prevent world interactions - As if player was in spawn protected area (attacking, breaking blocks, armour stand, chests, riding entity, etc)")
+        public boolean worldInteractions = false;
     }
 
 }

@@ -26,10 +26,14 @@
     "SleepStatusMixin",
     "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
+    "interaction.AbstractHorseMixin",
+    "interaction.ArmorStandMixin",
+    "interaction.CamelMixin",
     "interaction.EntitySelectorMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.PlayerMixin",
+    "interaction.ServerLevelMixin",
     "interaction.StepOnBlockMixin",
     "interaction.VibrationSystemMixin"
   ]
