@@ -20,6 +20,7 @@
     "MsgCommandMixin",
     "PlayerAdvancementsMixin",
     "PlayerListMixin",
+    "PlayerMixin",
     "ServerCommonPacketListenerImplMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
