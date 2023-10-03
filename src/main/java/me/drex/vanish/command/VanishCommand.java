@@ -72,11 +72,9 @@ public class VanishCommand {
             if (!VanishAPI.setVanish(target, vanish)) continue;
             if (src.getPlayerOrException() == target) {
                 src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
-                if (ConfigManager.vanish().invulnerable) target.setInvulnerable(true);
             } else {
                 src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target.getDisplayName()), false);
                 target.sendSystemMessage(Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"));
-                if (ConfigManager.vanish().invulnerable) target.setInvulnerable(false);
             }
             result++;
         }

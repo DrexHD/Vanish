@@ -19,7 +19,7 @@ public class VanishConfig {
     public boolean hideFromEntities = true;
 
     @Comment("Make vanished players invulnerable (Prevent deaths from tnt or other unforeseen accidents)")
-    public boolean invulnerable = true;
+    public boolean invulnerable = false;
 
     @Comment("Prevent vanished player world interactions")
     public Interaction interaction = new Interaction();
