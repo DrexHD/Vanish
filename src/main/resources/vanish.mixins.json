@@ -8,7 +8,6 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "BoatMixin",
     "ChunkMapMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
@@ -29,6 +28,7 @@
     "SleepStatusMixin",
     "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
+    "interaction.BoatMixin",
     "interaction.EntitySelectorMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
