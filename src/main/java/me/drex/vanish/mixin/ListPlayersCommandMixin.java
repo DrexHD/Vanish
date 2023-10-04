@@ -15,11 +15,11 @@ import java.util.List;
 public abstract class ListPlayersCommandMixin {
 
     @Redirect(
-            method = "format",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;getPlayers()Ljava/util/List;"
-            )
+        method = "format",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;getPlayers()Ljava/util/List;"
+        )
     )
     private static List<ServerPlayer> vanish_removeVanishedPlayers(PlayerList playerList, CommandSourceStack observer) {
         return VanishAPI.getVisiblePlayers(observer);

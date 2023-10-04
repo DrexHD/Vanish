@@ -18,11 +18,11 @@ public abstract class PlayerAdvancementsMixin {
     private ServerPlayer player;
 
     @WrapOperation(
-            method = "method_53637",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
-            )
+        method = "method_53637",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+        )
     )
     public void vanish_hideAdvancementMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {

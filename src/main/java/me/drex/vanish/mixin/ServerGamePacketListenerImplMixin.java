@@ -18,11 +18,11 @@ public abstract class ServerGamePacketListenerImplMixin {
     public ServerPlayer player;
 
     @WrapOperation(
-            method = "removePlayerFromWorld",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
-            )
+        method = "removePlayerFromWorld",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+        )
     )
     public void vanish_hideLeaveMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {

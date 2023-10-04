@@ -24,10 +24,7 @@ public class VanishMixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (!EXPANDED_STORAGE && mixinClassName.startsWith("me.drex.vanish.mixin.compat.expandedstorage")) {
-            return false;
-        }
-        return true;
+        return EXPANDED_STORAGE || !mixinClassName.startsWith("me.drex.vanish.mixin.compat.expandedstorage");
     }
 
     @Override

@@ -21,30 +21,30 @@ public class VanishCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext, Commands.CommandSelection selection) {
         dispatcher.register(
-                Commands.literal("vanish")
-                        .requires(src -> Permissions.check(src, "vanish.command.vanish", 2))
-                        .executes(VanishCommand::vanish)
+            Commands.literal("vanish")
+                .requires(src -> Permissions.check(src, "vanish.command.vanish", 2))
+                .executes(VanishCommand::vanish)
+                .then(
+                    Commands.literal("reload")
+                        .requires(src -> Permissions.check(src, "vanish.command.vanish.reload", 2))
+                        .executes(VanishCommand::reload)
+                ).then(
+                    Commands.literal("on")
+                        .executes(ctx -> vanish(ctx.getSource(), true, Collections.singleton(ctx.getSource().getPlayerOrException())))
                         .then(
-                                Commands.literal("reload")
-                                        .requires(src -> Permissions.check(src, "vanish.command.vanish.reload", 2))
-                                        .executes(VanishCommand::reload)
-                        ).then(
-                                Commands.literal("on")
-                                        .executes(ctx -> vanish(ctx.getSource(), true, Collections.singleton(ctx.getSource().getPlayerOrException())))
-                                        .then(
-                                                Commands.argument("players", EntityArgument.players())
-                                                        .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
-                                                        .executes(ctx -> vanish(ctx.getSource(), true, EntityArgument.getPlayers(ctx, "players")))
-                                        )
-                        ).then(
-                                Commands.literal("off")
-                                        .executes(ctx -> vanish(ctx.getSource(), false, Collections.singleton(ctx.getSource().getPlayerOrException())))
-                                        .then(
-                                                Commands.argument("players", EntityArgument.players())
-                                                        .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
-                                                        .executes(ctx -> vanish(ctx.getSource(), false, EntityArgument.getPlayers(ctx, "players")))
-                                        )
+                            Commands.argument("players", EntityArgument.players())
+                                .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
+                                .executes(ctx -> vanish(ctx.getSource(), true, EntityArgument.getPlayers(ctx, "players")))
                         )
+                ).then(
+                    Commands.literal("off")
+                        .executes(ctx -> vanish(ctx.getSource(), false, Collections.singleton(ctx.getSource().getPlayerOrException())))
+                        .then(
+                            Commands.argument("players", EntityArgument.players())
+                                .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
+                                .executes(ctx -> vanish(ctx.getSource(), false, EntityArgument.getPlayers(ctx, "players")))
+                        )
+                )
         );
     }
 

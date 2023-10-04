@@ -14,19 +14,19 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ChunkMapMixin {
 
     @ModifyReturnValue(
-            method = "skipPlayer",
-            at = @At("RETURN")
+        method = "skipPlayer",
+        at = @At("RETURN")
     )
     public boolean vanish_preventChunkGeneration(boolean original, ServerPlayer player) {
         return original || (VanishAPI.isVanished(player) && ConfigManager.vanish().interaction.chunkLoading);
     }
 
     @WrapOperation(
-            method = "playerIsCloseEnoughForSpawning",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
-            )
+        method = "playerIsCloseEnoughForSpawning",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
+        )
     )
     public boolean vanish_preventMobSpawning(ServerPlayer player, Operation<Boolean> original) {
         return original.call(player) || (VanishAPI.isVanished(player) && ConfigManager.vanish().interaction.mobSpawning);

@@ -18,22 +18,22 @@ public abstract class MinecraftServerMixin {
     public abstract CommandSourceStack createCommandSourceStack();
 
     @ModifyReceiver(
-            method = "buildPlayerStatus",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/List;size()I"
-            )
+        method = "buildPlayerStatus",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/List;size()I"
+        )
     )
     public List<ServerPlayer> vanish_getNonVanishedPlayerCount(List<ServerPlayer> original) {
         return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
     }
 
     @ModifyReceiver(
-            method = "buildPlayerStatus",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/List;get(I)Ljava/lang/Object;"
-            )
+        method = "buildPlayerStatus",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/List;get(I)Ljava/lang/Object;"
+        )
     )
     public List<ServerPlayer> vanish_getNonVanishedPlayer(List<ServerPlayer> original, int index) {
         return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));

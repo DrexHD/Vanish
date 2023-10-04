@@ -16,8 +16,8 @@ public abstract class EntitySelectorMixin {
     @ModifyReturnValue(method = "pushableBy", at = @At("RETURN"))
     private static Predicate<Entity> vanish_preventEntityCollision(Predicate<Entity> original, Entity pushableBy) {
         return original
-                .and(entity -> !(VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.entityCollisions))
-                .and(entity -> !(VanishAPI.isVanished(pushableBy) && ConfigManager.vanish().interaction.entityCollisions));
+            .and(entity -> !(VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.entityCollisions))
+            .and(entity -> !(VanishAPI.isVanished(pushableBy) && ConfigManager.vanish().interaction.entityCollisions));
     }
 
 }

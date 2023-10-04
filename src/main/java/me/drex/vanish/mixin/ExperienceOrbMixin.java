@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ExperienceOrbMixin {
 
     @Redirect(
-            method = "scanForEntities",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;getNearestPlayer(Lnet/minecraft/world/entity/Entity;D)Lnet/minecraft/world/entity/player/Player;"
-            )
+        method = "scanForEntities",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/Level;getNearestPlayer(Lnet/minecraft/world/entity/Entity;D)Lnet/minecraft/world/entity/player/Player;"
+        )
     )
     private Player vanish_excludeVanished(Level level, Entity experienceOrb, double distance) {
         return level.getNearestPlayer(experienceOrb.getX(), experienceOrb.getY(), experienceOrb.getZ(), distance, EntitySelector.NO_SPECTATORS.and(entity -> !VanishAPI.isVanished(entity)));

@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class SleepStatusMixin {
 
     @WrapOperation(
-            method = "update",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
-            )
+        method = "update",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
+        )
     )
     public boolean vanish_hideSleeping(ServerPlayer player, Operation<Boolean> original) {
         return original.call(player) || VanishAPI.isVanished(player);

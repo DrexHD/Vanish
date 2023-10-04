@@ -9,18 +9,16 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin {
 
     @WrapOperation(
-            method = "die",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemToTeam(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/network/chat/Component;)V"
-            )
+        method = "die",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemToTeam(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/network/chat/Component;)V"
+        )
     )
     private void vanish_hideTeamDeathMessage(PlayerList playerList, Player player, Component component, Operation<Void> original) {
         if (VanishAPI.isVanished((ServerPlayer) (Object) this)) {
@@ -33,11 +31,11 @@ public abstract class ServerPlayerMixin {
     }
 
     @WrapOperation(
-            method = "die",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemToAllExceptTeam(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/network/chat/Component;)V"
-            )
+        method = "die",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemToAllExceptTeam(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/network/chat/Component;)V"
+        )
     )
     private void vanish_hideExceptTeamDeathMessage(PlayerList playerList, Player player, Component component, Operation<Void> original) {
         if (VanishAPI.isVanished((ServerPlayer) (Object) this)) {
@@ -50,11 +48,11 @@ public abstract class ServerPlayerMixin {
     }
 
     @WrapOperation(
-            method = "die",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
-            )
+        method = "die",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
+        )
     )
     private void vanish_hideDeathMessage(PlayerList playerList, Component component, boolean overlay, Operation<Void> original) {
         if (VanishAPI.isVanished((ServerPlayer) (Object) this)) {
