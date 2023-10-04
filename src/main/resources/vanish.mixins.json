@@ -28,6 +28,7 @@
     "SleepStatusMixin",
     "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
+    "interaction.BoatMixin",
     "interaction.EntitySelectorMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
