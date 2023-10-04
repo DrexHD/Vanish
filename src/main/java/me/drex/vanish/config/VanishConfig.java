@@ -24,6 +24,9 @@ public class VanishConfig {
     @Comment("Make vanished players invulnerable (Prevent deaths from tnt or other unforeseen accidents)")
     public boolean invulnerable = false;
 
+    @Comment("Send fake join/disconnect message")
+    public boolean sendJoinDisconnectMessage = true;
+
     @Comment("Prevent vanished player world interactions")
     public Interaction interaction = new Interaction();
 

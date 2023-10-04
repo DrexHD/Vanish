@@ -96,13 +96,13 @@ public class VanishManager {
     private static void unVanish(ServerPlayer actor) {
         PlayerList list = actor.server.getPlayerList();
         broadcastToOthers(actor, ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(Collections.singletonList(actor)));
-        list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(actor), false);
+        if (ConfigManager.vanish().sendJoinDisconnectMessage) list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(actor), false);
     }
 
     private static void vanish(ServerPlayer actor) {
         PlayerList list = actor.server.getPlayerList();
         broadcastToOthers(actor, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(actor.getUUID())));
-        list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(actor), false);
+        if (ConfigManager.vanish().sendJoinDisconnectMessage) list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(actor), false);
     }
 
     private static void broadcastToOthers(ServerPlayer actor, Packet<?> packet) {
@@ -112,5 +112,4 @@ public class VanishManager {
             }
         }
     }
-
 }
