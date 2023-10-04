@@ -18,15 +18,4 @@ public abstract class PlayerMixin {
         return original;
     }
 
-    @ModifyReturnValue(
-        method = "canBeHitByProjectile",
-        at = @At("RETURN")
-    )
-    public boolean vanish_preventProjectileHits(boolean original) {
-        if (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished((Player) (Object) this)) {
-            return false;
-        }
-        return original;
-    }
-
 }
