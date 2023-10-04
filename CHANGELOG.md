@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Config option to toggle fake join/disconnect messages
 
+### Fixed
+- Projectiles colliding/hitting players
+
 ## [1.4.3] - 2023-10-04
 ### Added
 - Config option to make vanished players invulnerable
