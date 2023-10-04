@@ -33,6 +33,11 @@
     "interaction.InsideBlockMixin",
     "interaction.PlayerMixin",
     "interaction.StepOnBlockMixin",
-    "interaction.VibrationSystemMixin"
+    "interaction.VibrationSystemMixin",
+    "projectiles.ProjectileMixin",
+    "projectiles.SnowBallMixin",
+    "projectiles.ThrownEggMixin",
+    "projectiles.ThrownExperienceBottleMixin",
+    "projectiles.ThrownPotionMixin"
   ]
 }
