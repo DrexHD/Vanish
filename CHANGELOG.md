@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Projectiles colliding/hitting players
 - Boat and Minecart collisions
+- Queries showing actual player count
 
 ## [1.4.3] - 2023-10-04
 ### Added

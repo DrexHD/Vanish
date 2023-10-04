@@ -6,6 +6,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -37,6 +38,15 @@ public abstract class MinecraftServerMixin {
     )
     public List<ServerPlayer> vanish_getNonVanishedPlayer(List<ServerPlayer> original, int index) {
         return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
+    }
+
+    /**
+     * @author Drex
+     * @reason Hide vanished players in server queries, fail fast
+     */
+    @Overwrite
+    public int getPlayerCount() {
+        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0)).size();
     }
 
 }
