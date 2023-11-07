@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Projectiles colliding/hitting players
 - Boat and Minecart collisions
 - Queries showing actual player count
+- Polydex tooltips of vanished players
 
 ## [1.4.3] - 2023-10-04
 ### Added
