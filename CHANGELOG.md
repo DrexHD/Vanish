@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Config option to toggle fake join/disconnect messages
+- Allow offline players in /vanish command
 
 ### Fixed
 - Projectiles colliding/hitting players

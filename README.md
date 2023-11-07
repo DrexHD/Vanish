@@ -60,6 +60,12 @@ place-holder-display=" <gray>☠"
 
 ```
 
+## Commands
+- `/vanish` - Toggle vanish
+- `/vanish reload` - Reload config file
+- `/vanish on <players>` - Enable vanish for other players
+- `/vanish off <players>` - Disable vanish for other players
+
 ## [Permissions](https://github.com/lucko/fabric-permissions-api)
 You need to be an operator or have these permissions to be able to use the mod
 - `vanish.command.vanish` - Access to `/vanish` command

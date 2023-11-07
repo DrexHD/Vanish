@@ -1,5 +1,6 @@
 package me.drex.vanish.util;
 
+import com.mojang.authlib.GameProfile;
 import eu.pb4.playerdata.api.PlayerDataApi;
 import eu.pb4.playerdata.api.storage.JsonDataStorage;
 import eu.pb4.playerdata.api.storage.PlayerDataStorage;
@@ -80,16 +81,28 @@ public class VanishManager {
         }
     }
 
-    public static boolean setVanished(ServerPlayer actor, boolean vanish) {
-        if (isVanished(actor.server, actor.getUUID()) == vanish) return false;
-        if (vanish) vanish(actor);
-        VanishData data = PlayerDataApi.getCustomDataFor(actor, VANISH_DATA_STORAGE);
+    public static boolean setVanished(ServerPlayer player, boolean vanish) {
+        return setVanished(player.getGameProfile(), player.server, vanish);
+    }
+
+    public static boolean setVanished(GameProfile profile, MinecraftServer server, boolean vanish) {
+        if (isVanished(server, profile.getId()) == vanish) return false;
+        ServerPlayer player = server.getPlayerList().getPlayer(profile.getId());
+        boolean isOnline = player != null;
+        if (vanish && isOnline) {
+            vanish(player);
+        }
+        VanishData data = PlayerDataApi.getCustomDataFor(server, profile.getId(), VANISH_DATA_STORAGE);
         if (data == null) data = new VanishData();
         data.vanished = vanish;
-        PlayerDataApi.setCustomDataFor(actor, VANISH_DATA_STORAGE, data);
-        if (!vanish) unVanish(actor);
-        actor.server.invalidateStatus();
-        VanishEvents.VANISH_EVENT.invoker().onVanish(actor, vanish);
+        PlayerDataApi.setCustomDataFor(server, profile.getId(), VANISH_DATA_STORAGE, data);
+        if (!vanish && isOnline) {
+            unVanish(player);
+        }
+        if (isOnline) {
+            server.invalidateStatus();
+            VanishEvents.VANISH_EVENT.invoker().onVanish(player, vanish);
+        }
         return true;
     }
 
