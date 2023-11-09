@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Boat and Minecart collisions
 - Queries showing actual player count
 - Polydex tooltips of vanished players
+- Vanished players stopping minecarts
 
 ## [1.4.3] - 2023-10-04
 ### Added
