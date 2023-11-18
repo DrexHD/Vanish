@@ -11,7 +11,7 @@
 ## Features
 - You are completely invisible and *undetectable*
 - No open/close container (chests, barrels, ender chests, and shulker boxes) animations
-- You don't make noise (placing, breaking, walking...)
+- You don't make noise (placing, breaking, walking, using items...)
 - You are removed from command selectors (`/msg`, `/gamemode`...)
 - You get removed from `/list` command
 - You don't appear in the server list player sample and player count

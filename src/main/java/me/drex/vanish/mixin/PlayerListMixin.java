@@ -3,6 +3,7 @@ package me.drex.vanish.mixin;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,7 +46,16 @@ public abstract class PlayerListMixin {
         )
     )
     public boolean vanish_hideGameEvents(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Player player) {
-        if (player instanceof ServerPlayer actor) {
+        Entity entity;
+        if (player instanceof ServerPlayer serverPlayer) {
+            entity = serverPlayer;
+        } else {
+            entity = VanishMod.ACTIVE_ENTITY.get();
+        }
+        if (entity instanceof TraceableEntity traceableEntity && traceableEntity.getOwner() instanceof ServerPlayer owner) {
+            entity = owner;
+        }
+        if (entity instanceof ServerPlayer actor) {
             return VanishAPI.canSeePlayer(actor, packetListener.player);
         } else {
             return true;
