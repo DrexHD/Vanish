@@ -23,7 +23,7 @@ public class MsgCommandMixin {
         ServerPlayer player = commandSourceStack.getPlayer();
         if (player == null) return;
 
-        if (VanishAPI.isVanished(player) && ConfigManager.vanish().disableMsg) {
+        if (ConfigManager.vanish().disableMsg && VanishAPI.isVanished(player)) {
             player.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
             ci.cancel();
         }

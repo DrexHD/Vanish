@@ -1,4 +1,4 @@
-package me.drex.vanish.mixin;
+package me.drex.vanish.mixin.interaction;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -18,7 +18,7 @@ public abstract class ChunkMapMixin {
         at = @At("RETURN")
     )
     public boolean vanish_preventChunkGeneration(boolean original, ServerPlayer player) {
-        return original || (VanishAPI.isVanished(player) && ConfigManager.vanish().interaction.chunkLoading);
+        return original || (ConfigManager.vanish().interaction.chunkLoading && VanishAPI.isVanished(player));
     }
 
     @WrapOperation(
@@ -29,7 +29,7 @@ public abstract class ChunkMapMixin {
         )
     )
     public boolean vanish_preventMobSpawning(ServerPlayer player, Operation<Boolean> original) {
-        return original.call(player) || (VanishAPI.isVanished(player) && ConfigManager.vanish().interaction.mobSpawning);
+        return original.call(player) || (ConfigManager.vanish().interaction.mobSpawning && VanishAPI.isVanished(player));
     }
 
 }

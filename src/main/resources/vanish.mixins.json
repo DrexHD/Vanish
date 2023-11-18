@@ -8,12 +8,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "ChunkMapMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
     "EntityMixin",
     "EntitySelectorMixin",
-    "ExperienceOrbMixin",
     "ListPlayersCommandMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
@@ -28,13 +26,18 @@
     "SleepStatusMixin",
     "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
-    "interaction.AbstractMinecartMixin",
-    "interaction.BoatMixin",
-    "interaction.EntitySelectorMixin",
+    "interaction.ChunkMapMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
+    "interaction.LivingEntityMixin",
     "interaction.PlayerMixin",
     "interaction.StepOnBlockMixin",
+    "interaction.VanishEntitySelector$AbstractMinecartMixin",
+    "interaction.VanishEntitySelector$ArmorItemMixin",
+    "interaction.VanishEntitySelector$BeehiveBlockMixin",
+    "interaction.VanishEntitySelector$EntityGetterMixin",
+    "interaction.VanishEntitySelector$EntitySelectorMixin",
+    "interaction.VanishEntitySelector$PlayerMixin",
     "interaction.VibrationSystemMixin"
   ]
 }
