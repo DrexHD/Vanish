@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
 }
@@ -37,9 +37,6 @@ dependencies {
     }
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Mixin Extras
-    include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")))
-
     modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
     modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
@@ -47,10 +44,11 @@ dependencies {
     implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
+
     modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
-    modCompileOnly "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
     modCompileOnly "maven.modrinth:expanded-storage:${project.expanded_storage_version}"
-    modCompileOnly "us.dynmap:DynmapCoreAPI:${project.dynmap_api_version}"
+    compileOnly "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
+    compileOnly "us.dynmap:DynmapCoreAPI:${project.dynmap_api_version}"
 }
 
 shadowJar {
