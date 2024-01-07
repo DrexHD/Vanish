@@ -26,10 +26,7 @@ public interface VanishAPI {
      * @return the result of the check
      */
     static boolean isVanished(@NotNull Entity entity) {
-        if (entity instanceof ServerPlayer player) {
-            return isVanished(player.server, player.getUUID());
-        }
-        return false;
+        return VanishManager.isVanished(entity);
     }
 
     static boolean isVanished(@NotNull MinecraftServer server, @NotNull UUID uuid) {
@@ -44,7 +41,7 @@ public interface VanishAPI {
      * @return true if the vanish-status changed
      */
     static boolean setVanish(@NotNull ServerPlayer player, boolean status) {
-        return VanishManager.setVanished(player, status);
+        return VanishManager.setVanished(player.getGameProfile(), player.server, status);
     }
 
     /**
@@ -55,7 +52,7 @@ public interface VanishAPI {
      * @return the result of the check
      */
     static boolean canSeePlayer(@NotNull ServerPlayer actor, @NotNull ServerPlayer observer) {
-        return canSeePlayer(actor.server, actor.getUUID(), observer);
+        return VanishManager.canSeePlayer(actor, observer.createCommandSourceStack());
     }
 
     static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull ServerPlayer observer) {
@@ -81,7 +78,7 @@ public interface VanishAPI {
         MinecraftServer server = observer.getServer();
         ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            if (canSeePlayer(server, player.getUUID(), observer)) {
+            if (VanishManager.canSeePlayer(player, observer)) {
                 list.add(player);
             }
         }

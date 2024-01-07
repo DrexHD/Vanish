@@ -20,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -32,14 +33,14 @@ public class VanishManager {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             if (ConfigManager.vanish().actionBar) {
                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                    if (VanishAPI.isVanished(player)) {
+                    if (isVanished(player)) {
                         player.sendSystemMessage(Component.translatable("text.vanish.general.vanished"), true);
                     }
                 }
             }
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
-            if (VanishAPI.isVanished(sender) && ConfigManager.vanish().disableChat) {
+            if (isVanished(sender) && ConfigManager.vanish().disableChat) {
                 sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                 return false;
             } else {
@@ -49,7 +50,7 @@ public class VanishManager {
         ServerMessageEvents.ALLOW_COMMAND_MESSAGE.register((message, source, params) -> {
             ServerPlayer sender = source.getPlayer();
             if (sender != null) {
-                if (VanishAPI.isVanished(sender) && ConfigManager.vanish().disableChat) {
+                if (isVanished(sender) && ConfigManager.vanish().disableChat) {
                     sender.sendSystemMessage(Component.translatable("text.vanish.chat.disabled").withStyle(ChatFormatting.RED));
                     return false;
                 }
@@ -60,6 +61,13 @@ public class VanishManager {
         PlayerDataApi.register(VANISH_DATA_STORAGE);
     }
 
+    public static boolean isVanished(Entity entity) {
+        if (entity instanceof VanishedEntity vanishedEntity) {
+            return vanishedEntity.vanish$isVanished();
+        }
+        return false;
+    }
+
     public static boolean isVanished(MinecraftServer server, UUID uuid) {
         VanishData data = PlayerDataApi.getCustomDataFor(server, uuid, VANISH_DATA_STORAGE);
         return data != null && data.vanished;
@@ -67,6 +75,18 @@ public class VanishManager {
 
     public static boolean canViewVanished(SharedSuggestionProvider observer) {
         return Permissions.check(observer, "vanish.feature.view", 2);
+    }
+
+    public static boolean canSeePlayer(ServerPlayer actor, CommandSourceStack observer) {
+        if (isVanished(actor)) {
+            if (observer.getEntity() != null && actor.equals(observer.getEntity())) {
+                return true;
+            } else {
+                return canViewVanished(observer);
+            }
+        } else {
+            return true;
+        }
     }
 
     public static boolean canSeePlayer(MinecraftServer server, UUID actor, CommandSourceStack observer) {
@@ -81,10 +101,6 @@ public class VanishManager {
         }
     }
 
-    public static boolean setVanished(ServerPlayer player, boolean vanish) {
-        return setVanished(player.getGameProfile(), player.server, vanish);
-    }
-
     public static boolean setVanished(GameProfile profile, MinecraftServer server, boolean vanish) {
         if (isVanished(server, profile.getId()) == vanish) return false;
         ServerPlayer player = server.getPlayerList().getPlayer(profile.getId());
@@ -96,6 +112,9 @@ public class VanishManager {
         if (data == null) data = new VanishData();
         data.vanished = vanish;
         PlayerDataApi.setCustomDataFor(server, profile.getId(), VANISH_DATA_STORAGE, data);
+        if (isOnline) {
+            ((VanishedEntity) player).vanish$setDirty();
+        }
         if (!vanish && isOnline) {
             unVanish(player);
         }

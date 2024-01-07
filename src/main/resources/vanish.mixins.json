@@ -25,6 +25,7 @@
     "ServerLevelMixin",
     "ServerPlayerMixin",
     "SleepStatusMixin",
+    "VanishedServerPlayerMixin",
     "WardenMixin",
     "compat.expandedstorage.ContainerMixin",
     "interaction.ChunkMapMixin",
