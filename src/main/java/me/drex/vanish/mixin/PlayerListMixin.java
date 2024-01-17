@@ -3,8 +3,12 @@ package me.drex.vanish.mixin;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import eu.pb4.playerdata.api.PlayerDataApi;
 import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.util.VanishData;
+import me.drex.vanish.util.VanishedEntity;
+import me.lucko.fabric.api.permissions.v0.Options;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -20,6 +24,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
+import static me.drex.vanish.util.VanishManager.VANISH_DATA_STORAGE;
+
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
 
@@ -31,6 +37,16 @@ public abstract class PlayerListMixin {
         )
     )
     public void vanish_hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer actor) {
+        Boolean vanishOnJoin = Options.get(actor, "vanish_on_join", Boolean::valueOf).orElse(false);
+        if (vanishOnJoin) {
+            VanishData data = PlayerDataApi.getCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE);
+            if (data == null) data = new VanishData();
+            data.vanished = true;
+            PlayerDataApi.setCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE, data);
+            ((VanishedEntity) actor).vanish$setDirty();
+        }
+
+
         if (VanishAPI.isVanished(actor)) {
             VanishAPI.broadcastHiddenMessage(actor, component);
         } else {
