@@ -76,6 +76,9 @@ You need to be an operator or have these permissions to be able to use the mod
 - `vanish.command.vanish.other` - Set the vanish-status of others
 - `vanish.feature.view` - See vanished player
 
+## [Meta keys](https://luckperms.net/wiki/Prefixes,-Suffixes-&-Meta#meta)
+- `vanish_on_join`:`true` - Always join vanished
+
 ## [Placeholders](https://placeholders.pb4.eu/)
 - `vanish:vanished` - Displays a text (configurable via config) if a player is vanished
 - `vanish:online` - The number of players that the player viewing the placeholder can see

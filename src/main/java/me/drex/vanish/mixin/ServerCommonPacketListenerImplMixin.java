@@ -46,9 +46,9 @@ public abstract class ServerCommonPacketListenerImplMixin {
                 ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
                 int visible = 0;
                 for (ClientboundPlayerInfoUpdatePacket.Entry playerUpdate : playerInfoPacket.entries()) {
-                    if (VanishAPI.canSeePlayer(server, playerUpdate.profileId(), listener.player)) {
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.profileId());
+                    if (VanishAPI.canSeePlayer(player, listener.player)) {
                         visible++;
-                        ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.profileId());
                         if (player != null) modifiedEntries.add(player);
                     }
                 }
