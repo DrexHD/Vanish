@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.1] - 2024-01-17
 ### Added
 - `vanish_on_join` meta key
+- Hide vanished players from maps
 
 ### Changed
 - Improved vanish lookup performance
