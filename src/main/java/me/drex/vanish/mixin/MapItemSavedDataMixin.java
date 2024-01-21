@@ -19,7 +19,8 @@ public abstract class MapItemSavedDataMixin {
         method = "tickCarriedBy",
         at = @At(
             value = "FIELD",
-            target = "Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;trackingPosition:Z"
+            target = "Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;trackingPosition:Z",
+            ordinal = 0
         )
     )
     private boolean vanish_hideFromMap(MapItemSavedData instance, Operation<Boolean> original, @Local MapItemSavedData.HoldingPlayer holdingPlayer) {
