@@ -1,0 +1,11 @@
+{
+  "text.vanish.command.vanish.enable.other": "%s хәзер күренмәүчән",
+  "text.vanish.command.vanish.disable.other": "%s бүтән күренмәүчән түгел",
+  "text.vanish.command.vanish.enable": "Сез хәзер күренмәүчән",
+  "text.vanish.command.vanish.disable": "Сез бүтән күренмәүчән түгел",
+  "text.vanish.command.vanish.reload": "Көйләүләр яңадан йөкләнде!",
+  "text.vanish.command.vanish.reload.error": "Хата килеп чыкты, консольне тикшерегезчы!",
+  "text.vanish.general.vanished": "Сез хәзер күренмәүчән!",
+  "text.vanish.chat.hidden": " (яшерен)",
+  "text.vanish.chat.disabled": "Күренмәнгәндә Сез чатта яза алмыйсыз."
+}
