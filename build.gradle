@@ -44,9 +44,7 @@ dependencies {
     implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
-
     modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
-    modCompileOnly "maven.modrinth:expanded-storage:${project.expanded_storage_version}"
     compileOnly "com.github.BlueMap-Minecraft:BlueMapAPI:${project.bluemap_api_version}"
     compileOnly "us.dynmap:DynmapCoreAPI:${project.dynmap_api_version}"
 }

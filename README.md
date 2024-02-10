@@ -21,7 +21,6 @@
 - Bluemap support
 - Dynmap support
 - Hide sleep status
-- Expanded Storage compatibility
 - Exclude vanished players from player count
 - Prevents block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg)
 - Prevents player vibrations (sculk sensor/shrieker and warden)
