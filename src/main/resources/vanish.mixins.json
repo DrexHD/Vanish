@@ -27,7 +27,6 @@
     "SleepStatusMixin",
     "VanishedServerPlayerMixin",
     "WardenMixin",
-    "compat.expandedstorage.ContainerMixin",
     "interaction.ChunkMapMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
