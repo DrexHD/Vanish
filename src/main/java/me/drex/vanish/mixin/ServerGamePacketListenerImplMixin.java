@@ -25,7 +25,7 @@ public abstract class ServerGamePacketListenerImplMixin {
     public ServerPlayer player;
 
     @WrapOperation(
-        method = "removePlayerFromWorld",
+        method = "onDisconnect",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"

@@ -18,7 +18,7 @@ public abstract class PlayerAdvancementsMixin {
     private ServerPlayer player;
 
     @WrapOperation(
-        method = "method_53637",
+        method = "award",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"

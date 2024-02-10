@@ -13,7 +13,6 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
@@ -40,7 +39,7 @@ public abstract class PlayerListMixin {
             target = "Lnet/minecraft/server/players/PlayerList;sendPlayerPermissionLevel(Lnet/minecraft/server/level/ServerPlayer;)V"
         )
     )
-    private void vanish_vanishOnJoin(Connection connection, ServerPlayer actor, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
+    private void vanish_vanishOnJoin(Connection connection, ServerPlayer actor, CallbackInfo ci) {
         Boolean vanishOnJoin = Options.get(actor, "vanish_on_join", Boolean::valueOf).orElse(false);
         if (vanishOnJoin) {
             VanishData data = PlayerDataApi.getCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE);
