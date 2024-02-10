@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Tatar Translation (Thanks to Amirhan-Taipovjan-Greatest-I)
+- Prevent raid spawning
 
 ## [1.5.1] - 2024-01-17
 ### Added
