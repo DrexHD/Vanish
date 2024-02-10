@@ -32,6 +32,7 @@
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.LivingEntityMixin",
+    "interaction.BadOmenMobEffectMixin",
     "interaction.PlayerMixin",
     "interaction.StepOnBlockMixin",
     "interaction.VanishEntitySelector$AbstractMinecartMixin",
