@@ -20,6 +20,7 @@
 - Hide from entities
 - Bluemap support
 - Dynmap support
+- Squaremap support
 - Hide sleep status
 - Exclude vanished players from player count
 - Prevents block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg)
