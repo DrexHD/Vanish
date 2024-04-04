@@ -6,12 +6,14 @@ import me.drex.vanish.api.VanishEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import xyz.jpenilla.squaremap.api.*;
 
 public class ModCompat {
 
     public static final boolean STYLED_CHAT = FabricLoader.getInstance().isModLoaded("styledchat");
     public static final boolean BLUEMAP = FabricLoader.getInstance().isModLoaded("bluemap");
     public static final boolean DYNMAP = FabricLoader.getInstance().isModLoaded("dynmap");
+    public static final boolean SQUAREMAP = FabricLoader.getInstance().isModLoaded("squaremap");
     public static boolean blueMapEventsRegistered = false;
 
     public static void init() {
@@ -37,6 +39,15 @@ public class ModCompat {
         }
         if (DYNMAP) {
             DynmapCompat.init();
+        }
+        if (SQUAREMAP) {
+            VanishEvents.VANISH_EVENT.register((player, vanish) -> {
+                if (vanish) {
+                    SquaremapProvider.get().playerManager().hide(player.getUUID(), true);
+                } else {
+                    SquaremapProvider.get().playerManager().show(player.getUUID(), true);
+                }
+            });
         }
     }
 
