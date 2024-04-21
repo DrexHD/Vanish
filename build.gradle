@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
 }
@@ -12,11 +12,11 @@ version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
 repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url "https://maven.nucleoid.xyz/" }
     maven { url "https://api.modrinth.com/maven" }
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.mikeprimm.com' }
+    mavenCentral()
 }
 
 dependencies {
