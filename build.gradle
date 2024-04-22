@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
 }
@@ -12,36 +12,26 @@ version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
 repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url "https://maven.nucleoid.xyz/" }
     maven { url "https://api.modrinth.com/maven" }
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.mikeprimm.com' }
+    mavenCentral()
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-    // Fabric API
-    Set<String> apiModules = [
-            "fabric-api-base",
-            "fabric-command-api-v2",
-            "fabric-lifecycle-events-v1",
-            "fabric-message-api-v1",
-            "fabric-resource-loader-v0" // server-translations-api
-    ]
-    apiModules.forEach {
-        modImplementation(fabricApi.module(it, project.fabric_version))
-    }
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
+    modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}") {
+        exclude group: 'net.fabricmc.fabric-api'
+    }
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
     modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
     modImplementation include("xyz.nucleoid:server-translations-api:${project.translations_version}")
-    implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
+    implementation include("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
     modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
