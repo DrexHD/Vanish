@@ -34,7 +34,7 @@
     "fabricloader": ">=0.15.10",
     "fabric-api": "*",
     "java": ">=17",
-    "minecraft": ">=1.20.3"
+    "minecraft": ">=1.20.3 <=1.20.4"
   },
   "breaks": {
     "vanish": "*",
