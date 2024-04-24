@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.4] - 2024-04-24
 ### Fixed
-- Crash on startup (1.20.5)
+- Crash on startup
 
 ## [1.5.3] - 2024-04-22
 ### Added
