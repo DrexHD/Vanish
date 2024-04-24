@@ -1,6 +1,6 @@
 plugins {
     id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'io.github.goooler.shadow' version '8.1.7'
     id 'maven-publish'
 }
 
@@ -31,7 +31,7 @@ dependencies {
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
     modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
     modImplementation include("xyz.nucleoid:server-translations-api:${project.translations_version}")
-    implementation include("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
+    implementation shadow("org.spongepowered:configurate-hocon:${project.configurate_hocon_version}")
 
     // Mod compat
     modCompileOnly "maven.modrinth:styled-chat:${project.styled_chat_version}"
