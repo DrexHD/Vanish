@@ -12,8 +12,8 @@ import static me.drex.vanish.VanishMod.MOD_ID;
 
 public class VanishPlaceHolders {
 
-    public static final ResourceLocation VANISHED = new ResourceLocation(MOD_ID, "vanished");
-    public static final ResourceLocation ONLINE = new ResourceLocation(MOD_ID, "online");
+    public static final ResourceLocation VANISHED = ResourceLocation.fromNamespaceAndPath(MOD_ID, "vanished");
+    public static final ResourceLocation ONLINE = ResourceLocation.fromNamespaceAndPath(MOD_ID, "online");
 
     public static void register() {
         Placeholders.register(VANISHED, (context, argument) -> {
