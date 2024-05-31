@@ -15,6 +15,7 @@
 - You are removed from command selectors (`/msg`, `/gamemode`...)
 - You get removed from `/list` command
 - You don't appear in the server list player sample and player count
+- You don't obstruct block placement
 - Your advancement, death, join/leave messages, and others are hidden
 - Fake join/leave messages are sent on vanish/un-vanish
 - Hide from entities
