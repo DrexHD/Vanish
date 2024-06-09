@@ -34,6 +34,7 @@
     "interaction.InsideBlockMixin",
     "interaction.LivingEntityMixin",
     "interaction.PlayerMixin",
+    "interaction.SimpleCriterionTriggerMixin",
     "interaction.StepOnBlockMixin",
     "interaction.VanishEntitySelector$AbstractMinecartMixin",
     "interaction.VanishEntitySelector$ArmorItemMixin",

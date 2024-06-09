@@ -51,6 +51,9 @@ public class VanishConfig {
         @Comment("Prevent entity pickups (arrows, experience orbs, items and tridents)")
         public boolean entityPickup = true;
 
+        @Comment("Prevent progressing advancements")
+        public boolean advancementProgress = false;
+
     }
 
 }
