@@ -33,6 +33,7 @@
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.LivingEntityMixin",
+    "interaction.PlayerDetectorMixin",
     "interaction.PlayerMixin",
     "interaction.SimpleCriterionTriggerMixin",
     "interaction.StepOnBlockMixin",

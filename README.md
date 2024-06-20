@@ -33,6 +33,8 @@
 - Prevents special mob spawning (spawners, skeleton traps, zombie reinforcements, raids)
 - Prevents sweeping edge attacking players
 - Prevents dispensers equipping armor
+- Prevents trial spawner detection
+- Prevents vault detection
 - Hide traceable entities (arrows, firework rockets, fishing rod...)
 
 ## Config
@@ -42,10 +44,14 @@ The config file is located at `./config/vanish.hocon`. Use `/vanish reload` to r
 action-bar=true
 # Prevents vanished players from using chat
 disable-chat=true
+# Prevents vanished players from using /msg
+disable-msg=true
 # Hide vanished players from entities, prevents hostile entities from targeting players, and more
 hide-from-entities=true
 # Prevent vanished player world interactions
 interaction {
+    # Prevent progressing advancements
+    advancement-progress=false
     # Prevent block interactions (pressure plates, dripleaf, tripwire, farmland, redstone ore, sculk sensor/shrieker and turtle egg
     blocks=true
     # Prevent chunk loading / generation

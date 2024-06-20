@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Prevent advancement progress config option
+- Prevent trial spawner detection
+- Prevent vault detection
 
 ## [1.5.5] - 2024-05-31
 ### Added
