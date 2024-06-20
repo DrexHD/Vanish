@@ -18,15 +18,6 @@
       "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
     ]
   },
-  "custom": {
-    "modmanager": {
-      "curseforge": 676275,
-      "modrinth": "UL4bJFDY"
-    },
-    "mc-publish": {
-      "quilt": true
-    }
-  },
   "mixins": [
     "vanish.mixins.json"
   ],
