@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Containers remaining open by vanished players in certain conditions
+
 ## [1.5.6] - 2024-06-20
 ### Added
 - Prevent advancement progress config option
