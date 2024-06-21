@@ -18,7 +18,7 @@ public class ContainerOpenersCountMixin {
                     target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"),
             index = 2
     )
-    private Predicate<Player> vanish_cancelCountChange(Predicate<Player> predicate) {
+    private Predicate<Player> vanish_excludeVanished(Predicate<Player> predicate) {
         return predicate.and(player -> !VanishAPI.isVanished(player));
     }
 }
