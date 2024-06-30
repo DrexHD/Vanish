@@ -13,6 +13,7 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BasePressurePlateBlock;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
@@ -117,7 +118,7 @@ public class VanishEntitySelector {
             )
         )
         private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
-            return true ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
+            return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
 
     }
@@ -149,6 +150,20 @@ public class VanishEntitySelector {
         )
         private List<LivingEntity> vanish_preventBeeAnger(Level instance, Class<LivingEntity> aClass, AABB aabb) {
             return instance.getEntitiesOfClass(aClass, aabb, VanishMod.NO_SPECTATORS_AND_NO_VANISH);
+        }
+    }
+
+    @Mixin(BasePressurePlateBlock.class)
+    public abstract static class BasePressurePlateBlockMixin {
+        @WrapOperation(
+            method = "getEntityCount",
+            at = @At(
+                value = "FIELD",
+                target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
+            )
+        )
+        private static Predicate<Entity> vanish_preventPressurePlatePress(Operation<Predicate<Entity>> original) {
+            return ConfigManager.vanish().interaction.blocks ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
     }
 
