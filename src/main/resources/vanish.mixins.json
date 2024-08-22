@@ -39,12 +39,13 @@
     "interaction.PlayerMixin",
     "interaction.SimpleCriterionTriggerMixin",
     "interaction.StepOnBlockMixin",
-    "interaction.VanishEntitySelector$AbstractMinecartMixin",
     "interaction.VanishEntitySelector$ArmorItemMixin",
     "interaction.VanishEntitySelector$BasePressurePlateBlockMixin",
     "interaction.VanishEntitySelector$BeehiveBlockMixin",
     "interaction.VanishEntitySelector$EntityGetterMixin",
     "interaction.VanishEntitySelector$EntitySelectorMixin",
+    "interaction.VanishEntitySelector$NewMinecartBehaviorMixin",
+    "interaction.VanishEntitySelector$OldMinecartBehaviorMixin",
     "interaction.VanishEntitySelector$PlayerMixin",
     "interaction.VibrationSystemMixin"
   ]

@@ -9,7 +9,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.NewMinecartBehavior;
+import net.minecraft.world.entity.vehicle.OldMinecartBehavior;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
@@ -107,11 +108,10 @@ public class VanishEntitySelector {
         }
     }
 
-    @Mixin(AbstractMinecart.class)
-    public abstract static class AbstractMinecartMixin {
-
+    @Mixin(OldMinecartBehavior.class)
+    public abstract static class OldMinecartBehaviorMixin {
         @WrapOperation(
-            method = "tick",
+            method = "pushAndPickupEntities",
             at = @At(
                 value = "INVOKE",
                 target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
@@ -120,7 +120,20 @@ public class VanishEntitySelector {
         private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
             return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
+    }
 
+    @Mixin(NewMinecartBehavior.class)
+    public abstract static class NewMinecartBehaviorMixin {
+        @WrapOperation(
+            method = "pushEntities",
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
+            )
+        )
+        private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
+            return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
+        }
     }
 
     @Mixin(Player.class)
