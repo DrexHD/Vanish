@@ -46,6 +46,8 @@
     "interaction.VanishEntitySelector$EntityGetterMixin",
     "interaction.VanishEntitySelector$EntitySelectorMixin",
     "interaction.VanishEntitySelector$PlayerMixin",
-    "interaction.VibrationSystemMixin"
+    "interaction.VibrationSystemMixin",
+    "compat.moonrise.disabled.interaction.VanishEntitySelector$EntityGetterMixin",
+    "compat.moonrise.enabled.interaction.VanishEntitySelector$EntityGetterMixin"
   ]
 }
