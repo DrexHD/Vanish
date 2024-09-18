@@ -9,9 +9,11 @@ import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket;
 import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,6 +39,21 @@ public abstract class ServerGamePacketListenerImplMixin {
         } else {
             original.call(playerList, component, bl);
         }
+    }
+
+    @WrapOperation(
+        method = "handleInteract",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/network/protocol/game/ServerboundInteractPacket;getTarget(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/world/entity/Entity;"
+        )
+    )
+    public Entity vanish_preventInteraction(ServerboundInteractPacket instance, ServerLevel serverLevel, Operation<Entity> original) {
+        Entity entity = original.call(instance, serverLevel);
+        if (entity instanceof ServerPlayer actor && !VanishAPI.canSeePlayer(actor, this.player)) {
+            return null;
+        }
+        return entity;
     }
 
     @Inject(
