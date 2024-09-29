@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.7] - 2024-09-18
+### Added
+- Moonrise compatibility
+
 ### Fixed
 - Containers remaining open by vanished players in certain conditions
 - Pressure plates remaining pressed by vanished players in certain conditions
 - Vanished players blocking merchant (villager / wandering trader) trading
+- Players can attack vanished players
 
 ## [1.5.6] - 2024-06-20
 ### Added

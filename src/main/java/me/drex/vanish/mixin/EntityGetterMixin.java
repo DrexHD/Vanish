@@ -9,7 +9,9 @@ import net.minecraft.world.level.EntityGetter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(EntityGetter.class)
+// Priority is increased for compatibility with
+// https://github.com/Tuinity/Moonrise/blob/master/src/main/java/ca/spottedleaf/moonrise/mixin/collisions/EntityGetterMixin.java#L74-L104
+@Mixin(value = EntityGetter.class, priority = 1500)
 public interface EntityGetterMixin {
 
     @WrapOperation(

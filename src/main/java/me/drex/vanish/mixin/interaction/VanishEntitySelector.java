@@ -54,28 +54,6 @@ public class VanishEntitySelector {
         default Predicate<Entity> vanish_preventMobSpawning2(Operation<Predicate<Entity>> original) {
             return ConfigManager.vanish().interaction.mobSpawning ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
-
-        @WrapOperation(
-            method = "getEntityCollisions",
-            at = @At(
-                value = "FIELD",
-                target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
-            )
-        )
-        default Predicate<Entity> vanish_preventEntityCollisions(Operation<Predicate<Entity>> original) {
-            return ConfigManager.vanish().interaction.entityCollisions ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
-        }
-
-        @WrapOperation(
-            method = "getEntityCollisions",
-            at = @At(
-                value = "FIELD",
-                target = "Lnet/minecraft/world/entity/EntitySelector;CAN_BE_COLLIDED_WITH:Ljava/util/function/Predicate;"
-            )
-        )
-        default Predicate<Entity> vanish_preventEntityCollisions2(Operation<Predicate<Entity>> original) {
-            return ConfigManager.vanish().interaction.entityCollisions ? VanishMod.CAN_BE_COLLIDED_WITH_AND_NO_VANISH : original.call();
-        }
     }
 
     @Mixin(EntitySelector.class)
