@@ -11,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.NewMinecartBehavior;
 import net.minecraft.world.entity.vehicle.OldMinecartBehavior;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -68,21 +67,6 @@ public class VanishEntitySelector {
         )
         private static Predicate<Entity> vanish_preventEntityCollision(Operation<Predicate<Entity>> original, Entity entity) {
             return ConfigManager.vanish().interaction.entityCollisions ? VanishMod.NO_SPECTATORS_AND_NO_VANISH.and(entity1 -> !VanishAPI.isVanished(entity)) : original.call();
-        }
-    }
-
-    @Mixin(ArmorItem.class)
-    public abstract static class ArmorItemMixin {
-
-        @WrapOperation(
-            method = "dispenseArmor",
-            at = @At(
-                value = "FIELD",
-                target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
-            )
-        )
-        private static Predicate<Entity> vanish_preventArmorItemEquip(Operation<Predicate<Entity>> original) {
-            return ConfigManager.vanish().interaction.entityPickup ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
     }
 

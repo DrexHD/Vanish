@@ -48,7 +48,7 @@ public class VanishConfig {
         @Comment("Prevent entity collisions")
         public boolean entityCollisions = true;
 
-        @Comment("Prevent entity pickups (arrows, experience orbs, items and tridents)")
+        @Comment("Prevent entity pickups (arrows, experience orbs, items, dropper equipping and tridents)")
         public boolean entityPickup = true;
 
         @Comment("Prevent progressing advancements")

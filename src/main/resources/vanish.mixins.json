@@ -39,7 +39,6 @@
     "interaction.PlayerMixin",
     "interaction.SimpleCriterionTriggerMixin",
     "interaction.StepOnBlockMixin",
-    "interaction.VanishEntitySelector$ArmorItemMixin",
     "interaction.VanishEntitySelector$BasePressurePlateBlockMixin",
     "interaction.VanishEntitySelector$BeehiveBlockMixin",
     "interaction.VanishEntitySelector$EntityGetterMixin",
