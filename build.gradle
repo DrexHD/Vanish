@@ -30,9 +30,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}") {
-        exclude group: 'net.fabricmc.fabric-api'
-    }
+    modImplementation include("me.lucko:fabric-permissions-api:${project.permission_api_version}")
     modImplementation include("eu.pb4:placeholder-api:${project.placeholder_api_version}")
     modImplementation include("eu.pb4:player-data-api:${project.player_data_api_version}")
     modImplementation include("xyz.nucleoid:server-translations-api:${project.translations_version}")

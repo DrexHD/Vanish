@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.8] - 2024-10-25
+### Fixed
+- Crash on 1.21.2/3
+
 ## [1.5.7] - 2024-09-18
 ### Added
 - Moonrise compatibility
