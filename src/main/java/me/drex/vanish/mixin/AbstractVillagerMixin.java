@@ -28,7 +28,7 @@ public class AbstractVillagerMixin {
 
     @Inject(method = "setTradingPlayer", at = @At("HEAD"))
     private void vanish_closeVanishedPlayerTradeScreen(Player player, CallbackInfo ci) {
-        if (player != null && this.tradingPlayer instanceof ServerPlayer serverPlayer) {
+        if (player != null && player != this.tradingPlayer && this.tradingPlayer instanceof ServerPlayer serverPlayer) {
             serverPlayer.closeContainer();
         }
     }

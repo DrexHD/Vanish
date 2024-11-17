@@ -13,9 +13,6 @@
   "entrypoints": {
     "server": [
       "me.drex.vanish.VanishMod"
-    ],
-    "preLaunch": [
-      "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
     ]
   },
   "mixins": [
