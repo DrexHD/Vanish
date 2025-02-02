@@ -9,9 +9,9 @@
   ],
   "license": "MIT",
   "icon": "assets/vanish/icon.png",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
-    "server": [
+    "main": [
       "me.drex.vanish.VanishMod"
     ]
   },

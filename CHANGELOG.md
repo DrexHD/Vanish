@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.10] - 2025-02-03
+### Added
+- Integrated server support
+
 ## [1.5.9] - 2024-11-17
 ### Fixed
 - Incompatibility with trade_cycling mod
