@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.11] - 2025-02-03
+### Fixed
+- NoClassDefFoundError on launch
+
 ## [1.5.10] - 2025-02-03
 ### Added
 - Integrated server support

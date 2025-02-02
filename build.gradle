@@ -45,7 +45,7 @@ dependencies {
 
 shadowJar {
     minimize()
-    archiveClassifier.set("shadow")
+    archiveClassifier.set("")
     configurations = [project.configurations.shadow]
     from sourceSets.main.output
 }
