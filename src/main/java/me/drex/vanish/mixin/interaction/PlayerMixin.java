@@ -1,7 +1,7 @@
 package me.drex.vanish.mixin.interaction;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import net.minecraft.world.entity.Entity;

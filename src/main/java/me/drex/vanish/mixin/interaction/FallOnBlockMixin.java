@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class FallOnBlockMixin {
 
     @Inject(method = "fallOn", at = @At("HEAD"), cancellable = true)
-    private void vanish_cancelEntityFallOnBlock(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float f, CallbackInfo ci) {
+    private void vanish_cancelEntityFallOnBlock(Level level, BlockState blockState, BlockPos blockPos, Entity entity, double d, CallbackInfo ci) {
         if (VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.blocks) ci.cancel();
     }
 
