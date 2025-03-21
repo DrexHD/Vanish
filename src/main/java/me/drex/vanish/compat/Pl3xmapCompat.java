@@ -9,7 +9,7 @@ public class Pl3xmapCompat {
         VanishEvents.VANISH_EVENT.register((player, vanish) -> {
             Pl3xMap.api().getPlayerRegistry()
                     .optional(player.getUUID())
-                    .ifPresent(playerRegistry -> playerRegistry.setHidden(vanish, false));
+                    .ifPresent(playerRegistry -> playerRegistry.setHidden(vanish, true));
         });
     }
 
