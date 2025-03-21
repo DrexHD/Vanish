@@ -22,6 +22,7 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.mikeprimm.com' }
     maven { url 'https://repo.bluecolored.de/releases' } // BlueMapAPI
+
 }
 
 dependencies {
@@ -41,6 +42,7 @@ dependencies {
     compileOnly "de.bluecolored:bluemap-api:${project.bluemap_api_version}"
     compileOnly "us.dynmap:DynmapCoreAPI:${project.dynmap_api_version}"
     compileOnly("xyz.jpenilla:squaremap-api:${project.squaremap_api}")
+    compileOnly ("maven.modrinth:pl3xmap:${project.pl3xmap_version}")
 }
 
 shadowJar {
