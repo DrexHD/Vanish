@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.13] - 2025-03-25
+### Fixed
+- NoClassDefFoundError on launch (again)
+
 ## [1.5.12] - 2025-03-21
 ### Added
 - Pl3xMap support

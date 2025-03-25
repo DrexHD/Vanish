@@ -47,13 +47,13 @@ dependencies {
 
 shadowJar {
     minimize()
-    archiveClassifier.set("")
     configurations = [project.configurations.shadow]
     from sourceSets.main.output
 }
 
 remapJar {
-    from zipTree(shadowJar.archiveFile) dependsOn shadowJar
+    dependsOn(shadowJar)
+    inputFile = shadowJar.archiveFile
 }
 
 publishMods {
