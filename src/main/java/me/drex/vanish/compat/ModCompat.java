@@ -3,6 +3,8 @@ package me.drex.vanish.compat;
 import de.bluecolored.bluemap.api.BlueMapAPI;
 import eu.pb4.styledchat.StyledChatStyles;
 import me.drex.vanish.api.VanishEvents;
+import me.lucko.fabric.api.permissions.v0.Options;
+import net.fabricmc.fabric.api.util.TriState;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -21,6 +23,9 @@ public class ModCompat {
         // Vanilla
         VanishEvents.VANISH_MESSAGE_EVENT.register(serverPlayer -> Component.translatable("multiplayer.player.left", serverPlayer.getDisplayName()).withStyle(ChatFormatting.YELLOW));
         VanishEvents.UN_VANISH_MESSAGE_EVENT.register(serverPlayer -> Component.translatable("multiplayer.player.joined", serverPlayer.getDisplayName()).withStyle(ChatFormatting.YELLOW));
+        // Util
+        VanishEvents.JOIN_EVENT.register(player -> Options.get(player, "vanish_on_join", Boolean::valueOf).map(TriState::of).orElse(TriState.DEFAULT));
+
         // Styled Chat
         if (STYLED_CHAT) {
             VanishEvents.UN_VANISH_MESSAGE_EVENT.register(StyledChatStyles::getJoin);
