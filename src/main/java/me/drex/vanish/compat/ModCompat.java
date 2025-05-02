@@ -20,7 +20,7 @@ public class ModCompat {
     public static final boolean DYNMAP = FabricLoader.getInstance().isModLoaded("dynmap");
     public static final boolean SQUAREMAP = FabricLoader.getInstance().isModLoaded("squaremap");
     public static final boolean PL3XMAP = FabricLoader.getInstance().isModLoaded("pl3xmap");
-    public static final ResourceLocation VANISH_ON_JOIN = ResourceLocation.fromNamespaceAndPath(VanishMod.MOD_ID, "vanish_on_joín");
+    public static final ResourceLocation VANISH_ON_JOIN = ResourceLocation.fromNamespaceAndPath(VanishMod.MOD_ID, "vanish_on_join");
     public static boolean blueMapEventsRegistered = false;
 
     public static void init() {
