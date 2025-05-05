@@ -1,0 +1,11 @@
+{
+  "text.vanish.command.vanish.enable.other": "%s 现已隐身",
+  "text.vanish.command.vanish.disable.other": "%s 不再隐身",
+  "text.vanish.command.vanish.enable": "你现已隐身",
+  "text.vanish.command.vanish.disable": "你不再隐身",
+  "text.vanish.command.vanish.reload": "配置已重新加载！",
+  "text.vanish.command.vanish.reload.error": "发生错误，请检查控制台！",
+  "text.vanish.general.vanished": "你处于隐身状态！",
+  "text.vanish.chat.hidden": " (隐藏)",
+  "text.vanish.chat.disabled": "隐身时无法聊天。"
+}
