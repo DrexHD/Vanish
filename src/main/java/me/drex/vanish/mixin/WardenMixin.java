@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class WardenMixin {
 
     @Inject(method = "canTargetEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/warden/Warden;isAlliedTo(Lnet/minecraft/world/entity/Entity;)Z"), cancellable = true)
-    public void vanish_excludeVanished(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+    public void excludeVanished(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (ConfigManager.vanish().hideFromEntities && VanishAPI.isVanished(entity)) {
             cir.setReturnValue(false);
         }

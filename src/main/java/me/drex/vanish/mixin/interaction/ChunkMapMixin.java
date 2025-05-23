@@ -17,7 +17,7 @@ public abstract class ChunkMapMixin {
         method = "skipPlayer",
         at = @At("RETURN")
     )
-    public boolean vanish_preventChunkGeneration(boolean original, ServerPlayer player) {
+    public boolean preventChunkGeneration(boolean original, ServerPlayer player) {
         return original || (ConfigManager.vanish().interaction.chunkLoading && VanishAPI.isVanished(player));
     }
 
@@ -28,7 +28,7 @@ public abstract class ChunkMapMixin {
             target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
         )
     )
-    public boolean vanish_preventMobSpawning(ServerPlayer player, Operation<Boolean> original) {
+    public boolean preventMobSpawning(ServerPlayer player, Operation<Boolean> original) {
         return original.call(player) || (ConfigManager.vanish().interaction.mobSpawning && VanishAPI.isVanished(player));
     }
 

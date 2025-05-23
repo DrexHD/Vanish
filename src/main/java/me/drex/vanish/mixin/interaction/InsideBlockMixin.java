@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class InsideBlockMixin {
 
     @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
-    private void vanish_cancelEntityInsideBlock(
+    private void cancelEntityInsideBlock(
         BlockState blockState, Level level, BlockPos blockPos, Entity entity,
         //? if >= 1.21.5 {
         InsideBlockEffectApplier insideBlockEffectApplier,

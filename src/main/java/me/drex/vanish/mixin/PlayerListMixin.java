@@ -41,7 +41,7 @@ public abstract class PlayerListMixin {
             target = "Lnet/minecraft/server/players/PlayerList;sendPlayerPermissionLevel(Lnet/minecraft/server/level/ServerPlayer;)V"
         )
     )
-    private void vanish_vanishOnJoin(Connection connection, ServerPlayer actor, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
+    private void vanishOnJoin(Connection connection, ServerPlayer actor, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
         TriState result = VanishEvents.JOIN_EVENT.invoker().onJoin(actor);
         if (result != TriState.DEFAULT) {
             VanishData data = PlayerDataApi.getCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE);
@@ -59,7 +59,7 @@ public abstract class PlayerListMixin {
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
         )
     )
-    public void vanish_hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer actor) {
+    public void hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer actor) {
         if (VanishAPI.isVanished(actor)) {
             VanishAPI.broadcastHiddenMessage(actor, component);
         } else {
@@ -74,7 +74,7 @@ public abstract class PlayerListMixin {
             target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V"
         )
     )
-    public boolean vanish_hideGameEvents(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Player player) {
+    public boolean hideGameEvents(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Player player) {
         Entity entity;
         if (player instanceof ServerPlayer serverPlayer) {
             entity = serverPlayer;
@@ -98,7 +98,7 @@ public abstract class PlayerListMixin {
             target = "Lnet/minecraft/server/players/PlayerList;players:Ljava/util/List;"
         )
     )
-    private List<ServerPlayer> vanish_getNonVanishedPlayerCount(PlayerList playerList) {
+    private List<ServerPlayer> getNonVanishedPlayerCount(PlayerList playerList) {
         return VanishAPI.getVisiblePlayers(playerList.getServer().createCommandSourceStack().withPermission(0));
     }
 

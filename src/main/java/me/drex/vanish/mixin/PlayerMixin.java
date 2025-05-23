@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class PlayerMixin {
 
     @Unique
-    private Component vanish_cachedDisplayName = null;
+    private Component vanish$cachedDisplayName = null;
 
     @ModifyReturnValue(method = "isInvulnerableTo", at = @At("RETURN"))
-    private boolean vanish_invulnerablePlayers(boolean original) {
+    private boolean invulnerablePlayers(boolean original) {
         if (ConfigManager.vanish().invulnerable && VanishAPI.isVanished((Player) (Object) this)) {
             return true;
         }
@@ -28,16 +28,16 @@ public abstract class PlayerMixin {
     }
 
     @WrapMethod(method = "getDisplayName")
-    public Component vanish_cacheDisplayName(Operation<Component> original) {
-        if (vanish_cachedDisplayName == null) {
-            vanish_cachedDisplayName = original.call();
+    public Component cacheDisplayName(Operation<Component> original) {
+        if (vanish$cachedDisplayName == null) {
+            vanish$cachedDisplayName = original.call();
         }
-        return vanish_cachedDisplayName;
+        return vanish$cachedDisplayName;
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    public void vanish_invalidateCache(CallbackInfo ci) {
-        vanish_cachedDisplayName = null;
+    public void invalidateCache(CallbackInfo ci) {
+        vanish$cachedDisplayName = null;
     }
 
 }

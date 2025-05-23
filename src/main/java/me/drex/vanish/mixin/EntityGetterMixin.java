@@ -21,7 +21,7 @@ public interface EntityGetterMixin {
             target = "Lnet/minecraft/world/entity/Entity;blocksBuilding:Z"
         )
     )
-    default boolean vanish_noBlockObstruction(Entity entity, Operation<Boolean> original) {
+    default boolean noBlockObstruction(Entity entity, Operation<Boolean> original) {
         if (entity instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
             return false;
         }

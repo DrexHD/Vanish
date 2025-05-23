@@ -16,14 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ContainerMixin {
 
     @Inject(method = "startOpen", at = @At("HEAD"), cancellable = true)
-    public void vanish_cancelOpenAnimation(Player player, CallbackInfo ci) {
+    public void cancelOpenAnimation(Player player, CallbackInfo ci) {
         if (player instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "stopOpen", at = @At("HEAD"), cancellable = true)
-    public void vanish_cancelCloseAnimation(Player player, CallbackInfo ci) {
+    public void cancelCloseAnimation(Player player, CallbackInfo ci) {
         if (player instanceof ServerPlayer serverPlayer && VanishAPI.isVanished(serverPlayer)) {
             ci.cancel();
         }

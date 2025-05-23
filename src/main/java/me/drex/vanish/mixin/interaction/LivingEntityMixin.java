@@ -22,7 +22,7 @@ public abstract class LivingEntityMixin {
             target = "Lnet/minecraft/world/entity/LivingEntity;isSpectator()Z"
         )
     )
-    public boolean vanish_preventPushing(LivingEntity entity, Operation<Boolean> original) {
+    public boolean preventPushing(LivingEntity entity, Operation<Boolean> original) {
         return original.call(entity) || (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished(entity));
     }
 
@@ -34,7 +34,7 @@ public abstract class LivingEntityMixin {
             target = "Lnet/minecraft/world/entity/LivingEntity;isSpectator()Z"
         )
     )
-    public boolean vanish_preventArmorItemEquip(LivingEntity entity, Operation<Boolean> original) {
+    public boolean preventArmorItemEquip(LivingEntity entity, Operation<Boolean> original) {
         return original.call(entity) || (ConfigManager.vanish().interaction.entityPickup && VanishAPI.isVanished(entity));
     }
     //?}

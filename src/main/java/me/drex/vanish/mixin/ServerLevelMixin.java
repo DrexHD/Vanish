@@ -31,7 +31,7 @@ public abstract class ServerLevelMixin {
             target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V"
         )
     )
-    public void vanish_hideBlockDestroyProgress(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Operation<Void> original) {
+    public void hideBlockDestroyProgress(ServerGamePacketListenerImpl packetListener, Packet<?> packet, Operation<Void> original) {
         Entity entity = this.getEntity(((ClientboundBlockDestructionPacket) packet).getId());
         if (!(entity instanceof ServerPlayer player) || VanishAPI.canSeePlayer(player, packetListener.player)) {
             original.call(packetListener, packet);
@@ -45,7 +45,7 @@ public abstract class ServerLevelMixin {
             target = "Lnet/minecraft/world/entity/Entity;tick()V"
         )
     )
-    public void vanish_beforeEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
+    public void beforeEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(entity);
     }
 
@@ -57,7 +57,7 @@ public abstract class ServerLevelMixin {
             shift = At.Shift.AFTER
         )
     )
-    public void vanish_afterEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
+    public void afterEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.remove();
     }
 
@@ -68,7 +68,7 @@ public abstract class ServerLevelMixin {
             target = "Lnet/minecraft/world/entity/Entity;rideTick()V"
         )
     )
-    public void vanish_beforeEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
+    public void beforeEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(entity2);
     }
 
@@ -80,7 +80,7 @@ public abstract class ServerLevelMixin {
             shift = At.Shift.AFTER
         )
     )
-    public void vanish_afterEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
+    public void afterEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.remove();
     }
 

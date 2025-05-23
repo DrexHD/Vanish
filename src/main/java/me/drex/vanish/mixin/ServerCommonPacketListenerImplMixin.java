@@ -34,7 +34,7 @@ public abstract class ServerCommonPacketListenerImplMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    public void vanish_modifyPackets(Packet<?> packet, PacketSendListener packetSendListener, CallbackInfo ci) {
+    public void modifyPackets(Packet<?> packet, PacketSendListener packetSendListener, CallbackInfo ci) {
         if ((Object) this instanceof ServerGamePacketListenerImpl listener) {
             if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
                 Entity entity = listener.player.level().getEntity(takeItemEntityPacket.getPlayerId());

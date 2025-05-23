@@ -23,7 +23,7 @@ public abstract class MapItemSavedDataMixin {
             ordinal = 0
         )
     )
-    private boolean vanish_hideFromMap(MapItemSavedData instance, Operation<Boolean> original, @Local MapItemSavedData.HoldingPlayer holdingPlayer) {
+    private boolean hideFromMap(MapItemSavedData instance, Operation<Boolean> original, @Local MapItemSavedData.HoldingPlayer holdingPlayer) {
         if (VanishAPI.isVanished(holdingPlayer.player)) {
             removeDecoration(holdingPlayer.player.getName().getString());
             return false;

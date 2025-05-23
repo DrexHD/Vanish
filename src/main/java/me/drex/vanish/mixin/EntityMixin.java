@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin {
 
     @Inject(method = "broadcastToPlayer", at = @At("HEAD"), cancellable = true)
-    public void vanish_shouldBroadcast(ServerPlayer observer, CallbackInfoReturnable<Boolean> cir) {
+    public void shouldBroadcast(ServerPlayer observer, CallbackInfoReturnable<Boolean> cir) {
         Entity self = (Entity) (Object) this;
         ServerPlayer actor;
         if (self instanceof ServerPlayer player) {
@@ -32,7 +32,7 @@ public abstract class EntityMixin {
     }
 
     @Inject(method = "isInvisibleTo", at = @At("HEAD"), cancellable = true)
-    private void vanish_markRenderInvisible(Player player, CallbackInfoReturnable<Boolean> cir) {
+    private void markRenderInvisible(Player player, CallbackInfoReturnable<Boolean> cir) {
         Entity self = (Entity) (Object) this;
         if (self instanceof ServerPlayer actor && player instanceof ServerPlayer observer && !VanishAPI.canSeePlayer(actor, observer)) {
             cir.setReturnValue(true);
@@ -40,7 +40,7 @@ public abstract class EntityMixin {
     }
 
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("HEAD"), cancellable = true)
-    private void vanish_preventSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+    private void preventSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
         Entity self = (Entity) (Object) this;
         ServerPlayer actor;
         if (self instanceof ServerPlayer player) {

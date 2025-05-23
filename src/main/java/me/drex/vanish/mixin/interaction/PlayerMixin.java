@@ -19,7 +19,7 @@ public abstract class PlayerMixin {
             target = "Lnet/minecraft/world/entity/Entity;playerTouch(Lnet/minecraft/world/entity/player/Player;)V"
         )
     )
-    private boolean vanish_preventPickup(Entity entity, Player player) {
+    private boolean preventPickup(Entity entity, Player player) {
         return !(VanishAPI.isVanished(player) && ConfigManager.vanish().interaction.entityPickup);
     }
 
@@ -27,7 +27,7 @@ public abstract class PlayerMixin {
         method = "canBeHitByProjectile",
         at = @At("RETURN")
     )
-    public boolean vanish_preventProjectileHits(boolean original) {
+    public boolean preventProjectileHits(boolean original) {
         if (original) {
             return !(VanishAPI.isVanished((Player) (Object) this) && ConfigManager.vanish().interaction.entityCollisions);
         }

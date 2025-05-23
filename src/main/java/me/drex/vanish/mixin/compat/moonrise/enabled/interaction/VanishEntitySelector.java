@@ -19,7 +19,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/Entity;isSpectator()Z"
             )
         )
-        default boolean vanish_preventEntityCollisions(Entity entity, Operation<Boolean> original) {
+        default boolean preventEntityCollisions(Entity entity, Operation<Boolean> original) {
             return original.call(entity) || (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished(entity));
         }
 
@@ -30,7 +30,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/Entity;canBeCollidedWith()Z"
             )
         )
-        default boolean vanish_preventEntityCollisions2(Entity entity, Operation<Boolean> original) {
+        default boolean preventEntityCollisions2(Entity entity, Operation<Boolean> original) {
             return original.call(entity) || (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished(entity));
         }
     }

@@ -25,7 +25,7 @@ public abstract class MinecraftServerMixin {
             target = "Ljava/util/List;size()I"
         )
     )
-    public List<ServerPlayer> vanish_getNonVanishedPlayerCount(List<ServerPlayer> original) {
+    public List<ServerPlayer> getNonVanishedPlayerCount(List<ServerPlayer> original) {
         return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
     }
 
@@ -36,7 +36,7 @@ public abstract class MinecraftServerMixin {
             target = "Ljava/util/List;get(I)Ljava/lang/Object;"
         )
     )
-    public List<ServerPlayer> vanish_getNonVanishedPlayer(List<ServerPlayer> original, int index) {
+    public List<ServerPlayer> getNonVanishedPlayer(List<ServerPlayer> original, int index) {
         return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
     }
 

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class StepOnBlockMixin {
 
     @Inject(method = "stepOn", at = @At("HEAD"), cancellable = true)
-    private void vanish_cancelEntityStepOnBlock(Level level, BlockPos blockPos, BlockState blockState, Entity entity, CallbackInfo ci) {
+    private void cancelEntityStepOnBlock(Level level, BlockPos blockPos, BlockState blockState, Entity entity, CallbackInfo ci) {
         if (VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.blocks) ci.cancel();
     }
 

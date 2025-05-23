@@ -18,7 +18,7 @@ public class AbstractVillagerMixin {
     private @Nullable Player tradingPlayer;
 
     @ModifyReturnValue(method = "isTrading", at = @At("RETURN"))
-    private boolean vanish_allowTradingIfVanished(boolean original) {
+    private boolean allowTradingIfVanished(boolean original) {
         if (original) {
             assert this.tradingPlayer != null;
             return !VanishAPI.isVanished(this.tradingPlayer);
@@ -27,7 +27,7 @@ public class AbstractVillagerMixin {
     }
 
     @Inject(method = "setTradingPlayer", at = @At("HEAD"))
-    private void vanish_closeVanishedPlayerTradeScreen(Player player, CallbackInfo ci) {
+    private void closeVanishedPlayerTradeScreen(Player player, CallbackInfo ci) {
         if (player != null && player != this.tradingPlayer && this.tradingPlayer instanceof ServerPlayer serverPlayer) {
             serverPlayer.closeContainer();
         }

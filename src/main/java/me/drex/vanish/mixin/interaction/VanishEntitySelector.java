@@ -43,7 +43,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
             )
         )
-        default Predicate<Entity> vanish_preventMobSpawning(Operation<Predicate<Entity>> original) {
+        default Predicate<Entity> preventMobSpawning(Operation<Predicate<Entity>> original) {
             return ConfigManager.vanish().interaction.mobSpawning ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
 
@@ -54,7 +54,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
             )
         )
-        default Predicate<Entity> vanish_preventMobSpawning2(Operation<Predicate<Entity>> original) {
+        default Predicate<Entity> preventMobSpawning2(Operation<Predicate<Entity>> original) {
             return ConfigManager.vanish().interaction.mobSpawning ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
     }
@@ -69,7 +69,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
             )
         )
-        private static Predicate<Entity> vanish_preventEntityCollision(Operation<Predicate<Entity>> original, Entity entity) {
+        private static Predicate<Entity> preventEntityCollision(Operation<Predicate<Entity>> original, Entity entity) {
             return ConfigManager.vanish().interaction.entityCollisions ? VanishMod.NO_SPECTATORS_AND_NO_VANISH.and(entity1 -> !VanishAPI.isVanished(entity)) : original.call();
         }
     }
@@ -84,7 +84,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             )
         )
-        private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
+        private List<Entity> preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
             return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
     }
@@ -98,7 +98,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             )
         )
-        private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
+        private List<Entity> preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
             return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
     }
@@ -112,7 +112,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             )
         )
-        private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
+        private List<Entity> preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
             return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
     }
@@ -132,7 +132,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             )
         )
-        private List<LivingEntity> vanish_preventSweepingEdge(Level instance, Class<LivingEntity> aClass, AABB aabb) {
+        private List<LivingEntity> preventSweepingEdge(Level instance, Class<LivingEntity> aClass, AABB aabb) {
             return instance.getEntitiesOfClass(aClass, aabb, VanishMod.NO_SPECTATORS_AND_NO_VANISH);
         }
     }
@@ -147,7 +147,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             )
         )
-        private List<LivingEntity> vanish_preventBeeAnger(Level instance, Class<LivingEntity> aClass, AABB aabb) {
+        private List<LivingEntity> preventBeeAnger(Level instance, Class<LivingEntity> aClass, AABB aabb) {
             return instance.getEntitiesOfClass(aClass, aabb, VanishMod.NO_SPECTATORS_AND_NO_VANISH);
         }
     }
@@ -161,7 +161,7 @@ public class VanishEntitySelector {
                 target = "Lnet/minecraft/world/entity/EntitySelector;NO_SPECTATORS:Ljava/util/function/Predicate;"
             )
         )
-        private static Predicate<Entity> vanish_preventPressurePlatePress(Operation<Predicate<Entity>> original) {
+        private static Predicate<Entity> preventPressurePlatePress(Operation<Predicate<Entity>> original) {
             return ConfigManager.vanish().interaction.blocks ? VanishMod.NO_SPECTATORS_AND_NO_VANISH : original.call();
         }
     }

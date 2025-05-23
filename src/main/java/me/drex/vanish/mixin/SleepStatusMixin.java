@@ -18,7 +18,7 @@ public abstract class SleepStatusMixin {
             target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
         )
     )
-    public boolean vanish_hideSleeping(ServerPlayer player, Operation<Boolean> original) {
+    public boolean hideSleeping(ServerPlayer player, Operation<Boolean> original) {
         return original.call(player) || VanishAPI.isVanished(player);
     }
 

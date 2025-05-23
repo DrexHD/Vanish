@@ -33,7 +33,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
         )
     )
-    public void vanish_hideLeaveMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
+    public void hideLeaveMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {
             VanishAPI.broadcastHiddenMessage(this.player, component);
         } else {
@@ -48,7 +48,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             target = "Lnet/minecraft/network/protocol/game/ServerboundInteractPacket;getTarget(Lnet/minecraft/server/level/ServerLevel;)Lnet/minecraft/world/entity/Entity;"
         )
     )
-    public Entity vanish_preventInteraction(ServerboundInteractPacket instance, ServerLevel serverLevel, Operation<Entity> original) {
+    public Entity preventInteraction(ServerboundInteractPacket instance, ServerLevel serverLevel, Operation<Entity> original) {
         Entity entity = original.call(instance, serverLevel);
         if (entity instanceof ServerPlayer actor && !VanishAPI.canSeePlayer(actor, this.player)) {
             return null;
@@ -63,7 +63,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             target = "Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket;getPos()Lnet/minecraft/core/BlockPos;"
         )
     )
-    public void vanish_beforeHandlePlayerAction(ServerboundPlayerActionPacket serverboundPlayerActionPacket, CallbackInfo ci) {
+    public void beforeHandlePlayerAction(ServerboundPlayerActionPacket serverboundPlayerActionPacket, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(this.player);
     }
 
@@ -74,7 +74,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;ackBlockChangesUpTo(I)V"
         )
     )
-    public void vanish_beforeHandleUseItemOn(ServerboundUseItemOnPacket serverboundUseItemOnPacket, CallbackInfo ci) {
+    public void beforeHandleUseItemOn(ServerboundUseItemOnPacket serverboundUseItemOnPacket, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(this.player);
     }
 
@@ -85,7 +85,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;ackBlockChangesUpTo(I)V"
         )
     )
-    public void vanish_beforeHandleUseItem(ServerboundUseItemPacket serverboundUseItemPacket, CallbackInfo ci) {
+    public void beforeHandleUseItem(ServerboundUseItemPacket serverboundUseItemPacket, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(this.player);
     }
 
@@ -97,7 +97,7 @@ public abstract class ServerGamePacketListenerImplMixin {
             ordinal = 1
         )
     )
-    public void vanish_beforeHandleInteract(ServerboundInteractPacket serverboundInteractPacket, CallbackInfo ci) {
+    public void beforeHandleInteract(ServerboundInteractPacket serverboundInteractPacket, CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(this.player);
     }
 
@@ -105,17 +105,17 @@ public abstract class ServerGamePacketListenerImplMixin {
         method = {"handlePlayerAction", "handleUseItemOn", "handleUseItem", "handleInteract"},
         at = @At("RETURN")
     )
-    public void vanish_afterPacket(CallbackInfo ci) {
+    public void afterPacket(CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.remove();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    public void vanish_beforeTick(CallbackInfo ci) {
+    public void beforeTick(CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
-    public void vanish_afterTick(CallbackInfo ci) {
+    public void afterTick(CallbackInfo ci) {
         VanishMod.ACTIVE_ENTITY.remove();
     }
 

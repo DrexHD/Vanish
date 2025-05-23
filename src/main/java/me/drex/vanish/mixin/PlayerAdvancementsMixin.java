@@ -24,7 +24,7 @@ public abstract class PlayerAdvancementsMixin {
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"
         )
     )
-    public void vanish_hideAdvancementMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
+    public void hideAdvancementMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original) {
         if (VanishAPI.isVanished(this.player)) {
             VanishAPI.broadcastHiddenMessage(this.player, component);
         } else {

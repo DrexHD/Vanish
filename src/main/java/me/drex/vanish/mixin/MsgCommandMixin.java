@@ -19,7 +19,7 @@ import java.util.Collection;
 public class MsgCommandMixin {
 
     @Inject(method = "sendMessage", at = @At("HEAD"), cancellable = true)
-    private static void vanish_stopMessage(CommandSourceStack commandSourceStack, Collection<ServerPlayer> collection, PlayerChatMessage playerChatMessage, CallbackInfo ci) {
+    private static void stopMessage(CommandSourceStack commandSourceStack, Collection<ServerPlayer> collection, PlayerChatMessage playerChatMessage, CallbackInfo ci) {
         ServerPlayer player = commandSourceStack.getPlayer();
         if (player == null) return;
 

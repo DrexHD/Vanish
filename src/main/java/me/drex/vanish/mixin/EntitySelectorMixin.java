@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class EntitySelectorMixin {
 
     @ModifyReturnValue(method = "findPlayers", at = @At("RETURN"))
-    public List<ServerPlayer> vanish_removeVanishedPlayers(List<ServerPlayer> original, CommandSourceStack src) {
+    public List<ServerPlayer> removeVanishedPlayers(List<ServerPlayer> original, CommandSourceStack src) {
         List<ServerPlayer> players = new LinkedList<>(original);
         ServerPlayer observer = src.getPlayer();
         if (observer != null) {

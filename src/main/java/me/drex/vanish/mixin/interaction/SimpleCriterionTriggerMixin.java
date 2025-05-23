@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 public abstract class SimpleCriterionTriggerMixin {
 
     @Inject(method = "trigger", at = @At("HEAD"), cancellable = true)
-    public void vanish_preventAdvancementProgress(ServerPlayer player, Predicate<Object> predicate, CallbackInfo ci) {
+    public void preventAdvancementProgress(ServerPlayer player, Predicate<Object> predicate, CallbackInfo ci) {
         if (ConfigManager.vanish().interaction.advancementProgress && VanishAPI.isVanished(player)) {
             ci.cancel();
         }

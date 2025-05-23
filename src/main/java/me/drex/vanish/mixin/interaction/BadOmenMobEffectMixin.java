@@ -19,7 +19,7 @@ public abstract class BadOmenMobEffectMixin {
             target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
         )
     )
-    public boolean vanish_preventRaid(ServerPlayer serverPlayer, Operation<Boolean> original) {
+    public boolean preventRaid(ServerPlayer serverPlayer, Operation<Boolean> original) {
         Boolean isSpectator = original.call(serverPlayer);
         if (ConfigManager.vanish().interaction.mobSpawning) {
             return isSpectator || VanishAPI.isVanished(serverPlayer);

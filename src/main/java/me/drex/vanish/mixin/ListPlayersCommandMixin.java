@@ -21,7 +21,7 @@ public abstract class ListPlayersCommandMixin {
             target = "Lnet/minecraft/server/players/PlayerList;getPlayers()Ljava/util/List;"
         )
     )
-    private static List<ServerPlayer> vanish_removeVanishedPlayers(PlayerList playerList, CommandSourceStack observer) {
+    private static List<ServerPlayer> removeVanishedPlayers(PlayerList playerList, CommandSourceStack observer) {
         return VanishAPI.getVisiblePlayers(observer);
     }
 

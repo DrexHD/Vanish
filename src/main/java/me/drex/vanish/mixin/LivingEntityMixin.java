@@ -22,7 +22,7 @@ public abstract class LivingEntityMixin {
             target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"
         )
     )
-    public <T extends ParticleOptions> int vanish_hideFallingParticles(ServerLevel instance, T particleOptions, double d, double e, double f, int i, double g, double h, double j, double k, Operation<Integer> original) {
+    public <T extends ParticleOptions> int hideFallingParticles(ServerLevel instance, T particleOptions, double d, double e, double f, int i, double g, double h, double j, double k, Operation<Integer> original) {
         if (!VanishAPI.isVanished((LivingEntity) (Object) this)) {
             return original.call(instance, particleOptions, d, e, f, i, g, h, j, k);
         }
@@ -30,7 +30,7 @@ public abstract class LivingEntityMixin {
     }
 
     @Inject(method = "canBeSeenByAnyone", at = @At("HEAD"), cancellable = true)
-    public void vanish_hideFromEntities(CallbackInfoReturnable<Boolean> cir) {
+    public void hideFromEntities(CallbackInfoReturnable<Boolean> cir) {
         if (ConfigManager.vanish().hideFromEntities && VanishAPI.isVanished((LivingEntity) (Object) this)) {
             cir.setReturnValue(false);
         }
