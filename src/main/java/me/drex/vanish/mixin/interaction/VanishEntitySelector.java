@@ -5,12 +5,16 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+//? if >= 1.21.2 {
 import net.minecraft.world.entity.vehicle.NewMinecartBehavior;
 import net.minecraft.world.entity.vehicle.OldMinecartBehavior;
+//?}
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -70,6 +74,7 @@ public class VanishEntitySelector {
         }
     }
 
+    //? if >= 1.21.5 {
     @Mixin(OldMinecartBehavior.class)
     public abstract static class OldMinecartBehaviorMixin {
         @WrapOperation(
@@ -97,6 +102,25 @@ public class VanishEntitySelector {
             return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
         }
     }
+    //?} else {
+    /*@Mixin(AbstractMinecart.class)
+    public abstract static class OldMinecartBehaviorMixin {
+        @WrapOperation(
+            method = "tick",
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
+            )
+        )
+        private List<Entity> vanish_preventMinecartColision(Level instance, Entity entity, AABB aABB, Operation<List<Entity>> original) {
+            return ConfigManager.vanish().interaction.entityCollisions ? instance.getEntities(entity, aABB, VanishMod.NO_SPECTATORS_AND_NO_VANISH) : original.call(instance, entity, aABB);
+        }
+    }
+
+    @Mixin(MinecraftServer.class)
+    public abstract static class NewMinecartBehaviorMixin {
+    }
+    *///?}
 
     @Mixin(Player.class)
     public abstract static class PlayerMixin {

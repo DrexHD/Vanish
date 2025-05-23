@@ -1,6 +1,6 @@
 package me.drex.vanish.mixin;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.playerdata.api.PlayerDataApi;
@@ -9,7 +9,6 @@ import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
-import me.lucko.fabric.api.permissions.v0.Options;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;

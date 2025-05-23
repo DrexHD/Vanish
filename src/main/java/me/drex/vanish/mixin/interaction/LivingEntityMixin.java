@@ -26,6 +26,7 @@ public abstract class LivingEntityMixin {
         return original.call(entity) || (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished(entity));
     }
 
+    //? if >= 1.21.2 {
     @WrapOperation(
         method = "canEquipWithDispenser",
         at = @At(
@@ -36,6 +37,7 @@ public abstract class LivingEntityMixin {
     public boolean vanish_preventArmorItemEquip(LivingEntity entity, Operation<Boolean> original) {
         return original.call(entity) || (ConfigManager.vanish().interaction.entityPickup && VanishAPI.isVanished(entity));
     }
+    //?}
 
 
 }
