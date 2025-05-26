@@ -30,7 +30,7 @@
 - Prevents chunk loading / generation
 - Prevents entity collisions
 - Prevents entity pickups (arrows, experience orbs, items and tridents)
-- Prevents special mob spawning (spawners, skeleton traps, zombie reinforcements, raids)
+- Prevents special mob spawning (spawners, skeleton traps, zombie reinforcements, raids, phantoms)
 - Prevents sweeping edge attacking players
 - Prevents dispensers equipping armor
 - Prevents trial spawner detection

@@ -30,11 +30,14 @@
     "SleepStatusMixin",
     "VanishedServerPlayerMixin",
     "WardenMixin",
+    "compat.moonrise.disabled.interaction.VanishEntitySelector$EntityGetterMixin",
+    "compat.moonrise.enabled.interaction.VanishEntitySelector$EntityGetterMixin",
     "interaction.BadOmenMobEffectMixin",
     "interaction.ChunkMapMixin",
     "interaction.FallOnBlockMixin",
     "interaction.InsideBlockMixin",
     "interaction.LivingEntityMixin",
+    "interaction.PhantomSpawnerMixin",
     "interaction.PlayerDetectorMixin",
     "interaction.PlayerMixin",
     "interaction.SimpleCriterionTriggerMixin",
@@ -46,8 +49,6 @@
     "interaction.VanishEntitySelector$NewMinecartBehaviorMixin",
     "interaction.VanishEntitySelector$OldMinecartBehaviorMixin",
     "interaction.VanishEntitySelector$PlayerMixin",
-    "interaction.VibrationSystemMixin",
-    "compat.moonrise.disabled.interaction.VanishEntitySelector$EntityGetterMixin",
-    "compat.moonrise.enabled.interaction.VanishEntitySelector$EntityGetterMixin"
+    "interaction.VibrationSystemMixin"
   ]
 }
