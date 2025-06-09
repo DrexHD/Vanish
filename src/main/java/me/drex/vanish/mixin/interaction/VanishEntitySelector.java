@@ -74,7 +74,7 @@ public class VanishEntitySelector {
         }
     }
 
-    //? if >= 1.21.5 {
+    //? if >= 1.21.2 {
     @Mixin(OldMinecartBehavior.class)
     public abstract static class OldMinecartBehaviorMixin {
         @WrapOperation(

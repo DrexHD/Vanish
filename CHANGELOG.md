@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.18] - 2025-06-09
+### Fixed
+- Minecart mixin in 1.21.4
+
 ## [1.5.17] - 2025-05-26
 ### Added
 - Prevent phantom spawning 
