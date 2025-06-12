@@ -93,8 +93,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         method = "handleInteract",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/level/ServerPlayer;serverLevel()Lnet/minecraft/server/level/ServerLevel;",
-            ordinal = 1
+            target = "Lnet/minecraft/server/level/ServerPlayer;resetLastActionTime()V"
         )
     )
     public void beforeHandleInteract(ServerboundInteractPacket serverboundInteractPacket, CallbackInfo ci) {

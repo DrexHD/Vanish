@@ -44,10 +44,10 @@ public abstract class PlayerListMixin {
     private void vanishOnJoin(Connection connection, ServerPlayer actor, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
         TriState result = VanishEvents.JOIN_EVENT.invoker().onJoin(actor);
         if (result != TriState.DEFAULT) {
-            VanishData data = PlayerDataApi.getCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE);
+            VanishData data = PlayerDataApi.getCustomDataFor(actor.level().getServer(), actor.getUUID(), VANISH_DATA_STORAGE);
             if (data == null) data = new VanishData();
             data.vanished = result.get();
-            PlayerDataApi.setCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE, data);
+            PlayerDataApi.setCustomDataFor(actor.level().getServer(), actor.getUUID(), VANISH_DATA_STORAGE, data);
             ((VanishedEntity) actor).vanish$setDirty();
         }
     }

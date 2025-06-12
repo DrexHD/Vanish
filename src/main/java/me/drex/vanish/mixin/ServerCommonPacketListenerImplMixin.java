@@ -1,5 +1,6 @@
 package me.drex.vanish.mixin;
 
+import io.netty.channel.ChannelFutureListener;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.PacketSendListener;
@@ -30,11 +31,15 @@ public abstract class ServerCommonPacketListenerImplMixin {
     public abstract void send(Packet<?> packet);
 
     @Inject(
-        method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
+        //? if >= 1.21.6-rc1 {
+        method = "send(Lnet/minecraft/network/protocol/Packet;Lio/netty/channel/ChannelFutureListener;)V",
+        //? } else {
+        /*method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",*/
+        //? }
         at = @At("HEAD"),
         cancellable = true
     )
-    public void modifyPackets(Packet<?> packet, PacketSendListener packetSendListener, CallbackInfo ci) {
+    public void modifyPackets(Packet<?> packet, /*? if >= 1.21.6-rc1 {*/ ChannelFutureListener /*? } else {*/ /*PacketSendListener*/ /*?}*/ channelFutureListener, CallbackInfo ci) {
         if ((Object) this instanceof ServerGamePacketListenerImpl listener) {
             if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
                 Entity entity = listener.player.level().getEntity(takeItemEntityPacket.getPlayerId());

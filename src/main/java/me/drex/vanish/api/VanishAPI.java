@@ -41,7 +41,7 @@ public interface VanishAPI {
      * @return true if the vanish-status changed
      */
     static boolean setVanish(@NotNull ServerPlayer player, boolean status) {
-        return VanishManager.setVanished(player.getGameProfile(), player.server, status);
+        return VanishManager.setVanished(player.getGameProfile(), player.level().getServer(), status);
     }
 
     /**
@@ -95,7 +95,7 @@ public interface VanishAPI {
     @Deprecated(forRemoval = true)
     static List<ServerPlayer> getViewingPlayers(@NotNull ServerPlayer actor) {
         ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
-        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+        for (ServerPlayer observer : actor.level().getServer().getPlayerList().getPlayers()) {
             if (canSeePlayer(actor, observer)) {
                 list.add(observer);
             }
@@ -114,7 +114,7 @@ public interface VanishAPI {
         MutableComponent component = message.copy();
         component.append(Component.translatable("text.vanish.chat.hidden")
             .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+        for (ServerPlayer observer : actor.level().getServer().getPlayerList().getPlayers()) {
             if (canSeePlayer(actor, observer)) {
                 observer.sendSystemMessage(component);
             }

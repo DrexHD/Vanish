@@ -33,7 +33,11 @@ public class VanishEntitySelector {
             )
         )
         default Predicate<Entity> preventEntityCollisions2(Operation<Predicate<Entity>> original) {
-            return ConfigManager.vanish().interaction.entityCollisions ? VanishMod.CAN_BE_COLLIDED_WITH_AND_NO_VANISH : original.call();
+            Predicate<Entity> result = original.call();
+            if (ConfigManager.vanish().interaction.entityCollisions) {
+                result = result.and(VanishMod.NO_VANISH);
+            }
+            return result;
         }
     }
 }

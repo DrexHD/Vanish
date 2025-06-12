@@ -126,7 +126,7 @@ public class VanishManager {
     }
 
     private static void unVanish(ServerPlayer actor) {
-        PlayerList list = actor.server.getPlayerList();
+        PlayerList list = actor.level().getServer().getPlayerList();
         broadcastToOthers(actor, ClientboundPlayerInfoUpdatePacket.createPlayerInitializing(Collections.singletonList(actor)));
         if (ConfigManager.vanish().sendJoinDisconnectMessage) {
             list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(actor), false);
@@ -134,7 +134,7 @@ public class VanishManager {
     }
 
     private static void vanish(ServerPlayer actor) {
-        PlayerList list = actor.server.getPlayerList();
+        PlayerList list = actor.level().getServer().getPlayerList();
         broadcastToOthers(actor, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(actor.getUUID())));
         if (ConfigManager.vanish().sendJoinDisconnectMessage) {
             list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(actor), false);
@@ -142,7 +142,7 @@ public class VanishManager {
     }
 
     private static void broadcastToOthers(ServerPlayer actor, Packet<?> packet) {
-        for (ServerPlayer observer : actor.server.getPlayerList().getPlayers()) {
+        for (ServerPlayer observer : actor.level().getServer().getPlayerList().getPlayers()) {
             if (!VanishAPI.canViewVanished(observer.createCommandSourceStack()) && !observer.equals(actor)) {
                 observer.connection.send(packet);
             }

@@ -22,6 +22,7 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.mikeprimm.com' }
     maven { url 'https://repo.bluecolored.de/releases' } // BlueMapAPI
+    mavenLocal()
 }
 
 dependencies {
