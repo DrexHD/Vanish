@@ -28,7 +28,7 @@ public abstract class VanishedServerPlayerMixin extends Player implements Vanish
     @Unique
     private boolean vanished$vanished;
 
-    //? if >= 1.21.6-rc1 {
+    //? if >= 1.21.6 {
     public VanishedServerPlayerMixin(Level level, GameProfile gameProfile) {
         super(level, gameProfile);
     }
