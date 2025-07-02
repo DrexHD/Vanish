@@ -30,6 +30,7 @@
     "SleepStatusMixin",
     "VanishedServerPlayerMixin",
     "WardenMixin",
+    "WaypointTransmitterMixin",
     "compat.moonrise.disabled.interaction.VanishEntitySelector$EntityGetterMixin",
     "compat.moonrise.enabled.interaction.VanishEntitySelector$EntityGetterMixin",
     "interaction.BadOmenMobEffectMixin",

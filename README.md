@@ -36,6 +36,7 @@
 - Prevents trial spawner detection
 - Prevents vault detection
 - Hide traceable entities (arrows, firework rockets, fishing rod...)
+- Hide player waypoints (1.21.6+)
 
 ## Config
 The config file is located at `./config/vanish.hocon`. Use `/vanish reload` to reload it.

@@ -42,7 +42,6 @@ fun DependencyHandlerScope.includeMod(dep: String) {
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${findProperty("minecraft_version")}")
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${findProperty("loader_version")}")
