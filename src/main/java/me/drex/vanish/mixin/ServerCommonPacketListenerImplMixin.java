@@ -33,13 +33,13 @@ public abstract class ServerCommonPacketListenerImplMixin {
     @Inject(
         //? if >= 1.21.6 {
         method = "send(Lnet/minecraft/network/protocol/Packet;Lio/netty/channel/ChannelFutureListener;)V",
-        //? } else {
-        /*method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",*/
-        //? }
+        //?} else {
+        /*method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
+        *///?}
         at = @At("HEAD"),
         cancellable = true
     )
-    public void modifyPackets(Packet<?> packet, /*? if >= 1.21.6 {*/ ChannelFutureListener /*? } else {*/ /*PacketSendListener*/ /*?}*/ channelFutureListener, CallbackInfo ci) {
+    public void modifyPackets(Packet<?> packet, /*? if >= 1.21.6 {*/ ChannelFutureListener /*?} else {*/ /*PacketSendListener *//*?}*/ channelFutureListener, CallbackInfo ci) {
         if ((Object) this instanceof ServerGamePacketListenerImpl listener) {
             if (packet instanceof ClientboundTakeItemEntityPacket takeItemEntityPacket) {
                 Entity entity = listener.player.level().getEntity(takeItemEntityPacket.getPlayerId());

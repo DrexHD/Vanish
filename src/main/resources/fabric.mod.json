@@ -24,7 +24,7 @@
   "depends": {
     "fabricloader": ">=0.15.10",
     "fabric-api": "*",
-    "java": ">=21"
+    "java": ">=${javaVersion}"
   },
   "breaks": {
     "styledchat": "<2.0.0"

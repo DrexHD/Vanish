@@ -36,8 +36,8 @@ public abstract class VanishedServerPlayerMixin extends Player implements Vanish
     /*public VanishedServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
         super(level, blockPos, f, gameProfile);
     }
-    */
-    //?}
+    
+    *///?}
 
     @Override
     public boolean vanish$isVanished() {
