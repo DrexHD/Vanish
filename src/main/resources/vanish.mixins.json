@@ -33,6 +33,7 @@
     "WaypointTransmitterMixin",
     "compat.moonrise.disabled.interaction.VanishEntitySelector$EntityGetterMixin",
     "compat.moonrise.enabled.interaction.VanishEntitySelector$EntityGetterMixin",
+    "AllayAiMixin",
     "interaction.BadOmenMobEffectMixin",
     "interaction.ChunkMapMixin",
     "interaction.FallOnBlockMixin",

@@ -37,6 +37,8 @@ loom {
     }
 }
 
+configurations.implementation.get().extendsFrom(configurations.shadow.get())
+
 fun DependencyHandlerScope.includeMod(dep: String) {
     include(modImplementation(dep)!!)
 }
