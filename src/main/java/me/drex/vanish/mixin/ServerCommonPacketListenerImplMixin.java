@@ -3,6 +3,7 @@ package me.drex.vanish.mixin;
 import io.netty.channel.ChannelFutureListener;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.util.Arguments;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
@@ -48,21 +49,26 @@ public abstract class ServerCommonPacketListenerImplMixin {
                     ci.cancel();
                 }
             } else if (packet instanceof ClientboundPlayerInfoUpdatePacket playerInfoPacket) {
+                // If the packet context is set, this packet was already modified
+                if (Arguments.PACKET_CONTEXT.get() != null) return;
+
                 ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
-                int visible = 0;
                 for (ClientboundPlayerInfoUpdatePacket.Entry playerUpdate : playerInfoPacket.entries()) {
                     ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.profileId());
                     if (VanishAPI.canSeePlayer(player, listener.player)) {
-                        visible++;
                         if (player != null) modifiedEntries.add(player);
                     }
                 }
-                if (visible != playerInfoPacket.entries().size()) {
-                    if (!modifiedEntries.isEmpty()) {
+                if (!modifiedEntries.isEmpty()) {
+                    var prev = Arguments.PACKET_CONTEXT.get();
+                    try {
+                        Arguments.PACKET_CONTEXT.set(listener.player);
                         this.send(new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), modifiedEntries));
+                    } finally {
+                        Arguments.PACKET_CONTEXT.set(prev);
                     }
-                    ci.cancel();
                 }
+                ci.cancel();
             }
         }
     }

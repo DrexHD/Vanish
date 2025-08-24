@@ -2,8 +2,8 @@ package me.drex.vanish.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.util.Arguments;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
@@ -64,7 +64,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         )
     )
     public void beforeHandlePlayerAction(ServerboundPlayerActionPacket serverboundPlayerActionPacket, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(this.player);
+        Arguments.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(
@@ -75,7 +75,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         )
     )
     public void beforeHandleUseItemOn(ServerboundUseItemOnPacket serverboundUseItemOnPacket, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(this.player);
+        Arguments.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(
@@ -86,7 +86,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         )
     )
     public void beforeHandleUseItem(ServerboundUseItemPacket serverboundUseItemPacket, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(this.player);
+        Arguments.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(
@@ -97,7 +97,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         )
     )
     public void beforeHandleInteract(ServerboundInteractPacket serverboundInteractPacket, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(this.player);
+        Arguments.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(
@@ -105,17 +105,17 @@ public abstract class ServerGamePacketListenerImplMixin {
         at = @At("RETURN")
     )
     public void afterPacket(CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.remove();
+        Arguments.ACTIVE_ENTITY.remove();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void beforeTick(CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(this.player);
+        Arguments.ACTIVE_ENTITY.set(this.player);
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
     public void afterTick(CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.remove();
+        Arguments.ACTIVE_ENTITY.remove();
     }
 
 }

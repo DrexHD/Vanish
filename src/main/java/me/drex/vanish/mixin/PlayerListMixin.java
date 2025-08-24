@@ -4,9 +4,9 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.playerdata.api.PlayerDataApi;
-import me.drex.vanish.VanishMod;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
+import me.drex.vanish.util.Arguments;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
 import net.fabricmc.fabric.api.util.TriState;
@@ -79,7 +79,7 @@ public abstract class PlayerListMixin {
         if (player instanceof ServerPlayer serverPlayer) {
             entity = serverPlayer;
         } else {
-            entity = VanishMod.ACTIVE_ENTITY.get();
+            entity = Arguments.ACTIVE_ENTITY.get();
         }
         if (entity instanceof TraceableEntity traceableEntity && traceableEntity.getOwner() instanceof ServerPlayer owner) {
             entity = owner;

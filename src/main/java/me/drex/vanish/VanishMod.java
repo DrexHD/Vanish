@@ -20,7 +20,6 @@ public class VanishMod implements ModInitializer {
     public static final String MOD_ID = "vanish";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final ThreadLocal<Entity> ACTIVE_ENTITY = ThreadLocal.withInitial(() -> null);
     public static final Predicate<Entity> NO_VANISH = entity -> !VanishAPI.isVanished(entity);
     public static final Predicate<Entity> NO_SPECTATORS_AND_NO_VANISH = EntitySelector.NO_SPECTATORS.and(NO_VANISH);
 

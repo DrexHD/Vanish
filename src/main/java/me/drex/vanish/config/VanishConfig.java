@@ -21,6 +21,9 @@ public class VanishConfig {
     @Comment("Hide vanished players from entities, prevents hostile entities from targeting players, and more")
     public boolean hideFromEntities = true;
 
+    @Comment("Hide gamemode on the playerlist. Useful if you aren't in vanish and want use spectator without players noticing.")
+    public boolean hideGameMode = false;
+
     @Comment("Make vanished players invulnerable (Prevent deaths from tnt or other unforeseen accidents)")
     public boolean invulnerable = false;
 
