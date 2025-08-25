@@ -57,6 +57,8 @@ public class VanishConfig {
         @Comment("Prevent progressing advancements")
         public boolean advancementProgress = false;
 
+        @Comment("Prevent spectator progressing advancements")
+        public boolean spectatorAdvancementProgress = false;
     }
 
 }
