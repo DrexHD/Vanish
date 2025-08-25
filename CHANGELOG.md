@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `hideGameMode` config option
 - `spectatorAdvancementProgress` config option
 
+### Changed
+- Improved config loading
+
 ## [1.5.20] - 2025-07-02
 ### Added
 - Prevent allays from interacting with vanished players

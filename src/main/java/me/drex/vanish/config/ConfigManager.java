@@ -18,15 +18,16 @@ public class ConfigManager {
     }
 
     public static void load() throws Exception {
-        LOGGER.info("Loading configuration...");
+        LOGGER.info("Loading vanish configuration...");
         HoconConfigurationLoader loader = HoconConfigurationLoader.builder().path(CONFIG_FILE).build();
         CommentedConfigurationNode rootNode = loader.load();
         if (!CONFIG_FILE.toFile().exists()) {
-            LOGGER.info("Creating configuration file!");
-            rootNode.set(VanishConfig.class, new VanishConfig());
-            loader.save(rootNode);
+            LOGGER.info("Creating vanish configuration file!");
+            rootNode.set(VanishConfig.class, vanishConfig);
+        } else {
+            vanishConfig = rootNode.get(VanishConfig.class, vanishConfig);
         }
-        vanishConfig = rootNode.get(VanishConfig.class, new VanishConfig());
+        loader.save(rootNode);
     }
 
     public static VanishConfig vanish() {
