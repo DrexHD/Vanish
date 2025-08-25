@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `hideGameMode` config option
 - `spectatorAdvancementProgress` config option
+- Hide vanished players from death messages
 
 ### Changed
 - Improved config loading

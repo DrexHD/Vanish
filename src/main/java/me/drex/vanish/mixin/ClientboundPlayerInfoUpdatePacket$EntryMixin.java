@@ -7,6 +7,7 @@ import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.level.GameType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,10 +18,14 @@ public abstract class ClientboundPlayerInfoUpdatePacket$EntryMixin {
         method = "<init>(Lnet/minecraft/server/level/ServerPlayer;)V",
         at = @At(
             value = "INVOKE",
+            //? if >= 1.21.5 {
             target = "Lnet/minecraft/server/level/ServerPlayer;gameMode()Lnet/minecraft/world/level/GameType;"
+            //?} else {
+            /*target = "Lnet/minecraft/server/level/ServerPlayerGameMode;getGameModeForPlayer()Lnet/minecraft/world/level/GameType;"
+            *///?}
         )
     )
-    private static GameType hideGameMode(ServerPlayer instance, Operation<GameType> original) {
+    private static GameType hideGameMode(/*? if >= 1.21.5 {*/ ServerPlayer /*?} else {*/ /*ServerPlayerGameMode *//*?}*/ instance, Operation<GameType> original) {
         if (ConfigManager.vanish().hideGameMode) {
             ServerPlayer observer = Arguments.PACKET_CONTEXT.get();
             if (observer != null) {

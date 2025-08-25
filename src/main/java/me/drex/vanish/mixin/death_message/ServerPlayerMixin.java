@@ -1,4 +1,4 @@
-package me.drex.vanish.mixin;
+package me.drex.vanish.mixin.death_message;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
