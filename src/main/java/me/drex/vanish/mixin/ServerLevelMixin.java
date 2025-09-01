@@ -2,7 +2,7 @@ package me.drex.vanish.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import me.drex.vanish.VanishMod;
+import me.drex.vanish.util.Arguments;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket;
@@ -46,7 +46,7 @@ public abstract class ServerLevelMixin {
         )
     )
     public void vanish_beforeEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(entity);
+        Arguments.ACTIVE_ENTITY.set(entity);
     }
 
     @Inject(
@@ -58,7 +58,7 @@ public abstract class ServerLevelMixin {
         )
     )
     public void vanish_afterEntityTickNonPassenger(Entity entity, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.remove();
+        Arguments.ACTIVE_ENTITY.remove();
     }
 
     @Inject(
@@ -69,7 +69,7 @@ public abstract class ServerLevelMixin {
         )
     )
     public void vanish_beforeEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.set(entity2);
+        Arguments.ACTIVE_ENTITY.set(entity2);
     }
 
     @Inject(
@@ -81,7 +81,7 @@ public abstract class ServerLevelMixin {
         )
     )
     public void vanish_afterEntityTick(Entity entity, Entity entity2, CallbackInfo ci) {
-        VanishMod.ACTIVE_ENTITY.remove();
+        Arguments.ACTIVE_ENTITY.remove();
     }
 
 }

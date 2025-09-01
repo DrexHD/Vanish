@@ -4,11 +4,13 @@ import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.playerdata.api.PlayerDataApi;
-import me.drex.vanish.VanishMod;
+import me.drex.vanish.util.Arguments;
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.api.VanishEvents;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
 import me.lucko.fabric.api.permissions.v0.Options;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -40,11 +42,11 @@ public abstract class PlayerListMixin {
         )
     )
     private void vanish_vanishOnJoin(Connection connection, ServerPlayer actor, CallbackInfo ci) {
-        Boolean vanishOnJoin = Options.get(actor, "vanish_on_join", Boolean::valueOf).orElse(false);
-        if (vanishOnJoin) {
+        TriState result = VanishEvents.JOIN_EVENT.invoker().onJoin(actor);
+        if (result != TriState.DEFAULT) {
             VanishData data = PlayerDataApi.getCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE);
             if (data == null) data = new VanishData();
-            data.vanished = true;
+            data.vanished = result.get();
             PlayerDataApi.setCustomDataFor(actor.server, actor.getUUID(), VANISH_DATA_STORAGE, data);
             ((VanishedEntity) actor).vanish$setDirty();
         }
@@ -77,7 +79,7 @@ public abstract class PlayerListMixin {
         if (player instanceof ServerPlayer serverPlayer) {
             entity = serverPlayer;
         } else {
-            entity = VanishMod.ACTIVE_ENTITY.get();
+            entity = Arguments.ACTIVE_ENTITY.get();
         }
         if (entity instanceof TraceableEntity traceableEntity && traceableEntity.getOwner() instanceof ServerPlayer owner) {
             entity = owner;

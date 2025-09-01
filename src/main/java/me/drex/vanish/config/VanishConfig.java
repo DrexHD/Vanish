@@ -21,6 +21,7 @@ public class VanishConfig {
     @Comment("Hide vanished players from entities, prevents hostile entities from targeting players, and more")
     public boolean hideFromEntities = true;
 
+
     @Comment("Make vanished players invulnerable (Prevent deaths from tnt or other unforeseen accidents)")
     public boolean invulnerable = false;
 
@@ -50,6 +51,9 @@ public class VanishConfig {
 
         @Comment("Prevent entity pickups (arrows, experience orbs, items and tridents)")
         public boolean entityPickup = true;
+
+        @Comment("Prevent progressing advancements")
+        public boolean advancementProgress = false;
 
     }
 
