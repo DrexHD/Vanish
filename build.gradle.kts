@@ -92,6 +92,17 @@ publishMods {
     }
 }
 
+stonecutter {
+    swaps["profile_class"] = when {
+        eval(current.version, ">=1.21.9-rc1") -> "net.minecraft.server.players.NameAndId"
+        else -> "com.mojang.authlib.GameProfile"
+    }
+    swaps["player_profile"] = when {
+        eval(current.version, ">=1.21.9-rc1") -> "nameAndId()"
+        else -> "getGameProfile()"
+    }
+}
+
 tasks {
     remapJar {
         dependsOn(shadowJar)

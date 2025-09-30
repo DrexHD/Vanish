@@ -41,7 +41,7 @@ public interface VanishAPI {
      * @return true if the vanish-status changed
      */
     static boolean setVanish(@NotNull ServerPlayer player, boolean status) {
-        return VanishManager.setVanished(player.getGameProfile(), player.level().getServer(), status);
+        return VanishManager.setVanished(player./*$ player_profile {*/ nameAndId() /*$ } */, player.level().getServer(), status);
     }
 
     /**
