@@ -10,6 +10,7 @@
   "mixins": [
     "AbstractVillagerMixin",
     "AllayAiMixin",
+    "ArmadilloMixin",
     "ClientboundPlayerInfoUpdatePacket$EntryMixin",
     "CommandSourceStackMixin",
     "ContainerMixin",
