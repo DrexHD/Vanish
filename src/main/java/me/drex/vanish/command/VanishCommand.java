@@ -31,7 +31,7 @@ public class VanishCommand {
                         .executes(VanishCommand::reload)
                 ).then(
                     Commands.literal("on")
-                        .executes(ctx -> vanish(ctx.getSource(), true, Collections.singleton(ctx.getSource().getPlayerOrException()./*$ player_profile {*/ nameAndId() /*$ }*/)))
+                        .executes(ctx -> vanish(ctx.getSource(), true, Collections.singleton(ctx.getSource().getPlayerOrException()./*$ player_profile {*/ nameAndId()/*$}*/)))
                         .then(
                             Commands.argument("players", GameProfileArgument.gameProfile())
                                 .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
@@ -39,7 +39,7 @@ public class VanishCommand {
                         )
                 ).then(
                     Commands.literal("off")
-                        .executes(ctx -> vanish(ctx.getSource(), false, Collections.singleton(ctx.getSource().getPlayerOrException()./*$ player_profile {*/ nameAndId() /*$ }*/)))
+                        .executes(ctx -> vanish(ctx.getSource(), false, Collections.singleton(ctx.getSource().getPlayerOrException()./*$ player_profile {*/ nameAndId()/*$}*/)))
                         .then(
                             Commands.argument("players", GameProfileArgument.gameProfile())
                                 .requires(src -> Permissions.check(src, "vanish.command.vanish.other", 2))
@@ -52,7 +52,7 @@ public class VanishCommand {
     public static int vanish(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         boolean vanished = VanishAPI.isVanished(player);
-        return vanish(ctx.getSource(), !vanished, Collections.singleton(player./*$ player_profile {*/ nameAndId() /*$ }*/));
+        return vanish(ctx.getSource(), !vanished, Collections.singleton(player./*$ player_profile {*/ nameAndId()/*$}*/));
     }
 
     public static int reload(CommandContext<CommandSourceStack> ctx) {
@@ -67,15 +67,15 @@ public class VanishCommand {
         }
     }
 
-    public static int vanish(CommandSourceStack src, boolean vanish, Collection</*$ profile_class {*/ net.minecraft.server.players.NameAndId /*$}*/> targets) throws CommandSyntaxException {
+    public static int vanish(CommandSourceStack src, boolean vanish, Collection</*$ profile_class {*/ net.minecraft.server.players.NameAndId/*$}*/> targets) throws CommandSyntaxException {
         int result = 0;
-        for (/*$ profile_class {*/ net.minecraft.server.players.NameAndId /*$ }*/ target : targets) {
+        for (/*$ profile_class {*/ net.minecraft.server.players.NameAndId/*$}*/ target : targets) {
             if (!VanishManager.setVanished(target, src.getServer(), vanish)) continue;
             ServerPlayer player = src.getPlayer();
             if (player != null && player.getGameProfile().equals(target)) {
                 src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
             } else {
-                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target./*? if >= 1.21.9-rc1 {*/name() /*?} else {*/ /*getName()*/ /*?}*/), false);
+                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target./*? if >= 1.21.9-rc1 {*/name() /*?} else {*/ /*getName() *//*?}*/), false);
             }
             result++;
         }

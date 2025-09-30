@@ -100,12 +100,12 @@ public class VanishManager {
         }
     }
 
-    public static boolean setVanished(/*$ profile_class {*/ net.minecraft.server.players.NameAndId /*$ }*/ profile, MinecraftServer server, boolean vanish) {
+    public static boolean setVanished(/*$ profile_class {*/ net.minecraft.server.players.NameAndId/*$}*/ profile, MinecraftServer server, boolean vanish) {
         //? if >= 1.21.9-rc {
         var uuid = profile.id();
-        //? } else {
-        //var uuid = profile.getId();
-        //? }
+        //?} else {
+        /*var uuid = profile.getId();
+        *///?}
         if (isVanished(server, uuid) == vanish) return false;
         ServerPlayer player = server.getPlayerList().getPlayer(uuid);
         boolean isOnline = player != null;

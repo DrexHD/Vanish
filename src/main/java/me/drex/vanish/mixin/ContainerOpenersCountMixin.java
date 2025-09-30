@@ -14,16 +14,16 @@ public class ContainerOpenersCountMixin {
     @ModifyArg(
         //? if >= 1.21.9-rc1 {
         method = "getEntitiesWithContainerOpen",
-        //? } else {
-//        method = "getPlayersWithContainerOpen",
-        //? }
+        //?} else {
+        /*method = "getPlayersWithContainerOpen",
+        *///?}
         at = @At(
             value = "INVOKE",
             //? if >= 1.21.9-rc1 {
             target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"
-            //? } else {
-//            target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"
-            //? }
+            //?} else {
+            /*target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"
+            *///?}
         ),
         index = 2
     )
