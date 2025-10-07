@@ -23,8 +23,8 @@ public abstract class InsideBlockMixin {
     @Inject(method = "entityInside", at = @At("HEAD"), cancellable = true)
     private void cancelEntityInsideBlock(
         BlockState blockState, Level level, BlockPos blockPos, Entity entity,
-        /*? if >= 1.21.5 {*/ InsideBlockEffectApplier insideBlockEffectApplier /*?}*/,
-        /*? if >= 1.21.10 {*/ boolean bl /*?}*/,
+        /*? if >= 1.21.5 {*/ InsideBlockEffectApplier insideBlockEffectApplier, /*?}*/
+        /*? if >= 1.21.10 {*/ boolean bl, /*?}*/
         CallbackInfo ci
     ) {
         if (VanishAPI.isVanished(entity) && ConfigManager.vanish().interaction.blocks) ci.cancel();
