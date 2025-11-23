@@ -2,9 +2,9 @@ package me.drex.vanish.mixin;
 
 import com.mojang.authlib.GameProfile;
 import eu.pb4.playerdata.api.PlayerDataApi;
+import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +13,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static me.drex.vanish.util.VanishManager.VANISH_DATA_STORAGE;
 
@@ -54,4 +57,10 @@ public abstract class VanishedServerPlayerMixin extends Player implements Vanish
         vanished$dirty = true;
     }
 
+    @Inject(method = "broadcastToPlayer", at = @At("HEAD"), cancellable = true)
+    public void shouldBroadcast(ServerPlayer observer, CallbackInfoReturnable<Boolean> cir) {
+        if (!VanishAPI.canSeePlayer((ServerPlayer) (Object) this, observer)) {
+            cir.setReturnValue(false);
+        }
+    }
 }
