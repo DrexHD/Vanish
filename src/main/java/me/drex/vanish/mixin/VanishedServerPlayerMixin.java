@@ -5,6 +5,9 @@ import eu.pb4.playerdata.api.PlayerDataApi;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
+//? if < 1.21.6 {
+/*import net.minecraft.core.BlockPos;
+*///?}
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

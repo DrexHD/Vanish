@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2025-11-23
+### Fixed
+- Spectators receiving vanished player packets (NgLoader)
+
 ## [1.6.1] - 2025-09-30
 ### Added
 - Prevent armadillos from going into hiding mode
