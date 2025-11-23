@@ -29,6 +29,7 @@
     "ServerCommonPacketListenerImplMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
+    "ServerWaypointManagerMixin",
     "SleepStatusMixin",
     "VanishedServerPlayerMixin",
     "WardenMixin",
