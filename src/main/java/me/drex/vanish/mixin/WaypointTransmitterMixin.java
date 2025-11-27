@@ -1,25 +1,23 @@
 package me.drex.vanish.mixin;
 
 //? >= 1.21.6 {
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+
 import me.drex.vanish.api.VanishAPI;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.waypoints.WaypointTransmitter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WaypointTransmitter.class)
 public interface WaypointTransmitterMixin {
-    @WrapOperation(
-        method = "doesSourceIgnoreReceiver",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/LivingEntity;isSpectator()Z"
-        )
-    )
-    private static boolean hideWaypoints(LivingEntity entity, Operation<Boolean> original) {
-        return original.call(entity) || VanishAPI.isVanished(entity);
+    @Inject(method = "doesSourceIgnoreReceiver", at = @At("HEAD"), cancellable = true)
+    private static void hideWaypoints(LivingEntity livingEntity, ServerPlayer serverPlayer, CallbackInfoReturnable<Boolean> cir) {
+        if (livingEntity instanceof ServerPlayer actor && !VanishAPI.canSeePlayer(actor, serverPlayer)) {
+            cir.setReturnValue(true);
+        }
     }
 }
 //?} else {

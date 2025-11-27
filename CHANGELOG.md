@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Spectators seeing vanished player waypoints
+
 ## [1.6.2] - 2025-11-23
 ### Fixed
 - Spectators receiving vanished player packets (NgLoader)
