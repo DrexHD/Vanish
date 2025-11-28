@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.playerdata.api.PlayerDataApi;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
+import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
 import me.drex.vanish.util.VanishData;
 import me.drex.vanish.util.VanishedEntity;
@@ -61,7 +62,9 @@ public abstract class PlayerListMixin {
     )
     public void hideJoinMessage(PlayerList playerList, Component component, boolean bl, Operation<Void> original, Connection connection, ServerPlayer actor) {
         if (VanishAPI.isVanished(actor)) {
-            VanishAPI.broadcastHiddenMessage(actor, component);
+            if (ConfigManager.vanish().sendJoinDisconnectMessage) {
+                VanishAPI.broadcastHiddenMessage(actor, component);
+            }
         } else {
             original.call(playerList, component, bl);
         }
