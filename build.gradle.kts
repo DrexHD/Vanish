@@ -2,10 +2,10 @@ import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.ChangelogPluginExtension
 
 plugins {
-    id("fabric-loom") version "1.11-SNAPSHOT"
+    id("fabric-loom") version "1.14-SNAPSHOT"
     id("maven-publish")
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
-    id("com.gradleup.shadow") version "9.0.0-rc1"
+    id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+    id("com.gradleup.shadow") version "9.2.2"
     id("org.jetbrains.changelog")
 }
 
@@ -93,13 +93,22 @@ publishMods {
 }
 
 stonecutter {
+    replacements.string(eval(current.version, "<=1.21.10")) {
+        replace("Identifier", "ResourceLocation")
+        replace("identifier()", "location()")
+        replace("net.minecraft.world.entity.npc.villager.", "net.minecraft.world.entity.npc.")
+        replace("import net.minecraft.world.entity.vehicle.minecart.", "import net.minecraft.world.entity.vehicle.")
+        replace("net.minecraft.advancements.criterion.", "net.minecraft.advancements.critereon.")
+        replace("net.minecraft.util.Util", "net.minecraft.Util")
+    }
+
     swaps["profile_class"] = when {
-        eval(current.version, ">=1.21.9-rc1") -> "net.minecraft.server.players.NameAndId"
-        else -> "com.mojang.authlib.GameProfile"
+        eval(current.version, "<=1.21.8") -> "com.mojang.authlib.GameProfile"
+        else -> "net.minecraft.server.players.NameAndId"
     }
     swaps["player_profile"] = when {
-        eval(current.version, ">=1.21.9-rc1") -> "nameAndId()"
-        else -> "getGameProfile()"
+        eval(current.version, "<=1.21.8") -> "getGameProfile()"
+        else -> "nameAndId()"
     }
 }
 

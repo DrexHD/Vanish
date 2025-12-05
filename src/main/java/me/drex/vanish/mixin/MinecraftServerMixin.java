@@ -5,6 +5,9 @@ import me.drex.vanish.api.VanishAPI;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+//? if > 1.21.10 {
+import net.minecraft.server.permissions.PermissionSet;
+//? }
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,7 +29,7 @@ public abstract class MinecraftServerMixin {
         )
     )
     public List<ServerPlayer> getNonVanishedPlayerCount(List<ServerPlayer> original) {
-        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
+        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/));
     }
 
     @ModifyReceiver(
@@ -37,7 +40,7 @@ public abstract class MinecraftServerMixin {
         )
     )
     public List<ServerPlayer> getNonVanishedPlayer(List<ServerPlayer> original, int index) {
-        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0));
+        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/));
     }
 
     /**
@@ -46,7 +49,7 @@ public abstract class MinecraftServerMixin {
      */
     @Overwrite
     public int getPlayerCount() {
-        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(0)).size();
+        return VanishAPI.getVisiblePlayers(this.createCommandSourceStack().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/)).size();
     }
 
 }

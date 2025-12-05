@@ -3,7 +3,7 @@ package me.drex.vanish.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import me.drex.vanish.api.VanishAPI;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;

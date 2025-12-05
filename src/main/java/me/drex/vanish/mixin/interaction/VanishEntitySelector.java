@@ -10,11 +10,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 //? if >= 1.21.2 {
-import net.minecraft.world.entity.vehicle.NewMinecartBehavior;
-import net.minecraft.world.entity.vehicle.OldMinecartBehavior;
-//?}
+import net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior;
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
+//? } else {
+//import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+//? }
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -126,7 +127,12 @@ public class VanishEntitySelector {
     public abstract static class PlayerMixin {
 
         @Redirect(
-            method = "attack",
+            //? if > 1.21.10 {
+            method = "doSweepAttack",
+
+            //? } else {
+//            method = "attack",
+            //? }
             at = @At(
                 value = "INVOKE",
                 target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"

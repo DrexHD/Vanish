@@ -12,14 +12,14 @@ import java.util.function.Predicate;
 @Mixin(ContainerOpenersCounter.class)
 public class ContainerOpenersCountMixin {
     @ModifyArg(
-        //? if >= 1.21.9-rc1 {
+        //? if >= 1.21.9 {
         method = "getEntitiesWithContainerOpen",
         //?} else {
         /*method = "getPlayersWithContainerOpen",
         *///?}
         at = @At(
             value = "INVOKE",
-            //? if >= 1.21.9-rc1 {
+            //? if >= 1.21.9 {
             target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"
             //?} else {
             /*target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/level/entity/EntityTypeTest;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;"

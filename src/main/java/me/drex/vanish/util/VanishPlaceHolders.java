@@ -6,14 +6,17 @@ import eu.pb4.placeholders.api.parsers.NodeParser;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+//? if > 1.21.10 {
+import net.minecraft.server.permissions.PermissionSet;
+//? }
 
 import static me.drex.vanish.VanishMod.MOD_ID;
 
 public class VanishPlaceHolders {
 
-    public static final ResourceLocation VANISHED = ResourceLocation.fromNamespaceAndPath(MOD_ID, "vanished");
-    public static final ResourceLocation ONLINE = ResourceLocation.fromNamespaceAndPath(MOD_ID, "online");
+    public static final Identifier VANISHED = Identifier.fromNamespaceAndPath(MOD_ID, "vanished");
+    public static final Identifier ONLINE = Identifier.fromNamespaceAndPath(MOD_ID, "online");
 
     private static final NodeParser PARSER = NodeParser.builder()
         .simplifiedTextFormat()
@@ -31,7 +34,7 @@ public class VanishPlaceHolders {
             if (context.hasEntity()) {
                 return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.source()).size()));
             } else {
-                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.source().withPermission(0)).size()));
+                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.source().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/)).size()));
             }
         });
 

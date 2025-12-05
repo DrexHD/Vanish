@@ -16,6 +16,9 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+//? if > 1.21.10 {
+import net.minecraft.server.permissions.PermissionSet;
+//? }
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.TraceableEntity;
@@ -99,7 +102,7 @@ public abstract class PlayerListMixin {
         )
     )
     private List<ServerPlayer> getNonVanishedPlayerCount(PlayerList playerList) {
-        return VanishAPI.getVisiblePlayers(playerList.getServer().createCommandSourceStack().withPermission(0));
+        return VanishAPI.getVisiblePlayers(playerList.getServer().createCommandSourceStack().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/));
     }
 
 }
