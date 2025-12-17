@@ -78,7 +78,7 @@ public class VanishManager {
     }
 
     public static boolean canViewVanished(ServerPlayer observer) {
-        return CAN_VIEW_VANISHED_CACHE.computeIfAbsent(observer, k -> canViewVanished(observer));
+        return CAN_VIEW_VANISHED_CACHE.computeIfAbsent(observer, k -> canViewVanished(observer.createCommandSourceStack()));
     }
 
     public static boolean canViewVanished(SharedSuggestionProvider observer) {
