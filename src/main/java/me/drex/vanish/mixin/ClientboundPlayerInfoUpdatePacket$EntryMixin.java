@@ -2,6 +2,7 @@ package me.drex.vanish.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
@@ -25,11 +26,11 @@ public abstract class ClientboundPlayerInfoUpdatePacket$EntryMixin {
             *///?}
         )
     )
-    private static GameType hideGameMode(/*? if >= 1.21.5 {*/ ServerPlayer /*?} else {*/ /*ServerPlayerGameMode *//*?}*/ instance, Operation<GameType> original) {
+    private static GameType hideGameMode(/*? if >= 1.21.5 {*/ ServerPlayer /*?} else {*/ /*ServerPlayerGameMode *//*?}*/ instance, Operation<GameType> original, @Local(argsOnly = true) ServerPlayer actor) {
         if (ConfigManager.vanish().hideGameMode) {
             ServerPlayer observer = Arguments.PACKET_CONTEXT.get();
             if (observer != null) {
-                if (!VanishAPI.canViewVanished(observer)) {
+                if (!VanishAPI.canViewVanished(observer) && actor != observer) {
                     return GameType.DEFAULT_MODE;
                 }
             }

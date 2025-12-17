@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Spectator gamemode being broken for non operators 
+
 ## [1.6.4] - 2025-12-17
 ### Fixed
 - StackOverflowError introduced in 1.6.3, whoops

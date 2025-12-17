@@ -14,8 +14,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.minecart.NewMinecartBehavior;
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
 //? } else {
-//import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
-//? }
+/*import net.minecraft.world.entity.vehicle.AbstractMinecart;
+*///? }
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -131,8 +131,8 @@ public class VanishEntitySelector {
             method = "doSweepAttack",
 
             //? } else {
-//            method = "attack",
-            //? }
+            /*method = "attack",
+            *///? }
             at = @At(
                 value = "INVOKE",
                 target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
