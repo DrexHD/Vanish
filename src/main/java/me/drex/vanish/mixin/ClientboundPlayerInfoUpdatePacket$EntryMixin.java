@@ -29,7 +29,7 @@ public abstract class ClientboundPlayerInfoUpdatePacket$EntryMixin {
         if (ConfigManager.vanish().hideGameMode) {
             ServerPlayer observer = Arguments.PACKET_CONTEXT.get();
             if (observer != null) {
-                if (!VanishAPI.canViewVanished(observer.createCommandSourceStack())) {
+                if (!VanishAPI.canViewVanished(observer)) {
                     return GameType.DEFAULT_MODE;
                 }
             }

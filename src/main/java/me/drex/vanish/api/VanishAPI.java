@@ -52,20 +52,50 @@ public interface VanishAPI {
      * @return the result of the check
      */
     static boolean canSeePlayer(@NotNull ServerPlayer actor, @NotNull ServerPlayer observer) {
-        return VanishManager.canSeePlayer(actor, observer.createCommandSourceStack());
+        return VanishManager.canSeePlayer(actor, observer);
     }
 
     static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull ServerPlayer observer) {
-        return canSeePlayer(server, uuid, observer.createCommandSourceStack());
+        return VanishManager.canSeePlayer(server, uuid, observer);
     }
 
     static boolean canSeePlayer(@NotNull MinecraftServer server, @NotNull UUID uuid, @NotNull CommandSourceStack observer) {
         return VanishManager.canSeePlayer(server, uuid, observer);
     }
 
+    /**
+     * * This is preferred over {@link #canViewVanished(SharedSuggestionProvider)}, because it doesn't require creating a
+     * * {@link CommandSourceStack}, which can be slow when done excessively.
+     *
+     */
+    static boolean canViewVanished(ServerPlayer observer) {
+        return VanishManager.canViewVanished(observer);
+    }
+
     static boolean canViewVanished(SharedSuggestionProvider observer) {
         return VanishManager.canViewVanished(observer);
     }
+
+    /**
+     * Returns a list of players that the given {@link ServerPlayer source} can see
+     * This is preferred over {@link #getVisiblePlayers(CommandSourceStack)}, because it doesn't require creating a
+     * {@link CommandSourceStack}, which can be slow when done excessively.
+     *
+     * @param observer the viewing player
+     * @return an immutable list of players that are visible to the source.
+     */
+    @NotNull
+    static List<ServerPlayer> getVisiblePlayers(@NotNull ServerPlayer observer) {
+        MinecraftServer server = observer.level().getServer();
+        ObjectArrayList<ServerPlayer> list = new ObjectArrayList<>();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (VanishManager.canSeePlayer(player, observer)) {
+                list.add(player);
+            }
+        }
+        return list;
+    }
+
 
     /**
      * Returns a list of players that the given {@link CommandSourceStack source} can see

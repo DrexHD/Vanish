@@ -22,11 +22,15 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class VanishManager {
 
     public static final PlayerDataStorage<VanishData> VANISH_DATA_STORAGE = new JsonDataStorage<>("vanish", VanishData.class);
+    // Avoid creating CommandSourceStack for every call, because they invoke getDisplayName, which is quite expensive
+    private static final Map<ServerPlayer, Boolean> CAN_VIEW_VANISHED_CACHE = new HashMap<>();
 
     public static void init() {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
@@ -37,6 +41,7 @@ public class VanishManager {
                     }
                 }
             }
+            CAN_VIEW_VANISHED_CACHE.clear();
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
             if (isVanished(sender) && ConfigManager.vanish().disableChat) {
@@ -72,8 +77,28 @@ public class VanishManager {
         return data != null && data.vanished;
     }
 
+    public static boolean canViewVanished(ServerPlayer observer) {
+        return CAN_VIEW_VANISHED_CACHE.computeIfAbsent(observer, k -> canViewVanished(observer));
+    }
+
     public static boolean canViewVanished(SharedSuggestionProvider observer) {
         return Permissions.check(observer, "vanish.feature.view", 2);
+    }
+
+    public static boolean canSeePlayer(ServerPlayer actor, ServerPlayer observer) {
+        return canSeePlayer(actor.level().getServer(), actor.getUUID(), observer);
+    }
+
+    public static boolean canSeePlayer(MinecraftServer server, UUID actor, ServerPlayer observer) {
+        if (isVanished(server, actor)) {
+            if (actor.equals(observer.getUUID())) {
+                return true;
+            } else {
+                return canViewVanished(observer);
+            }
+        } else {
+            return true;
+        }
     }
 
     public static boolean canSeePlayer(ServerPlayer actor, CommandSourceStack observer) {
@@ -147,7 +172,7 @@ public class VanishManager {
 
     private static void broadcastToOthers(ServerPlayer actor, Packet<?> packet) {
         for (ServerPlayer observer : actor.level().getServer().getPlayerList().getPlayers()) {
-            if (!VanishAPI.canViewVanished(observer.createCommandSourceStack()) && !observer.equals(actor)) {
+            if (!VanishAPI.canViewVanished(observer) && !observer.equals(actor)) {
                 observer.connection.send(packet);
             }
         }
