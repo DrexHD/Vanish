@@ -10,7 +10,7 @@ import java.util.List;
 @Mixin(ClientboundPlayerInfoUpdatePacket.class)
 public interface ClientboundPlayerInfoUpdatePacketAccessor {
 
-    @Accessor("entries")
+    @Accessor
     @Mutable
-    void vanish$setEntries(List<ClientboundPlayerInfoUpdatePacket.Entry> entries);
+    void setEntries(List<ClientboundPlayerInfoUpdatePacket.Entry> entries);
 }

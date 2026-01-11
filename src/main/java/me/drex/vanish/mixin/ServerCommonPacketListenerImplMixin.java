@@ -5,7 +5,9 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
-import net.minecraft.network.PacketSendListener;
+//? if < 1.21.6 {
+//import net.minecraft.network.PacketSendListener;
+//? }
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
@@ -73,8 +75,10 @@ public abstract class ServerCommonPacketListenerImplMixin {
                             playerUpdate.latency(),
                             GameType.DEFAULT_MODE,
                             playerUpdate.displayName(),
+                            //? if >= 1.21.2 {
                             playerUpdate.showHat(),
                             playerUpdate.listOrder(),
+                            //? }
                             playerUpdate.chatSession()
                         );
                         changed = true;
@@ -87,7 +91,7 @@ public abstract class ServerCommonPacketListenerImplMixin {
                     try {
                         Arguments.PACKET_CONTEXT.set(listener.player);
                         ClientboundPlayerInfoUpdatePacket modifiedPacket = new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), java.util.List.of());
-                        ((ClientboundPlayerInfoUpdatePacketAccessor) modifiedPacket).vanish$setEntries(modifiedEntries);
+                        ((ClientboundPlayerInfoUpdatePacketAccessor) modifiedPacket).setEntries(modifiedEntries);
                         this.send(modifiedPacket);
                     } finally {
                         Arguments.PACKET_CONTEXT.set(prev);
