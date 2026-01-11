@@ -3,6 +3,7 @@ package me.drex.vanish.mixin;
 import io.netty.channel.ChannelFutureListener;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.drex.vanish.api.VanishAPI;
+import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.protocol.Packet;
@@ -14,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.GameType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -52,21 +54,41 @@ public abstract class ServerCommonPacketListenerImplMixin {
                 // If the packet context is set, this packet was already modified
                 if (Arguments.PACKET_CONTEXT.get() != null) return;
 
-                ObjectArrayList<ServerPlayer> modifiedEntries = new ObjectArrayList<>();
+                boolean hideGameMode = ConfigManager.vanish().hideGameMode;
+                boolean canViewVanished = hideGameMode && VanishAPI.canViewVanished(listener.player);
+                ObjectArrayList<ClientboundPlayerInfoUpdatePacket.Entry> modifiedEntries = new ObjectArrayList<>(playerInfoPacket.entries().size());
+                boolean changed = false;
                 for (ClientboundPlayerInfoUpdatePacket.Entry playerUpdate : playerInfoPacket.entries()) {
                     ServerPlayer player = server.getPlayerList().getPlayer(playerUpdate.profileId());
-                    if (player == null) {
-                        return;
+                    if (player != null && !VanishAPI.canSeePlayer(player, listener.player)) {
+                        changed = true;
+                        continue;
                     }
-                    if (VanishAPI.canSeePlayer(player, listener.player)) {
-                        modifiedEntries.add(player);
+                    ClientboundPlayerInfoUpdatePacket.Entry adjustedEntry = playerUpdate;
+                    if (hideGameMode && !canViewVanished && player != null && player != listener.player && playerUpdate.gameMode() != GameType.DEFAULT_MODE) {
+                        adjustedEntry = new ClientboundPlayerInfoUpdatePacket.Entry(
+                            playerUpdate.profileId(),
+                            playerUpdate.profile(),
+                            playerUpdate.listed(),
+                            playerUpdate.latency(),
+                            GameType.DEFAULT_MODE,
+                            playerUpdate.displayName(),
+                            playerUpdate.showHat(),
+                            playerUpdate.listOrder(),
+                            playerUpdate.chatSession()
+                        );
+                        changed = true;
                     }
+                    modifiedEntries.add(adjustedEntry);
                 }
+                if (!changed) return;
                 if (!modifiedEntries.isEmpty()) {
                     var prev = Arguments.PACKET_CONTEXT.get();
                     try {
                         Arguments.PACKET_CONTEXT.set(listener.player);
-                        this.send(new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), modifiedEntries));
+                        ClientboundPlayerInfoUpdatePacket modifiedPacket = new ClientboundPlayerInfoUpdatePacket(playerInfoPacket.actions(), java.util.List.of());
+                        ((ClientboundPlayerInfoUpdatePacketAccessor) modifiedPacket).vanish$setEntries(modifiedEntries);
+                        this.send(modifiedPacket);
                     } finally {
                         Arguments.PACKET_CONTEXT.set(prev);
                     }
