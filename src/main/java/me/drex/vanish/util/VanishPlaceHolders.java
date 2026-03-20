@@ -24,17 +24,17 @@ public class VanishPlaceHolders {
         .build();
 
     public static void register() {
-        Placeholders.register(VANISHED, (context, argument) -> {
+        Placeholders./*? if > 1.21.11 {*/registerServer /*?} else {*//*register*//*?}*/(VANISHED, (context, argument) -> {
             if (context.player() != null) {
-                return VanishAPI.isVanished(context.player()) ? PlaceholderResult.value(PARSER.parseText(ConfigManager.vanish().placeHolderDisplay, context.asParserContext())) : PlaceholderResult.value(Component.empty());
+                return VanishAPI.isVanished(context.player()) ? PlaceholderResult.value(PARSER./*? if > 1.21.11 {*/parseComponent/*?} else {*//*parseText*//*?}*/(ConfigManager.vanish().placeHolderDisplay, context.asParserContext())) : PlaceholderResult.value(Component.empty());
             }
             return PlaceholderResult.invalid("No player!");
         });
-        Placeholders.register(ONLINE, (context, argument) -> {
-            if (context.hasEntity()) {
-                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.source()).size()));
+        Placeholders./*? if > 1.21.11 {*/registerServer /*?} else {*//*register*//*?}*/(ONLINE, (context, argument) -> {
+            if (context.hasPlayer()) {
+                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context./*? if > 1.21.11 {*/serverPlayer /*?} else {*//*player*//*?}*/()).size()));
             } else {
-                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.source().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/)).size()));
+                return PlaceholderResult.value(String.valueOf(VanishAPI.getVisiblePlayers(context.server().createCommandSourceStack().withPermission(/*? if > 1.21.10 {*/ PermissionSet.NO_PERMISSIONS /*?} else {*//*0*//*?}*/)).size()));
             }
         });
 

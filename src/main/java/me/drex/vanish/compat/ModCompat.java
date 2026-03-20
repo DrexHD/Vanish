@@ -35,8 +35,9 @@ public class ModCompat {
 
         // Styled Chat
         if (STYLED_CHAT) {
-            VanishEvents.UN_VANISH_MESSAGE_EVENT.register(StyledChatStyles::getJoin);
-            VanishEvents.VANISH_MESSAGE_EVENT.register(StyledChatStyles::getLeft);
+            // TODO 26.1
+//            VanishEvents.UN_VANISH_MESSAGE_EVENT.register(StyledChatStyles::getJoin);
+//            VanishEvents.VANISH_MESSAGE_EVENT.register(StyledChatStyles::getLeft);
         }
 
         if (BLUEMAP) {

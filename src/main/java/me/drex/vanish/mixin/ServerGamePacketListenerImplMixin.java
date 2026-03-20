@@ -41,7 +41,23 @@ public abstract class ServerGamePacketListenerImplMixin {
         }
     }
 
+    //? if > 1.21.11 {
     @WrapOperation(
+        method = "handleInteract",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerLevel;getEntityOrPart(I)Lnet/minecraft/world/entity/Entity;"
+        )
+    )
+    public Entity preventInteraction(ServerLevel serverLevel, int i, Operation<Entity> original) {
+        Entity entity = original.call(serverLevel, i);
+        if (entity instanceof ServerPlayer actor && !VanishAPI.canSeePlayer(actor, this.player)) {
+            return null;
+        }
+        return entity;
+    }
+    //? } else {
+    /*@WrapOperation(
         method = "handleInteract",
         at = @At(
             value = "INVOKE",
@@ -55,6 +71,7 @@ public abstract class ServerGamePacketListenerImplMixin {
         }
         return entity;
     }
+    *///? }
 
     @Inject(
         method = "handlePlayerAction",

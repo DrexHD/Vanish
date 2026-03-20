@@ -24,7 +24,11 @@ public abstract class PlayerMixin {
     }
 
     @ModifyReturnValue(
-        method = "canBeHitByProjectile",
+        //? if > 1.21.11 {
+        method = "isPickable",
+        //? } else {
+        /*method = "canBeHitByProjectile",
+        *///? }
         at = @At("RETURN")
     )
     public boolean preventProjectileHits(boolean original) {

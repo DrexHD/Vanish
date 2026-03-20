@@ -27,10 +27,10 @@ public class VanishEntitySelector {
             method = "getEntityCollisions",
             at = @At(
                 value = "INVOKE",
-                target = "Lnet/minecraft/world/entity/Entity;canBeCollidedWith()Z"
+                target = "Lnet/minecraft/world/entity/Entity;canBeCollidedWith(Lnet/minecraft/world/entity/Entity;)Z"
             )
         )
-        default boolean preventEntityCollisions2(Entity entity, Operation<Boolean> original) {
+        default boolean preventEntityCollisions2(Entity entity, Entity other, Operation<Boolean> original) {
             return original.call(entity) || (ConfigManager.vanish().interaction.entityCollisions && VanishAPI.isVanished(entity));
         }
     }

@@ -18,7 +18,11 @@ public abstract class PlayerAdvancementsMixin {
     private ServerPlayer player;
 
     @WrapOperation(
-        method = "method_53637",
+        //? if > 1.21.11 {
+        method = "lambda$award$0",
+        //? } else {
+        /*method = "method_53637",
+        *///? }
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"

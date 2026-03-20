@@ -2,7 +2,7 @@ import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.ChangelogPluginExtension
 
 plugins {
-    id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
+    id("net.fabricmc.fabric-loom-remap") version "1.15-SNAPSHOT"
     id("maven-publish")
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
     id("com.gradleup.shadow") version "9.2.2"
@@ -27,7 +27,6 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.mikeprimm.com")
     maven("https://repo.bluecolored.de/releases") // BlueMapAPI
-    mavenLocal()
 }
 
 loom {
@@ -41,14 +40,15 @@ loom {
 configurations.implementation.get().extendsFrom(configurations.shadow.get())
 
 fun DependencyHandlerScope.includeMod(dep: String) {
-    include(implementation(dep)!!)
+    include(modImplementation(dep)!!)
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${findProperty("minecraft_version")}")
-    implementation("net.fabricmc:fabric-loader:${findProperty("loader_version")}")
+    mappings(loom.officialMojangMappings())
+    modImplementation("net.fabricmc:fabric-loader:${findProperty("loader_version")}")
 
-    implementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
 
     includeMod("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
     includeMod("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
@@ -58,7 +58,7 @@ dependencies {
     shadow("org.spongepowered:configurate-hocon:${findProperty("configurate_hocon_version")}")
 
     // Mod compat
-    compileOnly("maven.modrinth:styled-chat:${findProperty("styled_chat_version")}")
+    modCompileOnly("maven.modrinth:styled-chat:${findProperty("styled_chat_version")}")
     compileOnly("de.bluecolored:bluemap-api:${findProperty("bluemap_api_version")}")
     compileOnly("us.dynmap:DynmapCoreAPI:${findProperty("dynmap_api_version")}")
     compileOnly("xyz.jpenilla:squaremap-api:${findProperty("squaremap_api")}")
@@ -66,7 +66,7 @@ dependencies {
 }
 
 publishMods {
-    file.set(tasks.jar.get().archiveFile)
+    file.set(tasks.remapJar.get().archiveFile)
     type.set(STABLE)
     changelog.set(fetchChangelog())
 
@@ -93,6 +93,11 @@ publishMods {
 }
 
 tasks {
+    remapJar {
+        dependsOn(shadowJar)
+        input.set(shadowJar.get().archiveFile)
+    }
+
     shadowJar {
         configurations = listOf(project.configurations.shadow.get())
         minimize()

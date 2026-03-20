@@ -12,14 +12,34 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PlayerDetector.class)
 public interface PlayerDetectorMixin {
     // NO_CREATIVE_PLAYERS
-    @WrapOperation(method = "method_56723", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"))
+    @WrapOperation(
+        //? if > 1.21.11 {
+        method = "lambda$static$1",
+        //? } else {
+        /*method = "method_56723",
+        *///? }
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"
+        )
+    )
     private static boolean preventTrialSpawning(Player player, Operation<Boolean> original) {
         boolean cancel = ConfigManager.vanish().interaction.mobSpawning && VanishAPI.isVanished(player);
         return original.call(player) || cancel;
     }
 
     // INCLUDING_CREATIVE_PLAYERS
-    @WrapOperation(method = "method_56721", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"))
+    @WrapOperation(
+        //? if > 1.21.11 {
+        method = "lambda$static$4",
+        //? } else {
+        /*method = "method_56721",
+        *///? }
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"
+        )
+    )
     private static boolean preventVaultOpening(Player player, Operation<Boolean> original) {
         boolean cancel = ConfigManager.vanish().interaction.blocks && VanishAPI.isVanished(player);
         return original.call(player) || cancel;
