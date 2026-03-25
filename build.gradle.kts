@@ -65,7 +65,7 @@ dependencies {
 }
 
 publishMods {
-    file.set(tasks.jar.get().archiveFile)
+    file.set(tasks.shadowJar.get().archiveFile)
     type.set(STABLE)
     changelog.set(fetchChangelog())
 
