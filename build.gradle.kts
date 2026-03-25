@@ -27,7 +27,6 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.mikeprimm.com")
     maven("https://repo.bluecolored.de/releases") // BlueMapAPI
-    mavenLocal()
 }
 
 loom {
@@ -40,7 +39,7 @@ loom {
 
 configurations.implementation.get().extendsFrom(configurations.shadow.get())
 
-fun DependencyHandlerScope.includeMod(dep: String) {
+fun DependencyHandlerScope.includeImplementation(dep: String) {
     include(implementation(dep)!!)
 }
 
@@ -50,10 +49,10 @@ dependencies {
 
     implementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
 
-    includeMod("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
-    includeMod("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
-    includeMod("eu.pb4:player-data-api:${findProperty("player_data_api_version")}")
-    includeMod("xyz.nucleoid:server-translations-api:${findProperty("translations_version")}")
+    includeImplementation("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
+    includeImplementation("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
+    includeImplementation("eu.pb4:player-data-api:${findProperty("player_data_api_version")}")
+    includeImplementation("xyz.nucleoid:server-translations-api:${findProperty("translations_version")}")
 
     shadow("org.spongepowered:configurate-hocon:${findProperty("configurate_hocon_version")}")
 
