@@ -5,7 +5,6 @@ plugins {
     id("net.fabricmc.fabric-loom-remap") version "1.15-SNAPSHOT"
     id("maven-publish")
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
-    id("com.gradleup.shadow") version "9.2.2"
     id("org.jetbrains.changelog")
 }
 
@@ -37,9 +36,11 @@ loom {
     }
 }
 
-configurations.implementation.get().extendsFrom(configurations.shadow.get())
+val includeTransitiveImplementation: Configuration by configurations.creating {
+    configurations.implementation.configure { extendsFrom(this@creating) }
+}
 
-fun DependencyHandlerScope.includeMod(dep: String) {
+fun DependencyHandlerScope.includeImplementation(dep: String) {
     include(modImplementation(dep)!!)
 }
 
@@ -50,12 +51,12 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
 
-    includeMod("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
-    includeMod("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
-    includeMod("eu.pb4:player-data-api:${findProperty("player_data_api_version")}")
-    includeMod("xyz.nucleoid:server-translations-api:${findProperty("translations_version")}")
+    includeImplementation("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
+    includeImplementation("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
+    includeImplementation("eu.pb4:player-data-api:${findProperty("player_data_api_version")}")
+    includeImplementation("xyz.nucleoid:server-translations-api:${findProperty("translations_version")}")
 
-    shadow("org.spongepowered:configurate-hocon:${findProperty("configurate_hocon_version")}")
+    includeTransitiveImplementation("org.spongepowered:configurate-hocon:${findProperty("configurate_hocon_version")}")
 
     // Mod compat
     modCompileOnly("maven.modrinth:styled-chat:${findProperty("styled_chat_version")}")
@@ -93,16 +94,6 @@ publishMods {
 }
 
 tasks {
-    remapJar {
-        dependsOn(shadowJar)
-        input.set(shadowJar.get().archiveFile)
-    }
-
-    shadowJar {
-        configurations = listOf(project.configurations.shadow.get())
-        minimize()
-    }
-
     processResources {
         val props = mapOf(
             "version" to project.version,
@@ -115,6 +106,40 @@ tasks {
             expand(props)
         }
     }
+}
+
+afterEvaluate {
+    dependencies {
+        handleIncludes(includeTransitiveImplementation)
+    }
+}
+
+/* Thanks to https://github.com/jakobkmar for original script */
+fun DependencyHandlerScope.includeTransitive(
+    dependencies: Set<ResolvedDependency>,
+    minecraftLibs: Set<ResolvedDependency>,
+    checkedDependencies: MutableSet<ResolvedDependency> = HashSet()
+) {
+    dependencies.forEach {
+        if (checkedDependencies.contains(it)) return@forEach
+
+        if (minecraftLibs.any { dep -> dep.moduleGroup == it.moduleGroup && dep.moduleName == it.moduleName }) {
+            println("Skipping -> ${it.name} (already in minecraft)")
+        } else {
+            include(it.name)
+            println("Including -> ${it.name}")
+        }
+        checkedDependencies += it
+
+        includeTransitive(it.children, minecraftLibs, checkedDependencies)
+    }
+}
+
+fun DependencyHandlerScope.handleIncludes(configuration: Configuration) {
+    includeTransitive(
+        configuration.resolvedConfiguration.firstLevelModuleDependencies,
+        configurations.minecraftLibraries.get().resolvedConfiguration.firstLevelModuleDependencies,
+    )
 }
 
 fun fetchChangelog(): String {
