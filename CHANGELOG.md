@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.9] - 2026-05-29
+### Changed
+- Prevent animals from following vanished players
+
 ## [1.6.8] - 2026-03-25
 ### Changed
 - Use transitive include for dependencies
