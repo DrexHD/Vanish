@@ -9,6 +9,7 @@ import me.drex.vanish.config.ConfigManager;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -45,6 +46,11 @@ public class VanishManager {
             for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                 newCache.put(player, canViewVanished(player.createCommandSourceStack()));
             }
+            CAN_VIEW_VANISHED_CACHE = newCache;
+        });
+        ServerPlayConnectionEvents.INIT.register((listener, server) -> {
+            Map<ServerPlayer, Boolean> newCache = new HashMap<>(CAN_VIEW_VANISHED_CACHE);
+            newCache.put(listener.player, canViewVanished(listener.player.createCommandSourceStack()));
             CAN_VIEW_VANISHED_CACHE = newCache;
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
