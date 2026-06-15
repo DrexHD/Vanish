@@ -75,7 +75,7 @@ public class VanishCommand {
             if (player != null && player.getGameProfile().equals(target)) {
                 src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable" : "text.vanish.command.vanish.disable"), false);
             } else {
-                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target./*? if >= 1.21.91 {*/name() /*?} else {*/ /*getName() *//*?}*/), false);
+                src.sendSuccess(() -> Component.translatable(vanish ? "text.vanish.command.vanish.enable.other" : "text.vanish.command.vanish.disable.other", target./*? if >= 1.21.9 {*/name() /*?} else {*/ /*getName() *//*?}*/), false);
             }
             result++;
         }
