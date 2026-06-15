@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.10] - 2026-06-15
+### Changed
+- Improve async VanishAPI usage
+
 ## [1.6.9] - 2026-05-29
 ### Changed
 - Prevent animals from following vanished players

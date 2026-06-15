@@ -30,7 +30,7 @@ public class VanishManager {
 
     public static final PlayerDataStorage<VanishData> VANISH_DATA_STORAGE = new JsonDataStorage<>("vanish", VanishData.class);
     // Avoid creating CommandSourceStack for every call, because they invoke getDisplayName, which is quite expensive
-    private static final Map<ServerPlayer, Boolean> CAN_VIEW_VANISHED_CACHE = new HashMap<>();
+    private static Map<ServerPlayer, Boolean> CAN_VIEW_VANISHED_CACHE = new HashMap<>();
 
     public static void init() {
         ServerTickEvents.START_SERVER_TICK.register(server -> {
@@ -41,7 +41,11 @@ public class VanishManager {
                     }
                 }
             }
-            CAN_VIEW_VANISHED_CACHE.clear();
+            Map<ServerPlayer, Boolean> newCache = new HashMap<>();
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                newCache.put(player, canViewVanished(player.createCommandSourceStack()));
+            }
+            CAN_VIEW_VANISHED_CACHE = newCache;
         });
         ServerMessageEvents.ALLOW_CHAT_MESSAGE.register((message, sender, params) -> {
             if (isVanished(sender) && ConfigManager.vanish().disableChat) {
@@ -78,7 +82,7 @@ public class VanishManager {
     }
 
     public static boolean canViewVanished(ServerPlayer observer) {
-        return CAN_VIEW_VANISHED_CACHE.computeIfAbsent(observer, k -> canViewVanished(observer.createCommandSourceStack()));
+        return CAN_VIEW_VANISHED_CACHE.getOrDefault(observer, false);
     }
 
     public static boolean canViewVanished(SharedSuggestionProvider observer) {
@@ -126,7 +130,7 @@ public class VanishManager {
     }
 
     public static boolean setVanished(/*$ profile_class {*/ net.minecraft.server.players.NameAndId/*$}*/ profile, MinecraftServer server, boolean vanish) {
-        //? if >= 1.21.9-rc {
+        //? if >= 1.21.9 {
         var uuid = profile.id();
         //?} else {
         /*var uuid = profile.getId();
