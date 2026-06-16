@@ -8,7 +8,11 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.util.predicate.IEntityFlagsPredicate;
+//? if >= 26.2 {
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
+//? } else {
+/*import net.minecraft.advancements.criterion.EntityFlagsPredicate;
+*///? }
 import net.minecraft.world.entity.Entity;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,7 +48,11 @@ public abstract class EntityFlagsFlagsPredicateMixin implements IEntityFlagsPred
         method = "<clinit>",
         at = @At(
             value = "FIELD",
+            //? if >= 26.2 {
             target = "Lnet/minecraft/advancements/predicates/entity/EntityFlagsPredicate;CODEC:Lcom/mojang/serialization/Codec;",
+            //? } else {
+            /*target = "Lnet/minecraft/advancements/critereon/EntityFlagsPredicate;CODEC:Lcom/mojang/serialization/Codec;",
+            *///? }
             opcode = Opcodes.PUTSTATIC
         )
     )
