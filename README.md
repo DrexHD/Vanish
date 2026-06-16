@@ -108,3 +108,9 @@ dependencies {
 ```
 Before using the API you need to make sure the mod is actually loaded, by checking `FabricLoader.getInstance().isModLoaded("melius-vanish");`. 
 If the mod is present you can use [VanishAPI](src/main/java/me/drex/vanish/api/VanishAPI.java) and [VanishEvents](src/main/java/me/drex/vanish/api/VanishEvents.java) to integrate your own mods.
+
+## Datapacks
+Datapacks can use an entity predicate like [vanish:visible](https://github.com/DrexHD/Vanish/blob/main/src/main/resources/data/vanish/predicate/visible.json) 
+to check if an entity is vanished. You should add this predicate to your datapack and use it to check whether a player 
+can be seen by other players (in respect to vanish). It is designed to return true when the vanish mod is not installed 
+to stay compatible with vanilla.

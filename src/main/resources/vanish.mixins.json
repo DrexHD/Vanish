@@ -56,6 +56,7 @@
     "interaction.VanishEntitySelector$NewMinecartBehaviorMixin",
     "interaction.VanishEntitySelector$OldMinecartBehaviorMixin",
     "interaction.VanishEntitySelector$PlayerMixin",
-    "interaction.VibrationSystemMixin"
+    "interaction.VibrationSystemMixin",
+    "predicate.EntityFlagsFlagsPredicateMixin"
   ]
 }

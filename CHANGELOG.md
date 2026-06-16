@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.12] - 2026-06-16
 ### Added
 - Bossbar vanish status display
+- Vanish predicate for datapacks
 
 ## [1.6.11] - 2026-06-15
 ### Fixed
