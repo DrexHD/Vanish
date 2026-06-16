@@ -7,6 +7,7 @@ import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
 import me.drex.vanish.config.ConfigManager;
 import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -15,6 +16,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundBossEventPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
@@ -170,6 +172,9 @@ public class VanishManager {
         if (ConfigManager.vanish().sendJoinDisconnectMessage) {
             list.broadcastSystemMessage(VanishEvents.UN_VANISH_MESSAGE_EVENT.invoker().getUnVanishMessage(actor), false);
         }
+        if (ConfigManager.vanish().bossBar) {
+            actor.connection.send(ClientboundBossEventPacket.createRemovePacket(VanishBossBar.ID));
+        }
     }
 
     private static void vanish(ServerPlayer actor) {
@@ -177,6 +182,9 @@ public class VanishManager {
         broadcastToOthers(actor, new ClientboundPlayerInfoRemovePacket(Collections.singletonList(actor.getUUID())));
         if (ConfigManager.vanish().sendJoinDisconnectMessage) {
             list.broadcastSystemMessage(VanishEvents.VANISH_MESSAGE_EVENT.invoker().getVanishMessage(actor), false);
+        }
+        if (ConfigManager.vanish().bossBar) {
+            actor.connection.send(ClientboundBossEventPacket.createAddPacket(VanishBossBar.INSTANCE));
         }
     }
 

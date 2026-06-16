@@ -7,8 +7,8 @@ import me.drex.vanish.config.ConfigManager;
 //? if > 26.1 {
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 //? } else {
-//import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
-//? }
+/*import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+*///? }
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 

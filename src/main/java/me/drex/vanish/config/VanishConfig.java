@@ -7,7 +7,10 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 public class VanishConfig {
 
     @Comment("Show vanish status in the action bar")
-    public boolean actionBar = true;
+    public boolean actionBar = false;
+
+    @Comment("Show vanish status in the boss bar")
+    public boolean bossBar = true;
 
     @Comment("Text to be displayed when placeholder vanish:vanished is used for a vanished player")
     public String placeHolderDisplay = " <gray>☠";

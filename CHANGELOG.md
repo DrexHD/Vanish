@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.12] - 2026-06-16
+### Added
+- Bossbar vanish status display
+
 ## [1.6.11] - 2026-06-15
 ### Fixed
 - Players not seeing vanished players when they were already vanished on the server

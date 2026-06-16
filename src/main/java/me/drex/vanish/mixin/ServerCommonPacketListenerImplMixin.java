@@ -6,8 +6,8 @@ import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
 //? if < 1.21.6 {
-//import net.minecraft.network.PacketSendListener;
-//? }
+/*import net.minecraft.network.PacketSendListener;
+*///? }
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
