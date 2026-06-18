@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.14] - 2026-06-18
+### Fixed
+- Ensure `vanish:is_visible` predicate field is initialized
+
 ## [1.6.13] - 2026-06-17
 ### Fixed
 - 1.21.11 mixin target

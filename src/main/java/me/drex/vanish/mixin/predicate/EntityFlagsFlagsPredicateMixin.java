@@ -34,7 +34,7 @@ public abstract class EntityFlagsFlagsPredicateMixin implements IEntityFlagsPred
     public static Codec<EntityFlagsPredicate> CODEC;
 
     @Unique
-    Optional<Boolean> vanish$isVisible;
+    Optional<Boolean> vanish$isVisible = Optional.empty();
 
     @Override
     public void vanish$setVisible(Optional<Boolean> visible) {
