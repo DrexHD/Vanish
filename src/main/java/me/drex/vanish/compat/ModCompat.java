@@ -43,8 +43,8 @@ public class ModCompat {
             BlueMapAPI.onEnable(blueMapAPI -> {
                 // BlueMapAPI.onEnable may be called multiple times, but we only want to register our events once
                 if (!blueMapEventsRegistered) {
-                    VanishEvents.VANISH_EVENT.register((player, vanish) -> {
-                        BlueMapAPI.getInstance().ifPresent(api -> api.getWebApp().setPlayerVisibility(player.getUUID(), !vanish));
+                    VanishEvents.VANISH_STATUS_CHANGE_EVENT.register((player, server, vanish) -> {
+                        BlueMapAPI.getInstance().ifPresent(api -> api.getWebApp().setPlayerVisibility(player, !vanish));
                     });
                     blueMapEventsRegistered = true;
                 }
@@ -57,11 +57,11 @@ public class ModCompat {
             Pl3xmapCompat.init();
         }
         if (SQUAREMAP) {
-            VanishEvents.VANISH_EVENT.register((player, vanish) -> {
+            VanishEvents.VANISH_STATUS_CHANGE_EVENT.register((player, server, vanish) -> {
                 if (vanish) {
-                    SquaremapProvider.get().playerManager().hide(player.getUUID(), true);
+                    SquaremapProvider.get().playerManager().hide(player, true);
                 } else {
-                    SquaremapProvider.get().playerManager().show(player.getUUID(), true);
+                    SquaremapProvider.get().playerManager().show(player, true);
                 }
             });
         }

@@ -6,8 +6,10 @@ import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.config.ConfigManager;
 //? if > 26.1 {
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
-//? } else {
+//? } else if >= 1.21.11 {
 /*import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+*///? } else {
+/*import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 *///? }
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;

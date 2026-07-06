@@ -4,7 +4,10 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+
+import java.util.UUID;
 
 public class VanishEvents {
 
@@ -31,11 +34,21 @@ public class VanishEvents {
     });
 
     /**
-     * This event is invoked everytime a players vanish status changes
+     * This event is invoked everytime the vanish status of an online player changes
      */
     public static final Event<VanishEvent> VANISH_EVENT = EventFactory.createArrayBacked(VanishEvent.class, callbacks -> (player, vanish) -> {
         for (var callback : callbacks) {
             callback.onVanish(player, vanish);
+        }
+    });
+
+    /**
+     * This event is invoked everytime the vanish status of a player changes (the player may be offline)
+     * @since 1.6.15
+     */
+    public static final Event<VanishStatusChangeEvent> VANISH_STATUS_CHANGE_EVENT = EventFactory.createArrayBacked(VanishStatusChangeEvent.class, callbacks -> (player, server, vanish) -> {
+        for (var callback : callbacks) {
+            callback.onVanishStatusChange(player, server, vanish);
         }
     });
 
@@ -69,6 +82,10 @@ public class VanishEvents {
 
     public interface VanishEvent {
         void onVanish(ServerPlayer player, boolean vanish);
+    }
+
+    public interface VanishStatusChangeEvent {
+        void onVanishStatusChange(UUID player, MinecraftServer server, boolean vanish);
     }
 
     public interface VanishMessageEvent {

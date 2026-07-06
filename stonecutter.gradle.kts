@@ -22,7 +22,6 @@ stonecutter parameters {
         replace("identifier()", "location()")
         replace("net.minecraft.world.entity.npc.villager.", "net.minecraft.world.entity.npc.")
         replace("import net.minecraft.world.entity.vehicle.minecart.", "import net.minecraft.world.entity.vehicle.")
-        replace("net.minecraft.advancements.criterion.", "net.minecraft.advancements.critereon.")
         replace("net.minecraft.util.Util", "net.minecraft.Util")
     }
 

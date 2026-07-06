@@ -7,7 +7,6 @@ import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
 import me.drex.vanish.config.ConfigManager;
 import me.lucko.fabric.api.permissions.v0.Permissions;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -163,6 +162,7 @@ public class VanishManager {
             server.invalidateStatus();
             VanishEvents.VANISH_EVENT.invoker().onVanish(player, vanish);
         }
+        VanishEvents.VANISH_STATUS_CHANGE_EVENT.invoker().onVanishStatusChange(uuid, server, vanish);
         return true;
     }
 

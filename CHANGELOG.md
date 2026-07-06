@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.15] - 2026-07-06
+### Added
+- Generic vanish status change event `VANISH_STATUS_CHANGE_EVENT` (fires for offline players)
+
+### Fixed
+- bluemap, dynmap, squaremap, pl3xmap player visibility not updating when vanishing offline players
+
 ## [1.6.14] - 2026-06-18
 ### Fixed
 - Ensure `vanish:is_visible` predicate field is initialized

@@ -13,8 +13,8 @@ import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 //? } else if >= 1.21.11 {
 /*import net.minecraft.advancements.criterion.EntityFlagsPredicate;
 *///? } else {
-//import net.minecraft.advancements.critereon.EntityFlagsPredicate;
-//? }
+/*import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+*///? }
 import net.minecraft.world.entity.Entity;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -55,8 +55,8 @@ public abstract class EntityFlagsFlagsPredicateMixin implements IEntityFlagsPred
             //? } else if >= 1.21.11 {
             /*target = "Lnet/minecraft/advancements/criterion/EntityFlagsPredicate;CODEC:Lcom/mojang/serialization/Codec;",
             *///? } else {
-            //target = "Lnet/minecraft/advancements/critereon/EntityFlagsPredicate;CODEC:Lcom/mojang/serialization/Codec;",
-            //? }
+            /*target = "Lnet/minecraft/advancements/critereon/EntityFlagsPredicate;CODEC:Lcom/mojang/serialization/Codec;",
+            *///? }
             opcode = Opcodes.PUTSTATIC
         )
     )
