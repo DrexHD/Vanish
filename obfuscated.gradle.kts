@@ -95,6 +95,16 @@ publishMods {
 
 tasks {
     processResources {
+        // 26.3 renamed the loot condition dispatch key to "type" and replaced
+        // minecraft:reference with a plain string term. The predicates therefore
+        // live outside src/main/resources, so only the matching set is packed.
+        val predicates = rootProject.file(
+            if (stonecutter.eval(stonecutter.current.version, "<=26.2")) "src/main/predicates/legacy"
+            else "src/main/predicates/current"
+        )
+        check(predicates.isDirectory) { "Missing predicate resources: $predicates" }
+        from(predicates)
+
         val props = mapOf(
             "version" to project.version,
             "javaVersion" to findProperty("java_version")
