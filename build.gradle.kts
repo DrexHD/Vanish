@@ -2,10 +2,10 @@ import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.ChangelogPluginExtension
 
 plugins {
-    id("net.fabricmc.fabric-loom") version "1.16-SNAPSHOT"
     id("maven-publish")
-    id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+    id("me.modmuss50.mod-publish-plugin") version "2.2.0"
     id("org.jetbrains.changelog")
+    id("dev.kikugie.loom-back-compat")
 }
 
 version = findProperty("mod_version") as String + "+" + findProperty("minecraft_version")
@@ -41,14 +41,15 @@ val includeTransitiveImplementation: Configuration by configurations.creating {
 }
 
 fun DependencyHandlerScope.includeImplementation(dep: String) {
-    include(implementation(dep)!!)
+    include(modImplementation(dep)!!)
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${findProperty("minecraft_version")}")
-    implementation("net.fabricmc:fabric-loader:${findProperty("loader_version")}")
+    loomx.applyMojangMappings()
+    modImplementation("net.fabricmc:fabric-loader:${findProperty("loader_version")}")
 
-    implementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${findProperty("fabric_version")}")
 
     includeImplementation("me.lucko:fabric-permissions-api:${findProperty("permission_api_version")}")
     includeImplementation("eu.pb4:placeholder-api:${findProperty("placeholder_api_version")}")
@@ -58,7 +59,7 @@ dependencies {
     includeTransitiveImplementation("org.spongepowered:configurate-hocon:${findProperty("configurate_hocon_version")}")
 
     // Mod compat
-    compileOnly("maven.modrinth:styled-chat:${findProperty("styled_chat_version")}")
+    modCompileOnly("maven.modrinth:styled-chat:${findProperty("styled_chat_version")}")
     compileOnly("de.bluecolored:bluemap-api:${findProperty("bluemap_api_version")}")
     compileOnly("us.dynmap:DynmapCoreAPI:${findProperty("dynmap_api_version")}")
     compileOnly("xyz.jpenilla:squaremap-api:${findProperty("squaremap_api")}")
@@ -66,7 +67,7 @@ dependencies {
 }
 
 publishMods {
-    file.set(tasks.jar.get().archiveFile)
+    file.set(loomx.modJar.get().archiveFile)
     type.set(STABLE)
     changelog.set(fetchChangelog())
 
@@ -79,6 +80,8 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         projectId = "676275"
         minecraftVersions.addAll(findProperty("curseforge_minecraft_versions")!!.toString().split(", "))
+	client = true
+	server = true
     }
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
@@ -93,8 +96,16 @@ publishMods {
 }
 
 tasks {
-
     processResources {
+        // 26.3 renamed the loot condition dispatch key to "type" and replaced
+        // minecraft:reference with a plain string term. The predicates therefore
+        // live outside src/main/resources, so only the matching set is packed.
+        val predicates = rootProject.file(
+            if (stonecutter.eval(stonecutter.current.version, "<=26.2")) "src/main/versionedResources/predicates/legacy"
+            else "src/main/versionedResources/predicates/26.3"
+        )
+        from(predicates)
+
         val props = mapOf(
             "version" to project.version,
             "javaVersion" to findProperty("java_version")

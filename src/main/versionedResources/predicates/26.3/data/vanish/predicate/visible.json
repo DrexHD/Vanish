@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:entity_properties",
+  "entity": "this",
+  "predicate": {
+    "flags": {
+      "vanish:is_visible": true
+    }
+  }
+}
