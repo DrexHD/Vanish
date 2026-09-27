@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.playerdata.api.PlayerDataApi;
 import me.drex.vanish.api.VanishAPI;
 import me.drex.vanish.api.VanishEvents;
+import me.drex.vanish.config.ConfigManager;
 import me.drex.vanish.util.Arguments;
 import me.drex.vanish.util.VanishBossBar;
 import me.drex.vanish.util.VanishData;
@@ -56,7 +57,7 @@ public abstract class PlayerListMixin {
             PlayerDataApi.setCustomDataFor(actor.level().getServer(), actor.getUUID(), VANISH_DATA_STORAGE, data);
             ((VanishedEntity) actor).vanish$setDirty();
         }
-        if (VanishManager.isVanished(actor)) {
+        if (VanishManager.isVanished(actor) && ConfigManager.vanish().bossBar) {
             connection.send(ClientboundBossEventPacket.createAddPacket(VanishBossBar.INSTANCE));
         }
     }
