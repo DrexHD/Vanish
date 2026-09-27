@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.16] - 2026-09-27
+### Fixed
+- Bossbar still visible after join when disabled (NgLoader)
+
 ## [1.6.15] - 2026-07-06
 ### Added
 - Generic vanish status change event `VANISH_STATUS_CHANGE_EVENT` (fires for offline players)
